@@ -16,7 +16,7 @@ import snownee.jade.overlay.OverlayRenderer;
 import java.util.Objects;
 
 @SuppressWarnings("all")
-public class SpecialProgressStyle extends ProgressStyle {
+public class CustomProgressStyle extends ProgressStyle {
 
     @Override
     public void render(PoseStack matrixStack, float x, float y, float width, float height, float progress, Component text) {

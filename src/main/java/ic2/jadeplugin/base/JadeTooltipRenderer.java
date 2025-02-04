@@ -4,9 +4,9 @@ import com.google.gson.JsonObject;
 import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.JadeTags;
 import ic2.jadeplugin.base.elements.*;
-import ic2.jadeplugin.elements.SpecialBoxStyle;
-import ic2.jadeplugin.elements.SpecialProgressStyle;
-import ic2.jadeplugin.elements.SpecialTextElement;
+import ic2.jadeplugin.elements.CustomBoxStyle;
+import ic2.jadeplugin.elements.CustomProgressStyle;
+import ic2.jadeplugin.elements.CustomTextElement;
 import ic2.jadeplugin.helpers.Formatter;
 import ic2.jadeplugin.helpers.PluginHelper;
 import ic2.jadeplugin.helpers.TextFormatter;
@@ -68,7 +68,7 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                     CompoundTag elementTag = serverTag.getCompound(JADE_ADDON_TEXT_TAG);
                     CommonTextElement textElement = CommonTextElement.load(elementTag);
                     boolean centered = textElement.isCentered();
-                    IElement jadeElement = new SpecialTextElement(format(textElement.getText(), defaultFormat)).centered(centered).translate(textElement.getTranslation()).align(IElement.Align.valueOf(textElement.getSide()));
+                    IElement jadeElement = new CustomTextElement(format(textElement.getText(), defaultFormat)).centered(centered).translate(textElement.getTranslation()).align(IElement.Align.valueOf(textElement.getSide()));
                     addElement(tooltip, jadeElement, elementTag);
                 }
                 // bar
@@ -78,8 +78,8 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                     int color = barElement.getColor();
                     int current = barElement.getCurrent();
                     int max = barElement.getMax();
-                    BoxStyle boxStyle = forceTOPStyle ? new SpecialBoxStyle(ColorUtils.doubleDarker(color)) : BoxStyle.DEFAULT;
-                    IProgressStyle progressStyle = forceTOPStyle ? new SpecialProgressStyle().color(color, ColorUtils.darker(color)) : new ProgressStyle().color(color, ColorUtils.darker(color));
+                    BoxStyle boxStyle = forceTOPStyle ? new CustomBoxStyle(ColorUtils.doubleDarker(color)) : BoxStyle.DEFAULT;
+                    IProgressStyle progressStyle = forceTOPStyle ? new CustomProgressStyle().color(color, ColorUtils.darker(color)) : new ProgressStyle().color(color, ColorUtils.darker(color));
                     Component label = barElement.getText();
                     IElement jadeElement = helper.progress((float) current / max, label, progressStyle, boxStyle, true);
                     addElement(tooltip, jadeElement, elementTag);
@@ -106,7 +106,7 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                                     defaultFormat.translate("ic2.barrel.info.fluid", fluid.getDisplayName(), Formatter.formatNumber(fluidAmount, String.valueOf(fluidAmount).length() - 1), Formatter.formatNumber(max, String.valueOf(max).length() - 1));
                             IProgressStyle progressStyle = helper.progressStyle().overlay(helper.fluid(fluid));
                             tooltip.add(helper.progress((float) fluid.getAmount() / max, fluidComp, progressStyle,
-                                    new SpecialBoxStyle(ColorUtils.doubleDarker(PluginHelper.getColorForFluid(fluid))), true));
+                                    new CustomBoxStyle(ColorUtils.doubleDarker(PluginHelper.getColorForFluid(fluid))), true));
                         } else {
                             String current = IDisplayHelper.get().humanReadableNumber(fluid.getAmount(), "B", true);
                             String maxS = IDisplayHelper.get().humanReadableNumber(max, "B", true);

@@ -10,13 +10,13 @@ import snownee.jade.impl.ui.TextElement;
 import snownee.jade.overlay.DisplayHelper;
 import snownee.jade.overlay.OverlayRenderer;
 
-public class SpecialTextElement extends TextElement {
+public class CustomTextElement extends TextElement {
 
     private float scale = 1;
     private int zOffset;
     private boolean centered;
 
-    public SpecialTextElement(Component component) {
+    public CustomTextElement(Component component) {
         super(component);
     }
 
@@ -39,7 +39,7 @@ public class SpecialTextElement extends TextElement {
         matrixStack.popPose();
     }
 
-    public SpecialTextElement toSpecial() {
+    public CustomTextElement toSpecial() {
         return this;
     }
 

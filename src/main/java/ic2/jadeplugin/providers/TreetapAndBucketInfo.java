@@ -5,8 +5,8 @@ import ic2.core.inventory.filter.SpecialFilters;
 import ic2.core.utils.helpers.StackUtil;
 import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.JadeTags;
-import ic2.jadeplugin.elements.SpecialBoxStyle;
-import ic2.jadeplugin.elements.SpecialProgressStyle;
+import ic2.jadeplugin.elements.CustomBoxStyle;
+import ic2.jadeplugin.elements.CustomProgressStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +28,7 @@ public class TreetapAndBucketInfo implements IBlockComponentProvider {
                 int current = state.getValue(TreeTapAndBucketBlock.FILL_STAGE);
                 if (current > 0) {
                     iTooltip.add(iTooltip.getElementHelper().progress((float) current / 5, Component.translatable("ic2.probe.progress.full.name", current, 5).withStyle(ChatFormatting.WHITE),
-                            new SpecialProgressStyle().color(-10996205, ColorUtils.darker(-10996205)), new SpecialBoxStyle(ColorUtils.doubleDarker(-10996205)), true));
+                            new CustomProgressStyle().color(-10996205, ColorUtils.darker(-10996205)), new CustomBoxStyle(ColorUtils.doubleDarker(-10996205)), true));
                 }
             }
         }
