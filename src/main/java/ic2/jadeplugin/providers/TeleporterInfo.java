@@ -9,6 +9,7 @@ import ic2.core.utils.helpers.TeleportUtil;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.Formatter;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -30,26 +31,25 @@ public class TeleporterInfo implements IInfoProvider {
             } else {
                 helper.defaultText("ic2.probe.teleporter.target", SanityHelper.toPascalCase(target.getDimension().location().getPath()), target.getTargetPosition().getX(), target.getTargetPosition().getY(), target.getTargetPosition().getZ());
             }
-            if (cost > 0) {
-                switch (teleport.getProbeSendType()) {
-                    case ENTITY:
-                        helper.defaultText("ic2.probe.teleporter.cost", Formatters.EU_FORMAT.format((long) TeleportUtil.getWeightOfEntity(player, IC2.CONFIG.teleporterKeepItems.get()) * cost * 5));
-                        break;
-                    case ENERGY:
-                        helper.defaultText("ic2.probe.teleporter.cost", Formatters.EU_FORMAT.format(cost));
-                        break;
-                    case FLUID:
-                        helper.defaultText("ic2.probe.teleporter.cost", Formatters.EU_FORMAT.format(cost));
-                        helper.defaultText("ic2.probe.teleporter.capacity", translate("ic2.probe.teleporter.capacity.fluid", Formatter.formatNumber((double) (availableEnergy / (long) cost * 10L), 6)));
-                        break;
-                    case ITEM:
-                        helper.defaultText("ic2.probe.teleporter.cost", Formatters.EU_FORMAT.format(cost));
-                        helper.defaultText("ic2.probe.teleporter.capacity", translate("ic2.probe.teleporter.capacity.item", Formatter.formatNumber((double) (availableEnergy / (long) cost / 100L * 64L), 6)));
-                        break;
-                    case SPAWNER:
-                        helper.defaultText("ic2.probe.teleporter.cost", Formatters.EU_FORMAT.format(cost * 25000L));
-                }
+            int displayCost = cost;
+            switch (teleport.getProbeSendType()) {
+                case ENTITY:
+                    displayCost = TeleportUtil.getWeightOfEntity(player, IC2.CONFIG.teleporterKeepItems.get()) * cost * 5;
+                    break;
+                case FLUID:
+                    displayCapacity(helper, "ic2.probe.teleporter.capacity.fluid", (double) availableEnergy / cost * 10);
+                    break;
+                case ITEM:
+                    displayCapacity(helper, "ic2.probe.teleporter.capacity.item", (double) availableEnergy / cost / 100 * 64);
+                    break;
+                case SPAWNER:
+                    displayCost = cost * 25000;
             }
+            helper.defaultText("ic2.probe.teleporter.cost", TextFormatter.GREEN.literal(Formatters.EU_FORMAT.format(displayCost)));
         }
+    }
+
+    private void displayCapacity(JadeHelper helper, String translationKey, double value) {
+        helper.defaultText("ic2.probe.teleporter.capacity", translate(translationKey, Formatter.formatNumber(value, 6)));
     }
 }
