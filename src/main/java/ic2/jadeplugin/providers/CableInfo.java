@@ -9,6 +9,7 @@ import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.base.removals.ModNameRender;
 import ic2.jadeplugin.helpers.EnergyContainer;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -40,8 +41,8 @@ public class CableInfo implements IInfoProvider {
         if (blockEntity instanceof CableTileEntity cable) {
             int maxCap = cable.getConductorBreakdownEnergy() - 1;
             helper.tierFromPower(maxCap);
-            helper.defaultText("tooltip.item.ic2.eu_reader.cable_limit", maxCap);
-            helper.defaultText("tooltip.item.ic2.eu_reader.cable_loss", Formatters.CABLE_LOSS_FORMAT.format(cable.getConductionLoss()));
+            helper.defaultText("tooltip.item.ic2.eu_reader.cable_limit", TextFormatter.GREEN.literal(maxCap + ""));
+            helper.defaultText("tooltip.item.ic2.eu_reader.cable_loss", TextFormatter.GREEN.literal(Formatters.CABLE_LOSS_FORMAT.format(cable.getConductionLoss())));
             EnergyContainer container = EnergyContainer.getContainer(cable);
             helper.addCableAverages(container.getAverageOut(), container.getPacketsOut());
         }

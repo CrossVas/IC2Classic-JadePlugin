@@ -6,6 +6,7 @@ import ic2.core.block.storage.tiles.RedirectorSlaveTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.EnergyContainer;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -18,7 +19,8 @@ public class RedirectorSlaveInfo implements IInfoProvider {
         if (blockEntity instanceof RedirectorSlaveTileEntity slave) {
             BlockEntity neighborTile = DirectionList.getNeighborTile(slave, slave.getFacing());
             if (neighborTile instanceof RedirectorMasterTileEntity master) {
-                helper.defaultText("ic2.probe.redirector.slave.info", master.shares[slave.getFacing().getOpposite().get3DDataValue()]);
+                int shareValue = master.shares[slave.getFacing().getOpposite().get3DDataValue()];
+                helper.defaultText("ic2.probe.redirector.slave.info", TextFormatter.GREEN.literal(shareValue + ""));
             }
 
             EnergyContainer container = EnergyContainer.getContainer(slave);

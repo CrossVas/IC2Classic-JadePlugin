@@ -4,6 +4,7 @@ import ic2.core.block.storage.tiles.transformer.AdjustableTransformerTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.EnergyContainer;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -18,7 +19,7 @@ public class AdjustableTransformerInfo implements IInfoProvider {
             int packetCount = transformer.getPacketCount();
             helper.maxInFromTier(transformer.getSinkTier());
             helper.maxOut(energyPacket);
-            helper.defaultText("ic2.probe.transformer.packets.name", packetCount);
+            helper.defaultText("ic2.probe.transformer.packets.name", TextFormatter.AQUA.literal(packetCount + ""));
 
             EnergyContainer container = EnergyContainer.getContainer(transformer);
             helper.addCableAverages(container.getAverageOut(), container.getPacketsOut());

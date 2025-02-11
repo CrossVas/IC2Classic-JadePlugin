@@ -5,6 +5,7 @@ import ic2.core.block.storage.tiles.RedirectorMasterTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.EnergyContainer;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -19,7 +20,7 @@ public class RedirectorMasterInfo implements IInfoProvider {
             for (Direction side : DirectionList.ALL) {
                 int value = master.shares[side.get3DDataValue()];
                 if (value > 0) {
-                    helper.text(DirectionList.getName(side).append(": " + value + "%"));
+                    helper.text(DirectionList.getName(side).append(": ").append(TextFormatter.GREEN.literal(value + "")).append("%"));
                 }
             }
 

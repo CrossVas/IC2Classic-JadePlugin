@@ -4,6 +4,7 @@ import ic2.core.block.base.tiles.impls.BaseTransformerTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.EnergyContainer;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -18,7 +19,7 @@ public class TransformerInfo implements IInfoProvider {
             helper.text(translate("ic2.probe.transformer.inverted", (transformer.isActive() ? ChatFormatting.GREEN : ChatFormatting.RED) + String.valueOf(transformer.isActive())).withStyle(ChatFormatting.GOLD));
             helper.maxIn(transformer.isActive() ? transformer.lowOutput : transformer.highOutput);
             helper.maxOut(transformer.isActive() ? transformer.highOutput : transformer.lowOutput);
-            helper.defaultText("ic2.probe.transformer.packets.name", transformer.isActive() ? 1 : 4);
+            helper.defaultText("ic2.probe.transformer.packets.name", TextFormatter.AQUA.literal("" + (transformer.isActive() ? 1 : 4)));
             EnergyContainer container = EnergyContainer.getContainer(transformer);
             helper.addCableAverages(container.getAverageOut(), container.getPacketsOut());
         }

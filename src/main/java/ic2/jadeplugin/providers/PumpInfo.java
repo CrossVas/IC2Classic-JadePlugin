@@ -4,6 +4,7 @@ import ic2.core.block.machines.tiles.lv.PumpTileEntity;
 import ic2.core.utils.helpers.Formatters;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -16,8 +17,8 @@ public class PumpInfo implements IInfoProvider {
         if (blockEntity instanceof PumpTileEntity pump) {
             helper.maxIn(pump.getMaxInput());
             helper.usage(pump.getPumpCost());
-            helper.defaultText("ic2.probe.pump.pressure", 100);
-            helper.defaultText("ic2.probe.pump.amount", Formatters.EU_FORMAT.format(800L));
+            helper.defaultText("ic2.probe.pump.pressure", TextFormatter.GREEN.literal(100 + ""));
+            helper.defaultText("ic2.probe.pump.amount", TextFormatter.GREEN.literal(Formatters.EU_FORMAT.format(800)));
 
             int progress = pump.getPumpProgress();
             int maxProgress = pump.getPumpMaxProgress();

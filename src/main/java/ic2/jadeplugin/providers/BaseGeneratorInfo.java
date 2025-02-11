@@ -6,6 +6,7 @@ import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.Formatter;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -18,7 +19,7 @@ public class BaseGeneratorInfo implements IInfoProvider {
         if (blockEntity instanceof BaseGeneratorTileEntity gen) {
             float euProduction = gen.getEUProduction();
             helper.tier(gen.getSourceTier());
-            helper.defaultText("ic2.probe.eu.output.current.name", Formatter.formatNumber(euProduction, 3));
+            helper.defaultText("ic2.probe.eu.output.current.name", TextFormatter.GREEN.literal(Formatter.formatNumber(euProduction, 3)));
             helper.maxOut(gen.getMaxEnergyOutput());
 
             if (gen instanceof SolarTurbineTileEntity solarTurbine) {

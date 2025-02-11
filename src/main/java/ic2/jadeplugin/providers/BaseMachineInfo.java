@@ -10,6 +10,7 @@ import ic2.core.block.machines.tiles.mv.VacuumCannerTileEntity;
 import ic2.core.utils.helpers.Formatters;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -26,7 +27,8 @@ public class BaseMachineInfo implements IInfoProvider {
             helper.maxIn(baseMachine.getMaxInput());
             helper.usage(baseMachine.getEnergyPerTick());
             if (baseMachine instanceof SlowGrinderTileEntity slowGrinder) {
-                helper.defaultText("ic2.probe.scrap.chance.name", Formatters.XP_FORMAT.format(slowGrinder.getChance(0.25F) * 100.0F));
+                double chance = slowGrinder.getChance(0.25F) * 100.0F;
+                helper.defaultText("ic2.probe.scrap.chance.name", TextFormatter.formatPercentage((int) chance).literal(Formatters.XP_FORMAT.format(chance)));
             }
             if (baseMachine instanceof RefineryTileEntity refinery) {
                 helper.addTankInfo(refinery);

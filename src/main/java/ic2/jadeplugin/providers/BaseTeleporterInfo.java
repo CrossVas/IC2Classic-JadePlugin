@@ -3,6 +3,7 @@ package ic2.jadeplugin.providers;
 import ic2.core.block.machines.tiles.mv.BaseTeleporterTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -22,13 +23,13 @@ public class BaseTeleporterInfo implements IInfoProvider {
             String name = tp.name;
             String networkID = tp.networkID;
             if (!targets.isEmpty()) {
-                helper.defaultText(translate("gui.ic2.base_teleporter.name").append(": ").append(name));
-                helper.defaultText(translate("gui.ic2.base_teleporter.network").append(": ").append(networkID));
+                helper.defaultText(translate("gui.ic2.base_teleporter.name").append(": ").append(TextFormatter.GOLD.literal(name)));
+                helper.defaultText(translate("gui.ic2.base_teleporter.network").append(": ").append(TextFormatter.GREEN.literal(networkID)));
                 helper.paddingY(3);
                 helper.text(translate("ic2.probe.base_teleporter.connections").withStyle(ChatFormatting.GOLD));
                 for (BaseTeleporterTileEntity.LocalTarget target : targets) {
                     if (target.getPos() != tp.getPosition()) {
-                        helper.defaultText(Component.literal(" - " + target.getName()));
+                        helper.defaultText(Component.literal(" - ").append(TextFormatter.AQUA.literal(target.getName())));
                     }
                 }
             }

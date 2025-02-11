@@ -4,6 +4,7 @@ import ic2.core.block.generators.tiles.SolarPanelTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.Formatter;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -15,7 +16,7 @@ public class SolarPanelInfo implements IInfoProvider {
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof SolarPanelTileEntity solarPanel) {
             helper.tier(solarPanel.getSourceTier());
-            helper.defaultText("ic2.probe.eu.output.current.name", Formatter.formatNumber(solarPanel.getEUProduction(), 3));
+            helper.defaultText("ic2.probe.eu.output.current.name", TextFormatter.GREEN.literal(Formatter.formatNumber(solarPanel.getEUProduction(), 3)));
             helper.maxOut(solarPanel.getMaxEnergyOutput());
         }
     }

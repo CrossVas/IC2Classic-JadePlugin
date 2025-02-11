@@ -5,6 +5,7 @@ import ic2.core.block.storage.tiles.tank.PushingValveTileEntity;
 import ic2.core.utils.helpers.Formatters;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -17,8 +18,8 @@ public class PushingValveInfo implements IInfoProvider {
         if (blockEntity instanceof BaseValveTileEntity baseValve) {
             JadeHelper.TANK_REMOVAL.add(baseValve);
             if (baseValve instanceof PushingValveTileEntity) {
-                helper.defaultText("ic2.probe.pump.pressure", 100);
-                helper.defaultText("ic2.probe.pump.amount", Formatters.EU_FORMAT.format(2000L));
+                helper.defaultText("ic2.probe.pump.pressure", TextFormatter.GREEN.literal(100 + ""));
+                helper.defaultText("ic2.probe.pump.amount", TextFormatter.GREEN.literal(Formatters.EU_FORMAT.format(2000)));
             }
         }
     }

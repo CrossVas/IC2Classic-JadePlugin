@@ -20,6 +20,7 @@ import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.Formatter;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -47,8 +48,8 @@ public class ElectricBlockInfo implements IInfoProvider {
             if (baseTile instanceof CrafterTileEntity crafter) {
                 helper.maxInFromTier(crafter.getTier());
                 helper.usage(25);
-                helper.defaultText("ic2.probe.crafter.delay", crafter.getSpeed());
-                helper.defaultText("ic2.probe.crafter.crafts", crafter.getCrafts());
+                helper.defaultText("ic2.probe.crafter.delay", TextFormatter.GREEN.literal(crafter.getSpeed() + ""));
+                helper.defaultText("ic2.probe.crafter.crafts", TextFormatter.GREEN.literal(crafter.getCrafts() + ""));
             }
             if (baseTile instanceof TerraformerTileEntity || baseTile instanceof ReactorPlannerTileEntity || baseTile instanceof BaseFluxGeneratorTileEntity || baseTile instanceof CropHarvesterTileEntity ||
                     baseTile instanceof MachineBufferTileEntity || baseTile instanceof MagnetizerTileEntity || baseTile instanceof TeslaCoilTileEntity || baseTile instanceof TeleporterHubTileEntity) {

@@ -7,6 +7,7 @@ import ic2.core.utils.helpers.Formatters;
 import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -28,8 +29,8 @@ public class StoneMachineInfo implements IInfoProvider {
         }
 
         if (blockEntity instanceof StoneWoodGassifierTileEntity woodGassifierTile) {
-            helper.defaultText("ic2.probe.pump.pressure", 25);
-            helper.defaultText("ic2.probe.pump.amount", Formatters.EU_FORMAT.format(900L));
+            helper.defaultText("ic2.probe.pump.pressure", TextFormatter.GREEN.literal(25 + ""));
+            helper.defaultText("ic2.probe.pump.amount", TextFormatter.GREEN.literal(Formatters.EU_FORMAT.format(900)));
             if (woodGassifierTile.getFuel() > 0) {
                 helper.bar(woodGassifierTile.getFuel(), woodGassifierTile.getMaxFuel(), Component.translatable("ic2.probe.fuel.storage.name").append(String.valueOf(woodGassifierTile.getFuel())), ColorUtils.DARK_GRAY);
             }

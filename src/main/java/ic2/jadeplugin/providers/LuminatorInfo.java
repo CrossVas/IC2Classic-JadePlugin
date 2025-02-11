@@ -5,6 +5,7 @@ import ic2.core.block.cables.luminator.ConstructionLightTileEntity;
 import ic2.core.block.cables.luminator.LuminatorTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -20,10 +21,10 @@ public class LuminatorInfo implements IInfoProvider {
         }
 
         if (blockEntity instanceof LuminatorTileEntity luminator) {
-            helper.defaultText("ic2.probe.luminator.light.name", luminator.getLightLevel());
+            helper.defaultText("ic2.probe.luminator.light.name", TextFormatter.GOLD.literal(luminator.getLightLevel() + ""));
         }
         if (blockEntity instanceof ConstructionLightTileEntity constructionLight) {
-            helper.defaultText("ic2.probe.luminator.light.name", constructionLight.isActive() ? 15 : 0);
+            helper.defaultText("ic2.probe.luminator.light.name", TextFormatter.GOLD.literal("" + (constructionLight.isActive() ? 15 : 0)));
         }
     }
 }

@@ -5,6 +5,7 @@ import ic2.core.block.machines.tiles.mv.ChargedElectrolyzerTileEntity;
 import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -24,7 +25,7 @@ public class ElectrolyzerInfo implements IInfoProvider {
     }
 
     public void addElectrolyzerInfo(JadeHelper helper, boolean charging, boolean discharging, int transfer, int energy, int maxEnergy) {
-        helper.defaultText("ic2.probe.electrolyzer.transferrate.name", transfer);
+        helper.defaultText("ic2.probe.electrolyzer.transferrate.name", TextFormatter.GREEN.literal(transfer + ""));
         helper.defaultText("ic2.probe.electrolyzer." + (discharging ? (charging ? "transfer" : "discharging") : (charging ? "charging" : "nothing")) + ".name");
         if (energy > 0) {
             helper.bar(energy, maxEnergy, translate("ic2.probe.progress.full.name", energy, maxEnergy).append(" EU"), ColorUtils.RED);

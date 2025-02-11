@@ -12,6 +12,7 @@ import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.Formatter;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -36,13 +37,13 @@ public class NuclearInfo implements IInfoProvider {
     public void addTooltips(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof IReactor reactor) {
             if (blockEntity instanceof ElectricNuclearReactorTileEntity nuclearReactor) {
-                helper.defaultText("ic2.probe.eu.output.current.name", Formatter.formatNumber(nuclearReactor.getProvidedEnergy(), 3));
-                helper.defaultText("ic2.probe.reactor.breeding.name", reactor.getHeat() / 3000 + 1);
+                helper.defaultText("ic2.probe.eu.output.current.name", TextFormatter.GREEN.literal(Formatter.formatNumber(nuclearReactor.getProvidedEnergy(), 3)));
+                helper.defaultText("ic2.probe.reactor.breeding.name", TextFormatter.GREEN.literal(reactor.getHeat() / 3000 + 1 + ""));
             } else if (blockEntity instanceof ISteamReactor steamReactor) {
-                helper.defaultText("ic2.probe.steam.output.name", Formatter.THERMAL_GEN.format(steamReactor.getEnergyOutput() * 3.200000047683716));
-                helper.defaultText("ic2.probe.water.consumption.name", Formatter.THERMAL_GEN.format(steamReactor.getEnergyOutput() / 50.0));
-                helper.defaultText("ic2.probe.pump.pressure", 100);
-                helper.defaultText("ic2.probe.pump.amount", Formatters.EU_FORMAT.format(20000L));
+                helper.defaultText("ic2.probe.steam.output.name", TextFormatter.GREEN.literal(Formatter.THERMAL_GEN.format(steamReactor.getEnergyOutput() * 3.200000047683716)));
+                helper.defaultText("ic2.probe.water.consumption.name", TextFormatter.GREEN.literal(Formatter.THERMAL_GEN.format(steamReactor.getEnergyOutput() / 50.0)));
+                helper.defaultText("ic2.probe.pump.pressure", TextFormatter.GREEN.literal(100 + ""));
+                helper.defaultText("ic2.probe.pump.amount", TextFormatter.GREEN.literal(Formatters.EU_FORMAT.format(20000)));
                 helper.addTankInfo(blockEntity);
             }
 
