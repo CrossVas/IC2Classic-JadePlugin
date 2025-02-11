@@ -16,7 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ColorFilterTubeInfo implements IInfoProvider {
@@ -43,15 +42,7 @@ public class ColorFilterTubeInfo implements IInfoProvider {
                 Object2ObjectOpenHashMap<Component, List<FilterEntry>> mappedFilters = new Object2ObjectOpenHashMap<>();
                 for (FilterEntry entry : filters) {
                     Component side = PluginHelper.getSides(entry.directions);
-                    if (mappedFilters.containsKey(side)) {
-                        List<FilterEntry> existing = new ArrayList<>(mappedFilters.get(side));
-                        existing.add(entry);
-                        mappedFilters.put(side, existing);
-                    } else {
-                        if (side != null) {
-                            mappedFilters.put(side, Collections.singletonList(entry));
-                        }
-                    }
+                    mappedFilters.computeIfAbsent(side, component -> new ArrayList<>()).add(entry);
                 }
                 // apply
                 mappedFilters.keySet().forEach(side -> {

@@ -11,7 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class FilterTubeInfo implements IInfoProvider {
@@ -30,13 +29,7 @@ public class FilterTubeInfo implements IInfoProvider {
                 helper.paddingY(3);
                 for (FilterTubeTileEntity.FilterEntry entry : filterEntries) {
                     Component side = PluginHelper.getSides(entry.getSides());
-                    if (mappedFilter.containsKey(side)) {
-                        List<FilterTubeTileEntity.FilterEntry> existing = new ArrayList<>(mappedFilter.get(side));
-                        existing.add(entry);
-                        mappedFilter.put(side, existing);
-                    } else {
-                        mappedFilter.put(side, Collections.singletonList(entry));
-                    }
+                    mappedFilter.computeIfAbsent(side, component -> new ArrayList<>()).add(entry);
                 }
 
                 mappedFilter.keySet().forEach(side -> {
