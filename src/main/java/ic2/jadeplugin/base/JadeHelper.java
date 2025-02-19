@@ -5,7 +5,6 @@ import ic2.api.util.DirectionList;
 import ic2.core.utils.helpers.Formatters;
 import ic2.jadeplugin.JadeTags;
 import ic2.jadeplugin.base.elements.*;
-import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.base.interfaces.IJadeElementBuilder;
 import ic2.jadeplugin.base.interfaces.IJadeHelper;
 import ic2.jadeplugin.helpers.EnergyContainer;
@@ -16,7 +15,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluids;
@@ -25,9 +23,9 @@ import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import snownee.jade.Jade;
 
 import java.util.List;
+import java.util.Map;
 
 public class JadeHelper implements IJadeHelper {
 
@@ -323,22 +321,23 @@ public class JadeHelper implements IJadeHelper {
     }
 
     public static Component getSides(DirectionList directionList) {
-        Component component = Component.empty();
-        if (directionList != null) {
-            String[] sides = directionList.toString().replaceAll("\\[", "").replaceAll("]", "")
-                    .replaceAll("north", ChatFormatting.YELLOW + "N")
-                    .replaceAll("south", ChatFormatting.BLUE + "S")
-                    .replaceAll("east", ChatFormatting.GREEN + "E")
-                    .replaceAll("west", ChatFormatting.LIGHT_PURPLE + "W")
-                    .replaceAll("down", ChatFormatting.AQUA + "D")
-                    .replaceAll("up", ChatFormatting.RED + "U").split(",", -1);
+        if (directionList == null) return Component.empty();
+        Map<String, String> replacements = Map.of(
+                "north", ChatFormatting.YELLOW + "N",
+                "south", ChatFormatting.BLUE + "S",
+                "east", ChatFormatting.GREEN + "E",
+                "west", ChatFormatting.LIGHT_PURPLE + "W",
+                "down", ChatFormatting.AQUA + "D",
+                "up", ChatFormatting.RED + "U"
+        );
 
-            for (String side : sides) {
-                component = component.copy().append(side);
-            }
-            return component;
+        String formatted = directionList.toString().replace("[", "").replace("]", "").replaceAll(",", "");
+
+        for (Map.Entry<String, String> entry : replacements.entrySet()) {
+            formatted = formatted.replace(entry.getKey(), entry.getValue());
         }
-        return component;
+
+        return Component.literal(formatted);
     }
 
     public static int getColorForFluid(FluidStack fluid) {
