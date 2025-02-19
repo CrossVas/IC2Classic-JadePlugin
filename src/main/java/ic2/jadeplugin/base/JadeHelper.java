@@ -331,7 +331,7 @@ public class JadeHelper implements IJadeHelper {
                 "up", ChatFormatting.RED + "U"
         );
 
-        String formatted = directionList.toString().replace("[", "").replace("]", "").replaceAll(",", "");
+        String formatted = directionList.toString().replace("[", "").replace("]", "").replace(",", "");
 
         for (Map.Entry<String, String> entry : replacements.entrySet()) {
             formatted = formatted.replace(entry.getKey(), entry.getValue());
