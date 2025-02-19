@@ -29,66 +29,31 @@ public class Formatter {
     }
 
     public static String formatNumber(double number, int digits, boolean fixedLength) {
-        String suffix = "";
-        boolean allow = (number >= 1.0E9 ? String.valueOf((long) number) : String.valueOf(number)).length() > digits;
-        double outputNumber = number;
-
-        int actualDigits;
-        for (actualDigits = 0; actualDigits < "kmbt".length() && outputNumber >= 1000.0 && allow; ++actualDigits) {
-            outputNumber /= 1000.0;
-            suffix = Character.toString("kmbt".charAt(actualDigits));
+        if (number < 1000) {
+            return NATURAL.format(number); // use NATURAL format for small numbers
         }
 
-        actualDigits = digits - suffix.length();
-        if (outputNumber % 1.0 == 1.0) {
-            ++actualDigits;
+        char[] suffixes = {'k', 'm', 'b', 't'};
+        int index = -1;
+
+        while (number >= 1000 && index < suffixes.length - 1) {
+            number /= 1000.0;
+            index++;
         }
 
-        int naturalLength = NATURAL.format((long) ((int) outputNumber)).length();
-        int decimalLength = DECIMAL.format(outputNumber - (double) ((int) outputNumber)).length();
-        StringBuilder patternBuilder = new StringBuilder();
+        String suffix = index >= 0 ? String.valueOf(suffixes[index]) : "";
+        int availableDigits = digits - suffix.length();
 
-        for (int i = 1; actualDigits > 1 && naturalLength > 1; ++i) {
-            patternBuilder.insert(0, "#");
-            --actualDigits;
-            --naturalLength;
-            if (i % 2 == 0 && actualDigits > 1 && naturalLength > 1) {
-                if (actualDigits == 2 || naturalLength == 2) {
-                    break;
-                }
+        // determine decimal format pattern dynamically
+        String pattern = availableDigits > 1 ? "#,##0." + "#".repeat(availableDigits - 1) : "#,##0";
+        DecimalFormat formatter = new DecimalFormat(pattern, new DecimalFormatSymbols(Locale.US));
 
-                patternBuilder.insert(0, ",");
-                --actualDigits;
-                --naturalLength;
-            }
-        }
+        String formatted = formatter.format(number) + suffix;
 
-        patternBuilder.append("0");
-        if (actualDigits > 1 && decimalLength > 0) {
-            patternBuilder.append(".");
-            --actualDigits;
-
-            while (actualDigits > 0 && decimalLength > 0) {
-                patternBuilder.append("#");
-                --actualDigits;
-                --decimalLength;
-            }
-        }
-
-        String pattern = patternBuilder.toString();
-        String output = (new DecimalFormat(pattern + suffix, US)).format(outputNumber);
-        String fill = "";
-        int length = output.length();
-        if (fixedLength && output.length() < digits) {
-            for (int i = 0; i < digits - length; ++i) {
-                fill = fill.concat(" ");
-            }
-
-            output = fill + output;
-        }
-
-        return output;
+        // fixed-length padding
+        return fixedLength ? String.format("%" + digits + "s", formatted) : formatted;
     }
+
 
 
     static {
