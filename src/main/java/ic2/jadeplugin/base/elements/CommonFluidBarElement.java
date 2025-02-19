@@ -1,7 +1,7 @@
 package ic2.jadeplugin.base.elements;
 
 import ic2.jadeplugin.JadeTags;
-import ic2.jadeplugin.helpers.PluginHelper;
+import ic2.jadeplugin.base.JadeHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.fluids.FluidStack;
@@ -13,7 +13,7 @@ public class CommonFluidBarElement extends CommonBarElement {
     boolean IGNORE_CAPACITY;
 
     public CommonFluidBarElement(FluidStack fluidStack, int capacity, boolean ignoreCapacity) {
-        super(fluidStack.getAmount(), capacity, Component.empty(), PluginHelper.getColorForFluid(fluidStack));
+        super(fluidStack.getAmount(), capacity, Component.empty(), JadeHelper.getColorForFluid(fluidStack));
         this.FLUID = fluidStack;
         this.CAPACITY = capacity;
         this.IGNORE_CAPACITY = ignoreCapacity;

@@ -29,6 +29,8 @@ public enum TextFormatter {
 
     final ChatFormatting FORMAT;
 
+    public static final TextFormatter[] VALUES = values();
+
     TextFormatter(ChatFormatting formatting) {
         this.FORMAT = formatting;
     }
@@ -86,7 +88,7 @@ public enum TextFormatter {
             case 6 -> LIGHT_PURPLE; // LuV
             case 7 -> RED; // ZPM
             case 8 -> DARK_AQUA; // UV
-            default -> WHITE;
+            default -> VALUES[tier];
         };
     }
 }

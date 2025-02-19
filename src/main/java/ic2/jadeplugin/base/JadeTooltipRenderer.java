@@ -8,7 +8,6 @@ import ic2.jadeplugin.elements.CustomBoxStyle;
 import ic2.jadeplugin.elements.CustomProgressStyle;
 import ic2.jadeplugin.elements.CustomTextElement;
 import ic2.jadeplugin.helpers.Formatter;
-import ic2.jadeplugin.helpers.PluginHelper;
 import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -50,8 +49,8 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
         TextFormatter defaultFormat = forceTOPStyle ? TextFormatter.WHITE : TextFormatter.GRAY;
         CompoundTag serverData = accessor.getServerData();
         IElementHelper helper = tooltip.getElementHelper();
-        if (serverData.contains(JadeTags.TAG_DATA, Tag.TAG_LIST)) {
-            ListTag tagList = serverData.getList(JadeTags.TAG_DATA, Tag.TAG_COMPOUND);
+        if (serverData.contains(TAG_DATA, Tag.TAG_LIST)) {
+            ListTag tagList = serverData.getList(TAG_DATA, Tag.TAG_COMPOUND);
             for (int i = 0; i < tagList.size(); i++) {
                 CompoundTag serverTag = tagList.getCompound(i);
                 // padding
@@ -106,7 +105,7 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                                     defaultFormat.translate("ic2.barrel.info.fluid", fluid.getDisplayName(), Formatter.formatNumber(fluidAmount, String.valueOf(fluidAmount).length() - 1), Formatter.formatNumber(max, String.valueOf(max).length() - 1));
                             IProgressStyle progressStyle = helper.progressStyle().overlay(helper.fluid(fluid));
                             tooltip.add(helper.progress((float) fluid.getAmount() / max, fluidComp, progressStyle,
-                                    new CustomBoxStyle(ColorUtils.doubleDarker(PluginHelper.getColorForFluid(fluid))), true));
+                                    new CustomBoxStyle(ColorUtils.doubleDarker(JadeHelper.getColorForFluid(fluid))), true));
                         } else {
                             String current = IDisplayHelper.get().humanReadableNumber(fluid.getAmount(), "B", true);
                             String maxS = IDisplayHelper.get().humanReadableNumber(max, "B", true);

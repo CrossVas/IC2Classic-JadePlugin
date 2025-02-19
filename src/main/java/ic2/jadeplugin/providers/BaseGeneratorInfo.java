@@ -29,7 +29,7 @@ public class BaseGeneratorInfo implements IInfoProvider {
             }
             if (gen instanceof ThermalGeneratorTileEntity thermal) {
                 float subProduction = thermal.subProduction.getProduction(2000.0F);
-                helper.text(translate("ic2.probe.production.passive.name", Formatter.THERMAL_GEN.format(subProduction)));
+                helper.text(translate("ic2.probe.production.passive.name", TextFormatter.GREEN.literal(Formatter.THERMAL_GEN.format(subProduction))));
             }
             if (gen instanceof SolarTurbineTileEntity || gen instanceof ThermalGeneratorTileEntity || gen instanceof GeoGenTileEntity || gen instanceof LiquidFuelGenTileEntity) {
                 helper.addTankInfo(gen);

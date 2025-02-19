@@ -3,7 +3,6 @@ package ic2.jadeplugin.providers.transport;
 import ic2.core.block.transport.item.tubes.FilterTubeTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
-import ic2.jadeplugin.helpers.PluginHelper;
 import ic2.jadeplugin.helpers.TextFormatter;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.network.chat.Component;
@@ -28,7 +27,7 @@ public class FilterTubeInfo implements IInfoProvider {
             if (!filterEntries.isEmpty()) {
                 helper.paddingY(3);
                 for (FilterTubeTileEntity.FilterEntry entry : filterEntries) {
-                    Component side = PluginHelper.getSides(entry.getSides());
+                    Component side = JadeHelper.getSides(entry.getSides());
                     mappedFilter.computeIfAbsent(side, component -> new ArrayList<>()).add(entry);
                 }
 

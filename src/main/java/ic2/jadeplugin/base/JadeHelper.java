@@ -1,6 +1,7 @@
 package ic2.jadeplugin.base;
 
 import ic2.api.energy.EnergyNet;
+import ic2.api.util.DirectionList;
 import ic2.core.utils.helpers.Formatters;
 import ic2.jadeplugin.JadeTags;
 import ic2.jadeplugin.base.elements.*;
@@ -18,7 +19,9 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec2;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -317,5 +320,28 @@ public class JadeHelper implements IJadeHelper {
             case 14 -> "MAX";
             default -> String.valueOf(tier);
         };
+    }
+
+    public static Component getSides(DirectionList directionList) {
+        Component component = Component.empty();
+        if (directionList != null) {
+            String[] sides = directionList.toString().replaceAll("\\[", "").replaceAll("]", "")
+                    .replaceAll("north", ChatFormatting.YELLOW + "N")
+                    .replaceAll("south", ChatFormatting.BLUE + "S")
+                    .replaceAll("east", ChatFormatting.GREEN + "E")
+                    .replaceAll("west", ChatFormatting.LIGHT_PURPLE + "W")
+                    .replaceAll("down", ChatFormatting.AQUA + "D")
+                    .replaceAll("up", ChatFormatting.RED + "U").split(",", -1);
+
+            for (String side : sides) {
+                component = component.copy().append(side);
+            }
+            return component;
+        }
+        return component;
+    }
+
+    public static int getColorForFluid(FluidStack fluid) {
+        return fluid.getFluid() == Fluids.LAVA ? -29925 : IClientFluidTypeExtensions.of(fluid.getFluid()).getTintColor() | -16777216;
     }
 }

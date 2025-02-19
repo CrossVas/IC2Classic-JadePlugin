@@ -4,7 +4,6 @@ import ic2.api.util.DirectionList;
 import ic2.core.block.transport.item.tubes.ColorFilterTubeTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
-import ic2.jadeplugin.helpers.PluginHelper;
 import ic2.jadeplugin.helpers.TextFormatter;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -41,7 +40,7 @@ public class ColorFilterTubeInfo implements IInfoProvider {
                 helper.paddingY(3);
                 Object2ObjectOpenHashMap<Component, List<FilterEntry>> mappedFilters = new Object2ObjectOpenHashMap<>();
                 for (FilterEntry entry : filters) {
-                    Component side = PluginHelper.getSides(entry.directions);
+                    Component side = JadeHelper.getSides(entry.directions);
                     mappedFilters.computeIfAbsent(side, component -> new ArrayList<>()).add(entry);
                 }
                 // apply
