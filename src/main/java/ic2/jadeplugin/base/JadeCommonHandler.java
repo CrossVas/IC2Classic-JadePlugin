@@ -83,6 +83,7 @@ public class JadeCommonHandler {
         INFO_PROVIDERS.add(VillagerOMatInfo.THIS);
         INFO_PROVIDERS.add(WaveGenInfo.THIS);
         INFO_PROVIDERS.add(WindmillGenInfo.THIS);
+        INFO_PROVIDERS.add(IndustrialWorkbenchInfo.THIS);
         INFO_PROVIDERS.add(BasicTubeInfo.THIS);
     }
 
