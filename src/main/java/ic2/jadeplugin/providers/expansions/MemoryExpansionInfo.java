@@ -1,5 +1,6 @@
 package ic2.jadeplugin.providers.expansions;
 
+import ic2.core.block.machines.logic.crafter.CraftRecipe;
 import ic2.core.block.machines.tiles.nv.MemoryExpansionTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
@@ -19,10 +20,11 @@ public class MemoryExpansionInfo implements IInfoProvider {
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof MemoryExpansionTileEntity memoryExpansion) {
             List<ItemStack> common = new ObjectArrayList<>();
-            int j = memoryExpansion.crafting.getSlotCount();
-            for (int i = 0; i < j; i++) {
-                ItemStack recipeOutput = memoryExpansion.crafting.getStackInSlot(i);
-                if (!recipeOutput.isEmpty()) {
+            int slotCount = memoryExpansion.crafting.getSlotCount();
+            for (int i = 0; i < slotCount; i++) {
+                CraftRecipe recipe = memoryExpansion.crafting.getRecipe(i);
+                if (recipe != null && recipe.isValid()) {
+                    ItemStack recipeOutput = recipe.getDisplayItem();
                     common.add(recipeOutput);
                 }
             }
