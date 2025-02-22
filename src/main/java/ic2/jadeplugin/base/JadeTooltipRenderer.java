@@ -173,7 +173,7 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
     @Override
     public void appendServerData(CompoundTag compoundTag, ServerPlayer serverPlayer, Level level, BlockEntity blockEntity, boolean b) {
         JadeHelper helper = new JadeHelper();
-        JadeCommonHandler.addInfo(helper, blockEntity, serverPlayer);
+        JadeCommonHandler.THIS.addInfo(helper, blockEntity, serverPlayer);
         helper.transferData(compoundTag);
     }
 }
