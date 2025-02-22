@@ -5,32 +5,21 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 import snownee.jade.api.ui.Element;
-import snownee.jade.api.ui.IBoxElement;
 import snownee.jade.api.ui.IBoxStyle;
-import snownee.jade.api.ui.ITooltipRenderer;
-import snownee.jade.impl.Tooltip;
 import snownee.jade.overlay.DisplayHelper;
-import snownee.jade.overlay.TooltipRenderer;
 
 import java.util.List;
 
-public class CustomBoxElement extends Element implements IBoxElement {
+public class CustomBoxElement extends Element {
 
-    TooltipRenderer TOOLTIP;
     IBoxStyle BOX;
     List<ItemStack> STACKS;
     int ROW_SIZE;
 
-    public CustomBoxElement(Tooltip tooltip, IBoxStyle box, List<ItemStack> stacks, int rowSize) {
-        this.TOOLTIP = new TooltipRenderer(tooltip, false);
+    public CustomBoxElement(IBoxStyle box, List<ItemStack> stacks, int rowSize) {
         this.BOX = box;
         this.STACKS = stacks;
         this.ROW_SIZE = rowSize;
-    }
-
-    @Override
-    public ITooltipRenderer getTooltipRenderer() {
-        return this.TOOLTIP;
     }
 
     @Override
@@ -53,7 +42,7 @@ public class CustomBoxElement extends Element implements IBoxElement {
         RenderSystem.enableBlend();
         matrixStack.pushPose();
         matrixStack.translate(x, y, 0.0F);
-//        this.BOX.render(matrixStack, 0.0F, 0.0F, maxX - x, maxY - y - 2.0F);
+
         // Get grid size
         Vec2 size = this.getSize();
         float width = size.x;
