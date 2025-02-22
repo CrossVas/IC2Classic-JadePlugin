@@ -18,30 +18,19 @@ public class MemoryExpansionInfo implements IInfoProvider {
     @Override
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof MemoryExpansionTileEntity memoryExpansion) {
-            List<ItemStack> firstStick = new ObjectArrayList<>();
-            List<ItemStack> secondStick = new ObjectArrayList<>();
             List<ItemStack> common = new ObjectArrayList<>();
             int j = memoryExpansion.crafting.getSlotCount();
             for (int i = 0; i < j; i++) {
                 ItemStack recipeOutput = memoryExpansion.crafting.getStackInSlot(i);
                 if (!recipeOutput.isEmpty()) {
-                    if (i < 9) {
-                        firstStick.add(recipeOutput);
-                    } else {
-                        secondStick.add(recipeOutput);
-                    }
                     common.add(recipeOutput);
                 }
             }
-            boolean firstSlot = !memoryExpansion.inventory.getStackInSlot(0).isEmpty();
-            boolean secondSlot = !memoryExpansion.inventory.getStackInSlot(1).isEmpty();
-            if (firstSlot) {
-                helper.bar(firstStick.size(), 9, translate("info.memory.recipes", firstStick.size(), 9), -16733185);
+
+            if (!common.isEmpty()) {
+                helper.bar(common.size(), 18, translate("info.memory.recipes", common.size(), 18), -16733185);
+                helper.addGrid(common, translate("ic2.probe.memory_expansion.can_craft.name").withStyle(ChatFormatting.YELLOW));
             }
-            if (secondSlot) {
-                helper.bar(secondStick.size(), 9, translate("info.memory.recipes", secondStick.size(), 9), -16733185);
-            }
-            helper.addGrid(common, translate("ic2.probe.memory_expansion.can_craft.name").withStyle(ChatFormatting.YELLOW));
         }
     }
 }
