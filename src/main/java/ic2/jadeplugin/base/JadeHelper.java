@@ -241,27 +241,16 @@ public class JadeHelper implements IJadeHelper {
         append(stackElement);
     }
 
-    public void addGrid(List<ItemStack> stacks, Component component, int size) {
-        int counter = 0;
-        if (!stacks.isEmpty()) {
-            text(component);
-            paddingY(2);
-            for (ItemStack stack : stacks) {
-                if (counter < size + 1) {
-                    appendDefaultItem(stack);
-                    counter++;
-                    if (counter == size) {
-                        counter = 0;
-                        padding(0, 0);
-                    }
-                }
-            }
-            paddingY(2);
-        }
+    public void grid(List<ItemStack> stacks, Component component, int size) {
+        CommonBoxElement boxElement = new CommonBoxElement(stacks, size);
+        text(component);
+        paddingY(2);
+        add(boxElement);
+        paddingY(2);
     }
 
-    public void addGrid(List<ItemStack> stacks, Component component) {
-        addGrid(stacks, component, 6);
+    public void grid(List<ItemStack> stacks, Component component) {
+        this.grid(stacks, component, 6);
     }
 
     public MutableComponent getFullStatus(int energy, int packet) {

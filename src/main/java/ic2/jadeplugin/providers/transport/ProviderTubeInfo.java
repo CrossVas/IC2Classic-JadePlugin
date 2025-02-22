@@ -35,7 +35,7 @@ public class ProviderTubeInfo implements IInfoProvider {
             boolean keepMode = provider.keepMode;
             helper.text(TextFormatter.GOLD.translate("info.tube.keep", status(keepMode)));
             if (!providing.isEmpty()) {
-                helper.addGrid(providing, TextFormatter.GOLD.translate("info.tube.providing"));
+                helper.grid(providing, TextFormatter.GOLD.translate("info.tube.providing"));
             }
         }
     }

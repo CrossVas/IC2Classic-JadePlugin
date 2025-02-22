@@ -20,26 +20,28 @@ public class StorageExpansionInfo implements IInfoProvider {
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof BufferStorageExpansionTileEntity buffer) {
             List<ItemStack> stacks = new ObjectArrayList<>();
-            for (int i = 0; i < buffer.inventory.getSlotCount(); i++) {
+            int slotCount = buffer.inventory.getSlotCount();
+            for (int i = 0; i < slotCount; i++) {
                 ItemStack stack = buffer.inventory.getStackInSlot(i);
                 if (!stack.isEmpty()) {
                     stacks.add(stack);
                 }
             }
             if (!stacks.isEmpty()) {
-                helper.addGrid(stacks, TextFormatter.YELLOW.translate("info.storage.storage"), 9);
+                helper.grid(stacks, TextFormatter.YELLOW.translate("info.storage.storage"), 9);
             }
         }
         if (blockEntity instanceof StorageExpansionTileEntity storage) {
             List<ItemStack> stacks = new ObjectArrayList<>();
-            for (int i = 0; i < storage.inventory.getSlotCount(); i++) {
+            int slotCount = storage.inventory.getSlotCount();
+            for (int i = 0; i < slotCount; i++) {
                 ItemStack stack = storage.inventory.getStackInSlot(i);
                 if (!stack.isEmpty()) {
                     stacks.add(stack);
                 }
             }
             if (!stacks.isEmpty()) {
-                helper.addGrid(stacks, TextFormatter.YELLOW.translate("info.storage.storage"));
+                helper.grid(stacks, TextFormatter.YELLOW.translate("info.storage.storage"));
             }
         }
     }

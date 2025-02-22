@@ -32,7 +32,7 @@ public class FilteredExtractionTubeInfo implements IInfoProvider {
 
             if (!generalFilter.isEmpty()) {
                 List<ItemStack> stacks = generalFilter.stream().map(FilteredExtractionTubeTileEntity.FilterEntry::getStack).toList();
-                helper.addGrid(stacks, TextFormatter.GOLD.translate("info.tube.filter"));
+                helper.grid(stacks, TextFormatter.GOLD.translate("info.tube.filter"));
             }
             if (!metaFilter.isEmpty()) {
                 metaFilter.forEach(filter -> {

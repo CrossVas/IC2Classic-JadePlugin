@@ -20,4 +20,5 @@ public class JadeTags {
     public static final String JADE_ADDON_FLUID_TAG = "jade_addon_fluid";
     public static final String JADE_ADDON_BAR_TAG = "jade_addon_bar";
     public static final String JADE_ADDON_PADDING_TAG = "jade_addon_padding";
+    public static final String JADE_ADDON_BOX_TAG = "jade_addon_box";
 }

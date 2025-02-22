@@ -31,7 +31,7 @@ public class MemoryExpansionInfo implements IInfoProvider {
 
             if (!common.isEmpty()) {
                 helper.bar(common.size(), 18, translate("info.memory.recipes", common.size(), 18), -16733185);
-                helper.addGrid(common, translate("ic2.probe.memory_expansion.can_craft.name").withStyle(ChatFormatting.YELLOW));
+                helper.grid(common, translate("ic2.probe.memory_expansion.can_craft.name").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

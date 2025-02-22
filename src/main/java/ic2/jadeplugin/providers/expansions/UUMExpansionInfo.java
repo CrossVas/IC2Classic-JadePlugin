@@ -33,7 +33,7 @@ public class UUMExpansionInfo implements IInfoProvider {
                 }
             }
             if (!providing.isEmpty()) {
-                helper.addGrid(providing, TextFormatter.YELLOW.translate("info.uum.providing"));
+                helper.grid(providing, TextFormatter.YELLOW.translate("info.uum.providing"));
             }
         }
     }

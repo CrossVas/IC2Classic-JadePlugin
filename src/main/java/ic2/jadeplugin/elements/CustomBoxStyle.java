@@ -6,8 +6,12 @@ import snownee.jade.api.ui.BoxStyle;
 public class CustomBoxStyle extends BoxStyle {
 
     public CustomBoxStyle(int backColor) {
+        this();
+        this.bgColor = backColor;
+    }
+
+    public CustomBoxStyle() {
         this.borderWidth = 1.0F;
         this.borderColor = 0xFFFFFFFF;
-        this.bgColor = backColor;
     }
 }

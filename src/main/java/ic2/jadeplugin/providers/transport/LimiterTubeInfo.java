@@ -26,7 +26,7 @@ public class LimiterTubeInfo implements IInfoProvider {
                 dyeStacks.add(stack);
             }
             if (!dyeStacks.isEmpty()) {
-                helper.addGrid(dyeStacks, TextFormatter.GOLD.translate("info.tube.colors"));
+                helper.grid(dyeStacks, TextFormatter.GOLD.translate("info.tube.colors"));
             }
         }
     }

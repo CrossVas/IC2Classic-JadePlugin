@@ -28,7 +28,7 @@ public class IndustrialWorkbenchInfo implements IInfoProvider {
                 }
             }
             if (!recipeOutputs.isEmpty()) {
-                helper.addGrid(recipeOutputs, translate("ic2.probe.memory_expansion.can_craft.name").withStyle(ChatFormatting.YELLOW));
+                helper.grid(recipeOutputs, translate("ic2.probe.memory_expansion.can_craft.name").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

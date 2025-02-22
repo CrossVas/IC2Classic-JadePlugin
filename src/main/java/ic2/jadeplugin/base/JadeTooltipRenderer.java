@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.JadeTags;
 import ic2.jadeplugin.base.elements.*;
+import ic2.jadeplugin.elements.CustomBoxElement;
 import ic2.jadeplugin.elements.CustomBoxStyle;
 import ic2.jadeplugin.elements.CustomProgressStyle;
 import ic2.jadeplugin.elements.CustomTextElement;
@@ -27,8 +28,10 @@ import snownee.jade.api.IServerDataProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.ui.*;
+import snownee.jade.impl.Tooltip;
 import snownee.jade.impl.ui.ProgressStyle;
 
+import java.util.List;
 import java.util.Locale;
 
 import static ic2.jadeplugin.JadeTags.*;
@@ -123,6 +126,15 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                             tooltip.add(helper.progress((float) fluidAmount / max, text, progressStyle, BoxStyle.DEFAULT, true));
                         }
                     }
+                }
+                // box
+                if (serverTag.contains(JADE_ADDON_BOX_TAG)) {
+                    CompoundTag elementTag = serverTag.getCompound(JADE_ADDON_BOX_TAG);
+                    CommonBoxElement boxElement = CommonBoxElement.load(elementTag);
+                    List<ItemStack> gridStacks = boxElement.getGridStacks();
+                    int size = boxElement.getSize();
+                    CustomBoxElement box = new CustomBoxElement((Tooltip) tooltip, forceTOPStyle ? new CustomBoxStyle() : BoxStyle.DEFAULT, gridStacks, size);
+                    tooltip.add(box);
                 }
             }
         }

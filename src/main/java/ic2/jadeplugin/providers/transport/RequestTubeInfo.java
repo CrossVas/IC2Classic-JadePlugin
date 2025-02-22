@@ -29,13 +29,13 @@ public class RequestTubeInfo implements IInfoProvider {
                 list.add(StackUtil.copyWithSize(entry.getStack(), entry.getAmount()));
             }
             if (!list.isEmpty()) {
-                helper.addGrid(list, TextFormatter.GOLD.translate("ic2.probe.tube.requests"));
+                helper.grid(list, TextFormatter.GOLD.translate("ic2.probe.tube.requests"));
             }
             // missing
             list = NonNullList.create();
             requester.getMissing(list);
             if (!list.isEmpty()) {
-                helper.addGrid(list, TextFormatter.GOLD.translate("ic2.probe.tube.missing"));
+                helper.grid(list, TextFormatter.GOLD.translate("ic2.probe.tube.missing"));
             }
             // requested
             list = NonNullList.create();
@@ -43,7 +43,7 @@ public class RequestTubeInfo implements IInfoProvider {
                 list.add(StackUtil.copyWithSize(entry.getKey(), entry.getIntValue()));
             }
             if (!list.isEmpty()) {
-                helper.addGrid(list, TextFormatter.GOLD.translate("ic2.probe.tube.requesting"));
+                helper.grid(list, TextFormatter.GOLD.translate("ic2.probe.tube.requesting"));
             }
             // insertion
             list = NonNullList.create();
@@ -51,7 +51,7 @@ public class RequestTubeInfo implements IInfoProvider {
                 list.addAll(requester.toInsert);
             }
             if (!list.isEmpty()) {
-                helper.addGrid(list, TextFormatter.GOLD.translate("ic2.probe.tube.stuck"));
+                helper.grid(list, TextFormatter.GOLD.translate("ic2.probe.tube.stuck"));
             }
         }
     }

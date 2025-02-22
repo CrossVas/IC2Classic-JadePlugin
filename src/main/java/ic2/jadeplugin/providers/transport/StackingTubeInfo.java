@@ -23,7 +23,7 @@ public class StackingTubeInfo implements IInfoProvider {
                 for (StackingTubeTileEntity.StackingStack item : stackingTube.cached) {
                     cached.add(item.getStack());
                 }
-                helper.addGrid( cached, TextFormatter.GOLD.translate("ic2.probe.tube.cached"));
+                helper.grid( cached, TextFormatter.GOLD.translate("ic2.probe.tube.cached"));
             }
             boolean ignoreColored = stackingTube.ignoreColors;
             helper.text(TextFormatter.GOLD.translate("info.tube.ignore", status(ignoreColored)));

@@ -41,7 +41,7 @@ public class BasicTubeInfo implements IInfoProvider {
 
                 mapped.forEach((K, V) -> list.add(StackUtil.copyWithSize(K, V)));
                 helper.paddingY(3);
-                helper.addGrid(list, TextFormatter.GOLD.translate("ic2.probe.tube.transported"));
+                helper.grid(list, TextFormatter.GOLD.translate("ic2.probe.tube.transported"));
             }
         }
     }
