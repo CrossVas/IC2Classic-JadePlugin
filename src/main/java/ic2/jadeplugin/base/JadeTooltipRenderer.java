@@ -150,7 +150,7 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
         }
     }
 
-    public static Component format(Component component, TextFormatter defaultFormatting) {
+    public Component format(Component component, TextFormatter defaultFormatting) {
         TextFormatter formatting = defaultFormatting;
         JsonObject json = Component.Serializer.toJsonTree(component).getAsJsonObject();
         if (json.has("color")) {
