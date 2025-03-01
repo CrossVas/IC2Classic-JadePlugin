@@ -147,6 +147,11 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
+task devJar(type: Jar) {
+    archiveClassifier = "dev"
+    from sourceSets.main.output
+}
+
 task sourcesJar(type: Jar, dependsOn: classes) {
     archiveClassifier = "sources"
     archiveExtension = "zip"
@@ -155,4 +160,5 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 
 artifacts {
     archives sourcesJar
+    archives devJar
 }

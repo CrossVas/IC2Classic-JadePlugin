@@ -17,7 +17,7 @@ public class JadeCommonHandler {
 
     public static final JadeCommonHandler THIS = new JadeCommonHandler();
 
-    public static List<IInfoProvider> INFO_PROVIDERS = new ObjectArrayList<>();
+    protected List<IInfoProvider> INFO_PROVIDERS = new ObjectArrayList<>();
 
     public void init() {
         registerProviders(
