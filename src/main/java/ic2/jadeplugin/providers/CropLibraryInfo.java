@@ -42,7 +42,8 @@ public class CropLibraryInfo implements IInfoProvider {
             }
 
             List<ItemStack> stackList = StackUtil.copyNonEmpty(baseCropLibrary.storage.getTypes());
-            helper.grid(stackList, translate("ic2.probe.crop_library.name").withStyle(ChatFormatting.YELLOW));
+            if (!stackList.isEmpty())
+                helper.grid(stackList, translate("ic2.probe.crop_library.name").withStyle(ChatFormatting.YELLOW));
         }
     }
 }
