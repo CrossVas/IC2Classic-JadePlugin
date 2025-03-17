@@ -5,6 +5,7 @@ import ic2.core.block.base.features.IWrenchableTile;
 import ic2.core.block.base.features.multiblock.IStructureListener;
 import ic2.core.platform.registries.IC2Items;
 import ic2.jadeplugin.JadeTags;
+import ic2.jadeplugin.elements.CustomTextElement;
 import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -53,9 +54,10 @@ public class WrenchInfo implements IBlockComponentProvider {
                         iTooltip.append(TextFormatter.GOLD.translate("ic2.probe.wrenchable.info"));
                     }
                 } else {
+
                     iTooltip.add(wrenchIcon);
                     iTooltip.append(TextFormatter.WHITE.translate("ic2.probe.wrenchable.drop_chance.info", TextFormatter.formatPercentage(100).literal(100 + "")));
-                    iTooltip.append(TextFormatter.AQUA.translate("ic2.probe.wrenchable.optional.info"));
+                    iTooltip.add(new CustomTextElement(TextFormatter.GOLD.translate("ic2.probe.wrenchable.optional.info")).centered(true));
                 }
             }
         }

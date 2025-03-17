@@ -6,9 +6,9 @@
   "config.jade.plugin_ic2.renderer": "Отображать информацию",
   "config.jade.plugin_ic2.wrenchable_info": "Информация от ключа",
 
-  "ic2.probe.wrenchable.drop_chance.info": "Шанс выпадения",
+  "ic2.probe.wrenchable.drop_chance.info": "%s%% Шанс выпадения",
   "ic2.probe.wrenchable.info": "Съемный блок",
-  "ic2.probe.wrenchable.optional.info": " (необязателен)",
+  "ic2.probe.wrenchable.optional.info": "(Ключ необязателен)",
   "ic2.tube.round_robin.info": "Правила цикличности",
   "ic2.tube.directional.info": "Направление: %s",
   "ic2.tube.filter.info": "Фильтр:",

@@ -6,9 +6,9 @@
   "config.jade.plugin_ic2.renderer": "렌더 툴팁",
   "config.jade.plugin_ic2.wrenchable_info": "렌치블 정보",
 
-  "ic2.probe.wrenchable.drop_chance.info": "드롭 확률",
+  "ic2.probe.wrenchable.drop_chance.info": "%s%% 드롭 확률",
   "ic2.probe.wrenchable.info": "렌치블 블록",
-  "ic2.probe.wrenchable.optional.info": " (선택)",
+  "ic2.probe.wrenchable.optional.info": "(렌치 선택 사항)",
   "ic2.tube.round_robin.info": "라운드 로빈 규칙",
   "ic2.tube.directional.info": "방향: %s",
   "ic2.tube.filter.info": "필터:",
