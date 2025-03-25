@@ -39,7 +39,7 @@
   "info.memory.recipes": "メモリ: %s/%s レシピ",
   "info.storage.storage": "ストレージ:",
   "info.tube.prio": "優先方向: %s",
-  "info.tube.inv.prio": "インベントリ挿入を優先する: %s: %s",
+  "info.tube.inv.prio": "インベントリ挿入を優先する: %s",
   "info.tube.filter": "フィルタ:",
   "info.tube.filter.meta": "メタフィルタ:",
   "info.tube.direction": "方向: %s",
