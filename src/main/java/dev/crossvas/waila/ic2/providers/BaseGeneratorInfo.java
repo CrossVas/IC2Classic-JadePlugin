@@ -5,9 +5,11 @@ import dev.crossvas.waila.ic2.base.interfaces.IInfoProvider;
 import dev.crossvas.waila.ic2.base.interfaces.IWailaHelper;
 import dev.crossvas.waila.ic2.utils.ColorUtils;
 import dev.crossvas.waila.ic2.utils.Formatter;
+import ic2.core.IC2;
 import ic2.core.block.generator.tileentity.TileEntityBaseGenerator;
 import ic2.core.block.generator.tileentity.TileEntityGenerator;
 import ic2.core.block.generator.tileentity.TileEntityGeoGenerator;
+import ic2.core.block.generator.tileentity.TileEntityWindGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 
@@ -19,21 +21,25 @@ public class BaseGeneratorInfo implements IInfoProvider {
     public void addInfo(IWailaHelper helper, TileEntity blockEntity, EntityPlayer player) {
         if (blockEntity instanceof TileEntityBaseGenerator) {
             TileEntityBaseGenerator generator = (TileEntityBaseGenerator) blockEntity;
-            double euProduction = generator.getOfferedEnergy();
-            double maxOutput = generator.getOfferedEnergy();
-            if (generator instanceof TileEntityGeoGenerator || generator instanceof TileEntityGenerator) {
-                maxOutput -= 1;
+            int euProduction = generator instanceof TileEntityWindGenerator ? (int) ((TileEntityWindGenerator) generator).subproduction :  generator.isConverting() ? generator.production : Math.min(generator.production, generator.storage);
+            int maxOutput = 0;
+            if (generator instanceof TileEntityGenerator) {
+                maxOutput = IC2.energyGeneratorBase;
+            }
+            if (generator instanceof TileEntityGeoGenerator) {
+                maxOutput = IC2.energyGeneratorGeo;
             }
             text(helper, tier(generator.getSourceTier()));
-            text(helper, translate("probe.energy.output", Formatter.formatNumber(euProduction, 4)));
-            text(helper, translate("probe.energy.output.max", Formatter.formatNumber(maxOutput, 3)));
-
-            if (generator instanceof TileEntityGeoGenerator) {
-                WailaCommonHandler.addTankInfo(helper, generator);
-            }
+            text(helper, translate("probe.energy.output", Formatter.formatNumber(euProduction, 2)));
+            text(helper, translate("probe.energy.output.max", Formatter.formatNumber(maxOutput, 2)));
 
             int fuel = generator.fuel;
             int maxFuel = generator.storage;
+
+            if (generator instanceof TileEntityGeoGenerator) {
+                fuel = 0;
+                WailaCommonHandler.addTankInfo(helper, generator);
+            }
             if (fuel > 0) {
                 bar(helper, fuel, maxFuel, translate("probe.storage.fuel", fuel), ColorUtils.DARK_GRAY);
             }

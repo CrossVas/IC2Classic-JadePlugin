@@ -9,8 +9,8 @@ import ic2.api.crops.Crops;
 import ic2.api.crops.ICropTile;
 import ic2.core.Ic2Items;
 import ic2.core.block.TileEntityCrop;
+import ic2.core.block.crop.IC2Crops;
 import ic2.core.block.inventory.IItemTransporter;
-import ic2.core.item.ItemCropSeed;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
@@ -68,7 +68,6 @@ public class CropInfo implements IInfoProvider {
                 if (scanLevel < 1 && currentStage < maxStage && crop != Crops.weed) {
                     text(helper, translate("probe.crop.unknown"));
                 } else {
-                    text(helper, translate(TextFormatter.GOLD, "probe.crop.name", crop.displayName()));
                     text(helper, translate("probe.crop.discovered", TextFormatter.AQUA.literal(crop.discoveredBy())));
                 }
 
@@ -124,7 +123,7 @@ public class CropInfo implements IInfoProvider {
         @Nonnull
         @Override
         public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
-            ItemStack icon = new ItemStack(Ic2Items.cropSeed.getItem());
+            ItemStack icon = accessor.getStack();
             if (accessor.getTileEntity() instanceof ICropTile) {
                 ICropTile tile = (ICropTile) accessor.getTileEntity();
                 NBTTagCompound tag = accessor.getNBTData().getCompoundTag("CropInfo");
@@ -132,11 +131,13 @@ public class CropInfo implements IInfoProvider {
                 int currentStage = tag.getInteger("growthStage");
                 int scanLevel = tag.getInteger("scanLevel");
                 if (tile.getCrop() != null) {
+                    Crops crops = Crops.instance;
+                    ItemStack item = ((IC2Crops)crops).getDisplayItem(tile.getCrop());
                     boolean condition = scanLevel < 1 && tile.getCrop() != Crops.weed && currentStage < maxStage;
                     if (condition) {
                         icon = Ic2Items.cropSeed.copy();
                     } else {
-                        icon = ItemCropSeed.generateItemStackFromValues((short) tile.getCrop().getId(), (byte) 1, (byte) 1, (byte) 1, (byte) 4);
+                        icon = item;
                     }
 
                 }

@@ -20,8 +20,6 @@ public class UraniumEnricherInfo implements IInfoProvider {
     public void addInfo(IWailaHelper helper, TileEntity blockEntity, EntityPlayer player) {
         if (blockEntity instanceof TileEntityUraniumEnricher) {
             TileEntityUraniumEnricher enricher = (TileEntityUraniumEnricher) blockEntity;
-            text(helper, tier(enricher.getSinkTier()));
-            text(helper, maxIn(enricher.maxInput));
             text(helper, usage(enricher.getEnergyUsage()));
             ItemStack fuel = enricher.inventory[1];
             byte itemType = -1;

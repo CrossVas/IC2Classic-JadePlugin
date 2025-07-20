@@ -2,7 +2,6 @@ package dev.crossvas.waila.ic2.providers;
 
 import dev.crossvas.waila.ic2.base.interfaces.IInfoProvider;
 import dev.crossvas.waila.ic2.base.interfaces.IWailaHelper;
-import dev.crossvas.waila.ic2.utils.EnergyContainer;
 import ic2.core.block.wiring.TileEntityChargePad;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -23,8 +22,6 @@ public class ChargePadInfo implements IInfoProvider {
             text(helper, maxIn(maxIn));
             text(helper, translate("probe.energy.transfer", transfer));
             text(helper, translate("probe.block.range", range + 1));
-            EnergyContainer container = EnergyContainer.getContainer(pad);
-            addStats(helper, player, () -> addAveragesIn(helper, container));
         }
     }
 }

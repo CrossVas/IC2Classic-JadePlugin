@@ -20,16 +20,8 @@ public class ElectricBlockInfo implements IInfoProvider {
     public void addInfo(IWailaHelper helper, TileEntity blockEntity, EntityPlayer player) {
         if (blockEntity instanceof TileEntityElecMachine) {
             TileEntityElecMachine baseTile = (TileEntityElecMachine) blockEntity;
-            if (baseTile instanceof TileEntityTerra || baseTile instanceof TileEntityReactorPlanner || baseTile instanceof TileEntityCropHarvester) {
-                text(helper, tier(baseTile.tier));
-                text(helper, maxIn(baseTile.maxInput));
-            }
-
             if (baseTile instanceof TileEntityElectricEnchanter) {
                 TileEntityElectricEnchanter enchanter = (TileEntityElectricEnchanter) baseTile;
-                text(helper, tier(enchanter.tier));
-                text(helper, maxIn(enchanter.maxInput));
-                text(helper, usage(enchanter.getEnergyUsage()));
                 int storedXP = enchanter.exp;
                 float progress = enchanter.getProgress();
                 float maxProgress = 1f;
@@ -45,8 +37,6 @@ public class ElectricBlockInfo implements IInfoProvider {
             }
             if (baseTile instanceof TileEntityMatter) {
                 TileEntityMatter massFab = (TileEntityMatter) baseTile;
-                text(helper, tier(massFab.tier));
-                text(helper, maxIn(massFab.maxInput));
                 int progress = massFab.energy;
                 int maxProgress = 7000000;
                 if (progress > 0) {
@@ -56,10 +46,12 @@ public class ElectricBlockInfo implements IInfoProvider {
                             Formatter.THERMAL_GEN.format(finalProgress)), -4441721);
                 }
                 RecipeOutput output = Recipes.matterAmplifier.getOutputFor(massFab.inventory[0], false);
-                int lastScrap = output.metadata.getInteger("amplification");
-                if (massFab.scrap > 0) {
-                    bar(helper, massFab.scrap, lastScrap * 2, translate("probe.matter.amplifier.name",
+                if (output != null) {
+                    int lastScrap = output.metadata.getInteger("amplification");
+                    if (massFab.scrap > 0) {
+                        bar(helper, massFab.scrap, lastScrap * 2, translate("probe.matter.amplifier.name",
                             massFab.scrap), -10996205);
+                    }
                 }
             }
         }

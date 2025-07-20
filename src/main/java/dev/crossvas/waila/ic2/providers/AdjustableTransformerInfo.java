@@ -2,7 +2,6 @@ package dev.crossvas.waila.ic2.providers;
 
 import dev.crossvas.waila.ic2.base.interfaces.IInfoProvider;
 import dev.crossvas.waila.ic2.base.interfaces.IWailaHelper;
-import dev.crossvas.waila.ic2.utils.EnergyContainer;
 import ic2.core.block.wiring.TileEntityAdjustableTransformer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -20,8 +19,6 @@ public class AdjustableTransformerInfo implements IInfoProvider {
             text(helper, tier(transformer.sinkTier));
             text(helper, translate("probe.energy.output.max", energyPacket));
             text(helper, translate("probe.packet.tick", packets));
-            EnergyContainer container = EnergyContainer.getContainer(transformer);
-            addStats(helper, player, () -> addCableOut(helper, container));
         }
     }
 }

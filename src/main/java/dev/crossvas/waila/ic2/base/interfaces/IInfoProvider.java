@@ -3,8 +3,6 @@ package dev.crossvas.waila.ic2.base.interfaces;
 import dev.crossvas.waila.ic2.WailaIC2Classic;
 import dev.crossvas.waila.ic2.base.elements.CommonBarElement;
 import dev.crossvas.waila.ic2.base.elements.CommonTextElement;
-import dev.crossvas.waila.ic2.utils.EnergyContainer;
-import dev.crossvas.waila.ic2.utils.Formatter;
 import dev.crossvas.waila.ic2.utils.TextFormatter;
 import ic2.core.block.inventory.IItemTransporter;
 import ic2.core.item.armor.ItemArmorNanoSuit;
@@ -85,36 +83,6 @@ public interface IInfoProvider {
         }
     }
 
-    default void addAveragesFull(IWailaHelper helper, EnergyContainer container) {
-        addAveragesIn(helper, container);
-        addAveragesOut(helper, container);
-    }
-
-    default void addAveragesIn(IWailaHelper helper, EnergyContainer container) {
-        int averageIn = container.getAverageIn();
-        if (averageIn > 0) {
-            text(helper, translate(TextFormatter.AQUA, "tooltip.item.eu_reader.cable_flow_in", Formatter.EU_FORMAT.format(averageIn)));
-        }
-    }
-
-    /**
-     * common: energyOut, packetOut
-     * */
-
-    default void addAveragesOut(IWailaHelper helper, EnergyContainer container) {
-        int averageOut = container.getAverageOut();
-        if (averageOut > 0) {
-            text(helper, translate(TextFormatter.AQUA, "tooltip.item.eu_reader.cable_flow_out", Formatter.EU_FORMAT.format(averageOut)));
-        }
-    }
-
-    default void addCableOut(IWailaHelper helper, EnergyContainer container) {
-        int averageOut = container.getAverageOut();
-        if (averageOut > 0) {
-            text(helper, translate(TextFormatter.AQUA, "tooltip.item.eu_reader.cable_flow", Formatter.EU_FORMAT.format(averageOut)));
-        }
-    }
-
     void addInfo(IWailaHelper helper, TileEntity blockEntity, EntityPlayer player);
 
     default void bar(IWailaHelper helper, int current, int max, IChatComponent text, int color) {
@@ -179,18 +147,5 @@ public interface IInfoProvider {
 
     default IChatComponent usage(int usage) {
         return translate("probe.energy.usage", usage);
-    }
-
-    default void addStats(IWailaHelper helper, EntityPlayer player, IStatProvider stats) {
-        if (player.isSneaking()) {
-            text(helper, translate(TextFormatter.GREEN, "probe.energy.stats.info"), true);
-            stats.addTooltips();
-        } else {
-            text(helper, translate(TextFormatter.AQUA, "probe.sneak.info"), true);
-        }
-    }
-
-    interface IStatProvider {
-        void addTooltips();
     }
 }

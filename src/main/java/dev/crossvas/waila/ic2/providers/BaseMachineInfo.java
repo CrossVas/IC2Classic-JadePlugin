@@ -18,18 +18,22 @@ public class BaseMachineInfo implements IInfoProvider {
     public void addInfo(IWailaHelper helper, TileEntity blockEntity, EntityPlayer player) {
         if (blockEntity instanceof TileEntityElecMachine) {
             TileEntityElecMachine machine = (TileEntityElecMachine) blockEntity;
-            IChatComponent tier = null;
-            IChatComponent maxIn = null;
-            IChatComponent usage = null;
+            IChatComponent tier = tier(machine.tier);
+            IChatComponent maxIn = maxIn(machine.maxInput);
+            IChatComponent usage = usage(machine.getEnergyUsage());
+            if (machine instanceof TileEntityMiner ||
+                machine instanceof TileEntityMatter ||
+                machine instanceof TileEntityTerra ||
+                machine instanceof TileEntityOreScanner ||
+                machine instanceof TileEntityUraniumEnricher) {
+                usage = null;
+            }
             float progress = 0;
             float maxProgress = 0;
             float progressPerTick = 0;
 
             if (machine instanceof TileEntityElectricMachine) {
                 TileEntityElectricMachine electricMachine = (TileEntityElectricMachine) machine;
-                tier = tier(electricMachine.getSinkTier());
-                maxIn = maxIn(electricMachine.maxInput);
-                usage = usage(electricMachine.energyConsume);
                 progress = electricMachine.getProgress();
                 maxProgress = 1;
                 progressPerTick = electricMachine.progress;
@@ -42,9 +46,6 @@ public class BaseMachineInfo implements IInfoProvider {
 
             if (machine instanceof TileEntityAdvancedMachine) {
                 TileEntityAdvancedMachine advMAchine = (TileEntityAdvancedMachine) machine;
-                tier = tier(advMAchine.getSinkTier());
-                maxIn = maxIn(advMAchine.maxInput);
-                usage = usage(advMAchine.energyConsume);
                 speed = advMAchine.speed;
                 maxSpeed = advMAchine.MaxSpeed;
                 scaledProgress = speed / maxSpeed;
@@ -60,14 +61,12 @@ public class BaseMachineInfo implements IInfoProvider {
             }
             if (machine instanceof TileEntityVacuumCanner) {
                 TileEntityVacuumCanner canner = (TileEntityVacuumCanner) machine;
-                tier = tier(canner.getSinkTier());
-                maxIn = maxIn(canner.maxInput);
-                usage = usage(canner.energyConsume);
                 name = "probe.speed.vacuum";
                 speed = canner.speed;
                 maxSpeed = canner.MaxSpeed;
                 scaledProgress = (double) speed / maxSpeed;
             }
+
             // tier
             if (tier != null) text(helper, tier);
             // maxIn

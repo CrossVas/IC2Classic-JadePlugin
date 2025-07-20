@@ -26,7 +26,7 @@ public class EUStorageInfo implements IInfoProvider {
                 bar(helper, 1, 1, translate("probe.energy.storage.name", "Infinite"), ColorUtils.RED);
             } else if (machine instanceof IEnergyContainer && !(machine instanceof TileEntityElectrolyzer || machine instanceof TileEntityCharged || machine instanceof TileEntityMatter)) {
                 IEnergyContainer storage = (IEnergyContainer) blockEntity;
-                int stored = storage.getStoredEnergy();
+                int stored = Math.max(0, storage.getStoredEnergy());
                 int max = storage.getEnergyCapacity();
                 bar(helper, stored, max, translate("probe.energy.storage.full.name", Formatter.formatInt(stored, 4), Formatter.formatInt(max, 4)), ColorUtils.RED);
             } else if (machine instanceof TileEntityTeleporter) {

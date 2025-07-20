@@ -6,15 +6,24 @@ import dev.crossvas.waila.ic2.utils.ColorUtils;
 import dev.crossvas.waila.ic2.utils.TextFormatter;
 import ic2.core.block.TileEntityBarrel;
 import ic2.core.block.inventory.IItemTransporter;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
+import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.Tuple;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 public class BarrelInfo implements IInfoProvider {
@@ -57,7 +66,7 @@ public class BarrelInfo implements IInfoProvider {
                     textCentered(helper, translate(TextFormatter.YELLOW, "probe.barrel.status.storage.name"));
                     bar(helper, wheatAmount, 64, translate("probe.barrel.beer.wheat.name", wheatAmount), ColorUtils.YELLOW);
                     bar(helper, hopsAmount, 64, translate("probe.barrel.beer.hops.name", hopsAmount), ColorUtils.GREEN);
-                    bar(helper, waterAmount, 32, translate("probe.info.fluid", waterFluid.getLocalizedName(), waterAmount, 32 + "k"), -1, waterFluid.getFluid().getName());
+                    bar(helper, waterAmount, 32, translate("probe.info.fluid", waterFluid.getLocalizedName(), waterAmount, 32 + "k"), ColorUtils.rgb(93, 105, 255), waterFluid.getFluid().getName());
 
                     textCentered(helper, translate(TextFormatter.YELLOW, "probe.barrel.status.brew.name"));
                     text(helper, translate("probe.barrel.beer.quality." + brewQuality + ".name"));
@@ -107,5 +116,38 @@ public class BarrelInfo implements IInfoProvider {
     @Override
     public IItemTransporter.IFilter getFilter() {
         return TREETAP;
+    }
+
+    public static class BarrelNameProvider implements IWailaDataProvider {
+
+        public static final BarrelNameProvider THIS = new BarrelNameProvider();
+
+        @Override
+        public ItemStack getWailaStack(IWailaDataAccessor iWailaDataAccessor, IWailaConfigHandler iWailaConfigHandler) {
+            return null;
+        }
+
+        @Override
+        public List<String> getWailaHead(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor, IWailaConfigHandler iWailaConfigHandler) {
+            if (accessor.getTileEntity() instanceof TileEntityBarrel) {
+                list.set(0, TextFormatter.WHITE.translate("item.itemBarrel.name").getFormattedText());
+            }
+            return list;
+        }
+
+        @Override
+        public List<String> getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor iWailaDataAccessor, IWailaConfigHandler iWailaConfigHandler) {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public List<String> getWailaTail(ItemStack itemStack, List<String> list, IWailaDataAccessor iWailaDataAccessor, IWailaConfigHandler iWailaConfigHandler) {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public NBTTagCompound getNBTData(EntityPlayerMP entityPlayerMP, TileEntity tileEntity, NBTTagCompound nbtTagCompound, World world, int i, int i1, int i2) {
+            return null;
+        }
     }
 }

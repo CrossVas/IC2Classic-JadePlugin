@@ -18,8 +18,6 @@ public class MinerInfo implements IInfoProvider {
     public void addInfo(IWailaHelper helper, TileEntity blockEntity, EntityPlayer player) {
         if (blockEntity instanceof TileEntityMiner) {
             TileEntityMiner miner = (TileEntityMiner) blockEntity;
-            text(helper, tier(miner.getSinkTier()));
-            text(helper, maxIn(miner.maxInput));
             text(helper, usage(getEnergyUsage(miner)));
 
             float progress = miner.miningTicker;
@@ -38,6 +36,8 @@ public class MinerInfo implements IInfoProvider {
 
     public int getEnergyUsage(TileEntityMiner miner) {
         ItemStack tool = miner.inventory[3];
-        return tool.getItem() instanceof IMiningDrill ? Math.max(1, 1 + ((IMiningDrill) tool.getItem()).getExtraEnergyCost(tool)) : 1;
+        if (tool != null) {
+            return tool.getItem() instanceof IMiningDrill ? Math.max(1, 1 + ((IMiningDrill) tool.getItem()).getExtraEnergyCost(tool)) : 1;
+        } else return 0;
     }
 }
