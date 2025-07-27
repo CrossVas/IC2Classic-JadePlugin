@@ -12,9 +12,14 @@ import ic2.core.block.machine.tileentity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ElectricBlockInfo implements IInfoProvider {
 
     public static final ElectricBlockInfo THIS = new ElectricBlockInfo();
+
+    Map<TileEntityMatter, Integer> SCRAP_CACHE = new HashMap<>();
 
     @Override
     public void addInfo(IWailaHelper helper, TileEntity blockEntity, EntityPlayer player) {
@@ -45,13 +50,15 @@ public class ElectricBlockInfo implements IInfoProvider {
                     bar(helper, progress, maxProgress, translate("probe.speed.massFab",
                             Formatter.THERMAL_GEN.format(finalProgress)), -4441721);
                 }
-                RecipeOutput output = Recipes.matterAmplifier.getOutputFor(massFab.inventory[0], false);
-                if (output != null) {
-                    int lastScrap = output.metadata.getInteger("amplification");
-                    if (massFab.scrap > 0) {
-                        bar(helper, massFab.scrap, lastScrap * 2, translate("probe.matter.amplifier.name",
-                            massFab.scrap), -10996205);
+                if (massFab.inventory[0] != null) {
+                    RecipeOutput output = Recipes.matterAmplifier.getOutputFor(massFab.inventory[0], false);
+                    if (output != null) {
+                        SCRAP_CACHE.put(massFab, output.metadata.getInteger("amplification"));
                     }
+                }
+                int lastScrap = SCRAP_CACHE.getOrDefault(massFab, 0);
+                if (massFab.scrap > 0) {
+                    bar(helper, massFab.scrap, lastScrap, translate("probe.matter.amplifier", massFab.scrap), -10996205);
                 }
             }
         }

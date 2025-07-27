@@ -19,15 +19,14 @@ public class ElectrolyzerInfo implements IInfoProvider {
         if (blockEntity instanceof TileEntityElectrolyzer) {
             TileEntityElectrolyzer electrolyzer = (TileEntityElectrolyzer) blockEntity;
             IElectrolyzerProvider provider = electrolyzer.mfe;
-            int transfer = 0;
             if (provider != null) {
-                transfer = provider.getProcessRate();
+                addElectrolyzerInfo(helper, electrolyzer.shouldDrain(), electrolyzer.shouldPower(), provider.getProcessRate(), electrolyzer.getStoredEnergy(), electrolyzer.getEnergyCapacity());
             }
-            addElectrolyzerInfo(helper, electrolyzer.shouldDrain(), electrolyzer.canPower(), transfer, electrolyzer.energy, electrolyzer.maxEnergy);
+
         }
         if (blockEntity instanceof TileEntityCharged) {
             TileEntityCharged electrolyzer = (TileEntityCharged) blockEntity;
-            addElectrolyzerInfo(helper, electrolyzer.shouldDrain(), electrolyzer.canPower(), getTransferRate(electrolyzer), electrolyzer.energy, electrolyzer.maxEnergy);
+            addElectrolyzerInfo(helper, electrolyzer.shouldDrain(), electrolyzer.shouldPower(), getTransferRate(electrolyzer), electrolyzer.getStoredEnergy(), electrolyzer.getEnergyCapacity());
         }
     }
 

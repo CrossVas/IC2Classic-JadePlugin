@@ -13,10 +13,12 @@ import net.minecraft.tileentity.TileEntity;
 public class WailaPluginHandler {
 
     public static void register(IWailaRegistrar registration) {
+        registration.registerTooltipRenderer("jade.progress", new BaseProgressBarRenderer());
+
         registration.registerStackProvider(CropInfo.CropIconProvider.THIS, TileEntityCrop.class);
         registration.registerHeadProvider(BarrelInfo.BarrelNameProvider.THIS, TileEntityBarrel.class);
+
         registration.registerBodyProvider(WailaTooltipRenderer.THIS, Block.class);
         registration.registerNBTProvider(WailaTooltipRenderer.THIS, TileEntity.class);
-        registration.registerTooltipRenderer("jade.progress", new BaseProgressBarRenderer());
     }
 }

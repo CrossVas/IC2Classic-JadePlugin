@@ -15,12 +15,10 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.WeakHashMap;
 
 public class WailaCommonHandler {
 
     public static List<IInfoProvider> INFO_PROVIDERS = new ArrayList<>();
-    public static WeakHashMap<String, String> MAPPED_FLUIDS = new WeakHashMap<>();
 
     static {
         INFO_PROVIDERS.add(EUStorageInfo.THIS);
@@ -78,12 +76,11 @@ public class WailaCommonHandler {
     }
 
     public static void loadTankInfo(IWailaHelper helper, FluidStack fluidStack, int capacity) {
-        MAPPED_FLUIDS.put(fluidStack.getFluid().getName(), fluidStack.getFluid().getIcon().toString());
         int color = fluidStack.getUnlocalizedName().contains("lava") ? -29925 : fluidStack.getFluid().getColor(fluidStack) | -16777216;
+        String current = Formatter.formatNumber(fluidStack.amount, String.valueOf(fluidStack.amount).length() - 1);
+        String max = Formatter.formatNumber(capacity, String.valueOf(capacity).length() - 1);
         helper.add(new CommonBarElement(fluidStack.amount, capacity,
-            new ChatComponentTranslation("probe.info.fluid", fluidStack.getLocalizedName(),
-                Formatter.formatNumber(fluidStack.amount, String.valueOf(fluidStack.amount).length() - 1),
-                Formatter.formatNumber(capacity, String.valueOf(capacity).length() - 1)),
+            new ChatComponentTranslation("probe.info.fluid", fluidStack.getLocalizedName(), current, max),
             color, fluidStack.getFluid().getName()));
     }
 }

@@ -33,12 +33,12 @@ public class NuclearInfo implements IInfoProvider {
             IReactor reactor = (IReactor) blockEntity;
             if (blockEntity instanceof TileEntityNuclearReactorElectric) {
                 TileEntityNuclearReactorElectric nuclearReactor = (TileEntityNuclearReactorElectric) blockEntity;
-                text(helper, translate("probe.energy.output", Formatter.formatNumber(nuclearReactor.getReactorEUEnergyOutput(), 3)));
+                text(helper, translate("probe.energy.output", Formatter.formatNumber(nuclearReactor.getReactorEUEnergyOutput(), 2)));
                 text(helper, translate("probe.reactor.breeding", reactor.getHeat() / 3000 + 1));
             } else if (blockEntity instanceof ISteamReactor) {
                 ISteamReactor steamReactor = (ISteamReactor) blockEntity;
-                text(helper, translate("probe.steam.output", Formatter.THERMAL_GEN.format(steamReactor.getReactorEUEnergyOutput() * 3.200000047683716)));
-                text(helper, translate("probe.water.consumption", Formatter.THERMAL_GEN.format(steamReactor.getReactorEnergyOutput() / 50.0)));
+                text(helper, translate("probe.steam.output", Formatter.formatNumber(steamReactor.getReactorEUEnergyOutput() * 3.200000047683716, 2)));
+                text(helper, translate("probe.water.consumption", Formatter.formatNumber(steamReactor.getReactorEnergyOutput() / 50.0, 2)));
                 WailaCommonHandler.addTankInfo(helper, blockEntity);
             }
 

@@ -18,7 +18,7 @@ public class SteamTurbineInfo implements IInfoProvider {
             TileEntityBasicTurbine turbine = (TileEntityBasicTurbine) blockEntity;
             text(helper, tier(turbine.getSourceTier()));
             text(helper, translate("probe.energy.output", Formatter.formatNumber(turbine.getEnergyProduction(), 3)));
-            text(helper, translate("probe.energy.output.max", turbine.getEnergyProduction()));
+            text(helper, translate("probe.energy.output.max", 40));
             WailaCommonHandler.addTankInfo(helper, turbine);
         }
     }

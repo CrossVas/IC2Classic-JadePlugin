@@ -84,7 +84,7 @@ public class CropInfo implements IInfoProvider {
                             textCentered(helper, translate(TextFormatter.RED, "probe.crop.grow.not"));
                         }
                     } else {
-                        bar(helper, currentStage, maxStage, translate("probe.crop.info.stage_done"), ColorUtils.GREEN);
+                        bar(helper, currentStage, maxStage, translate("probe.crop.info.stage_done", maxStage), ColorUtils.GREEN);
                     }
 
                     if (scanLevel >= 4) {

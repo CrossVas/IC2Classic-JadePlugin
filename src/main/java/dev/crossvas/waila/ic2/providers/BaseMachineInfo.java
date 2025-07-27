@@ -28,15 +28,16 @@ public class BaseMachineInfo implements IInfoProvider {
                 machine instanceof TileEntityUraniumEnricher) {
                 usage = null;
             }
-            float progress = 0;
-            float maxProgress = 0;
-            float progressPerTick = 0;
+            int progress = 0;
+            int maxProgress = 0;
+
+            int advProgress = 0;
+            int advMaxProgress = 0;
 
             if (machine instanceof TileEntityElectricMachine) {
                 TileEntityElectricMachine electricMachine = (TileEntityElectricMachine) machine;
-                progress = electricMachine.getProgress();
-                maxProgress = 1;
-                progressPerTick = electricMachine.progress;
+                progress = electricMachine.progress;
+                maxProgress = electricMachine.operationLength;
             }
 
             float speed = 0;
@@ -45,26 +46,25 @@ public class BaseMachineInfo implements IInfoProvider {
             double scaledProgress = 0;
 
             if (machine instanceof TileEntityAdvancedMachine) {
-                TileEntityAdvancedMachine advMAchine = (TileEntityAdvancedMachine) machine;
-                speed = advMAchine.speed;
-                maxSpeed = advMAchine.MaxSpeed;
+                TileEntityAdvancedMachine advMachine = (TileEntityAdvancedMachine) machine;
+                progress = advMachine.progress;
+                speed = advMachine.speed;
+                maxSpeed = advMachine.MaxSpeed;
                 scaledProgress = speed / maxSpeed;
-                if (advMAchine instanceof TileEntityInduction) {
+                if (advMachine instanceof TileEntityInduction) {
                     name = "probe.speed.heat";
-                } else if (advMAchine instanceof TileEntityRotary) {
+                } else if (advMachine instanceof TileEntityRotary) {
                     name = "probe.speed.rotation";
-                } else if (advMAchine instanceof TileEntitySingularity) {
+                } else if (advMachine instanceof TileEntitySingularity) {
                     name = "probe.speed.pressure";
-                } else if (advMAchine instanceof TileEntityCentrifuge || advMAchine instanceof TileEntityCompacting) {
+                } else if (advMachine instanceof TileEntityCentrifuge || advMachine instanceof TileEntityCompacting) {
                     name = "probe.speed.speed";
+                } else if (advMachine instanceof TileEntityVacuumCanner) {
+                    name = "probe.speed.vacuum";
                 }
-            }
-            if (machine instanceof TileEntityVacuumCanner) {
-                TileEntityVacuumCanner canner = (TileEntityVacuumCanner) machine;
-                name = "probe.speed.vacuum";
-                speed = canner.speed;
-                maxSpeed = canner.MaxSpeed;
-                scaledProgress = (double) speed / maxSpeed;
+                int operationsPerTick = advMachine.speed / 30;
+                advProgress = (int) Math.min(6.0E7F, (float) progress / operationsPerTick);
+                advMaxProgress = (int) Math.min(6.0E7F, (float) 4000 / operationsPerTick);
             }
 
             // tier
@@ -76,11 +76,16 @@ public class BaseMachineInfo implements IInfoProvider {
             if (speed > 0) {
                 bar(helper, (int) speed, (int) maxSpeed, translate(name, new DecimalFormat().format(scaledProgress * 100.0)), ColorUtils.SPEED);
             }
-            if (progress > 0) {
-                int scaledOp = (int) Math.min(6.0E7F, progress / progressPerTick);
-                int scaledMaxOp = (int) Math.min(6.0E7F, maxProgress / progressPerTick);
-                bar(helper, scaledOp, scaledMaxOp, translate("probe.progress.full.name", scaledOp, scaledMaxOp), ColorUtils.PROGRESS);
+            if (progress > 0 && advProgress == 0) {
+                addProgressBar(helper, progress, maxProgress);
+            }
+            if (advProgress > 0) {
+                addProgressBar(helper, advProgress, advMaxProgress);
             }
         }
+    }
+
+    public void addProgressBar(IWailaHelper helper, int current, int max) {
+        bar(helper, current, max, translate("probe.progress.full.name", current, max), ColorUtils.PROGRESS);
     }
 }

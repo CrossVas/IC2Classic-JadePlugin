@@ -32,7 +32,7 @@ public class WailaHelper implements IWailaHelper {
 
     @Override
     public void transferData(NBTTagCompound serverData) {
-        if (this.DATA.tagCount() != 0) {
+        if (this.DATA.tagCount() > 0) {
             serverData.setTag(WailaTags.TAG_DATA, this.DATA);
         }
     }

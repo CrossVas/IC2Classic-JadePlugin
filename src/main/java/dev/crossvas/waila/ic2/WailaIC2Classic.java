@@ -3,8 +3,10 @@ package dev.crossvas.waila.ic2;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.FMLInjectionData;
 import dev.crossvas.waila.ic2.utils.TextFormatter;
 import ic2.api.recipe.Recipes;
 import ic2.core.IC2;
@@ -17,10 +19,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+
+import java.io.File;
 
 @Mod(modid = Refs.ID, name = Refs.NAME, version = Refs.VERSION, acceptedMinecraftVersions = Refs.MC, dependencies = Refs.DEPS)
 public class WailaIC2Classic {
+
+    public Configuration CONFIG;
+    public static int DEFAULT_BAR_WIDTH;
 
     public static final String PROBE_ID = "probe";
 
@@ -28,6 +36,14 @@ public class WailaIC2Classic {
 
     public WailaIC2Classic() {
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent e) {
+        CONFIG = new Configuration(new File((File) FMLInjectionData.data()[6], "config/WailaAddonsIC2.cfg"));
+        CONFIG.load();
+        DEFAULT_BAR_WIDTH = CONFIG.getInt("defaultBarWidth", "general", 120, 120, Integer.MAX_VALUE, "Set Max Width for bar element (useful when using localizations that are longer than English)");
+        if (CONFIG.hasChanged()) CONFIG.save();
     }
 
     @Mod.EventHandler

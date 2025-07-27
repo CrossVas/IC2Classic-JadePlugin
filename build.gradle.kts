@@ -113,6 +113,7 @@ dependencies {
   runtimeOnlyNonPublishable(rfg.deobf("curse.maven:waila-73488:2230518"))
 
   implementation(rfg.deobf("curse.maven:extra-utilities-225561:2264383"))
+  implementation(rfg.deobf("curse.maven:carbon-config-898104:5504469"))
 
   implementation("it.unimi.dsi:fastutil:8.2.1")
 }

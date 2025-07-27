@@ -6,10 +6,7 @@ import dev.crossvas.waila.ic2.base.interfaces.IWailaHelper;
 import dev.crossvas.waila.ic2.utils.ColorUtils;
 import dev.crossvas.waila.ic2.utils.Formatter;
 import ic2.core.IC2;
-import ic2.core.block.generator.tileentity.TileEntityBaseGenerator;
-import ic2.core.block.generator.tileentity.TileEntityGenerator;
-import ic2.core.block.generator.tileentity.TileEntityGeoGenerator;
-import ic2.core.block.generator.tileentity.TileEntityWindGenerator;
+import ic2.core.block.generator.tileentity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 
@@ -21,13 +18,22 @@ public class BaseGeneratorInfo implements IInfoProvider {
     public void addInfo(IWailaHelper helper, TileEntity blockEntity, EntityPlayer player) {
         if (blockEntity instanceof TileEntityBaseGenerator) {
             TileEntityBaseGenerator generator = (TileEntityBaseGenerator) blockEntity;
-            int euProduction = generator instanceof TileEntityWindGenerator ? (int) ((TileEntityWindGenerator) generator).subproduction :  generator.isConverting() ? generator.production : Math.min(generator.production, generator.storage);
-            int maxOutput = 0;
+            int euProduction = generator instanceof TileEntityWindGenerator ? (int) ((TileEntityWindGenerator) generator).subproduction : generator.isConverting() ? generator.production : Math.min(generator.production, generator.storage);
+            int maxOutput = Math.max(0, generator.production);
             if (generator instanceof TileEntityGenerator) {
                 maxOutput = IC2.energyGeneratorBase;
             }
             if (generator instanceof TileEntityGeoGenerator) {
                 maxOutput = IC2.energyGeneratorGeo;
+            }
+            if (generator instanceof TileEntityWaterLV) {
+                maxOutput = 8;
+            } else if (generator instanceof TileEntityWaterMV) {
+                maxOutput = 64;
+            } else if (generator instanceof TileEntityWaterHV) {
+                maxOutput = 500;
+            } else if (generator instanceof TileEntityWaterGenerator) {
+                maxOutput = 2;
             }
             text(helper, tier(generator.getSourceTier()));
             text(helper, translate("probe.energy.output", Formatter.formatNumber(euProduction, 2)));
