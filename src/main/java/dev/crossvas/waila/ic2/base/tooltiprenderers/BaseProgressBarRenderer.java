@@ -27,7 +27,7 @@ public class BaseProgressBarRenderer implements IWailaTooltipRenderer {
     private final Map<List<String>, Tooltip> subTooltips = new HashMap<>();
 
     int offset = 4;
-    int globalMaxLineWidth = 0;
+    Map<List<String>, Integer> cachedWidths = new HashMap<>();
 
     @Override
     public Dimension getSize(String[] strings, IWailaCommonAccessor accessor) {
@@ -43,21 +43,16 @@ public class BaseProgressBarRenderer implements IWailaTooltipRenderer {
 
         FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 
-        // calculate line width
         int maxLineWidth = 0;
         for (String line : strings) {
-            int width = font.getStringWidth(line);
-            if (width > maxLineWidth) maxLineWidth = width;
+            maxLineWidth = Math.max(maxLineWidth, font.getStringWidth(line));
         }
 
-        if (maxLineWidth > globalMaxLineWidth) {
-            globalMaxLineWidth = maxLineWidth;
-        }
+        this.cachedWidths.put(key, maxLineWidth);
 
         boolean isStringOnly = strings.length > 4 && "1".equals(strings[4]);
         int height = isStringOnly ? 10 : 11;
-
-        return new Dimension(globalMaxLineWidth + offset, height);
+        return new Dimension(maxLineWidth + offset, height);
     }
 
     /**
@@ -87,7 +82,9 @@ public class BaseProgressBarRenderer implements IWailaTooltipRenderer {
         String fluidIconId = strings[6];
         Fluid fluid = FluidRegistry.getFluid(fluidIconId);
 
-        int maxLineWidth = Math.max(globalMaxLineWidth + offset, WailaIC2Classic.DEFAULT_BAR_WIDTH);
+        List<String> key = Arrays.asList(strings);
+        int maxLineWidth = this.cachedWidths.getOrDefault(key, WailaIC2Classic.DEFAULT_BAR_WIDTH);
+        maxLineWidth = Math.max(maxLineWidth + offset, WailaIC2Classic.DEFAULT_BAR_WIDTH);
 
         int barHeight = 11;
         int textWidth = font.getStringWidth(text);
