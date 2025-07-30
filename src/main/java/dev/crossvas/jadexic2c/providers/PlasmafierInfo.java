@@ -14,8 +14,6 @@ public class PlasmafierInfo implements IInfoProvider {
     public void addInfo(IJadeHelper helper, TileEntity blockEntity, EntityPlayer player) {
         if (blockEntity instanceof TileEntityPlasmafier) {
             TileEntityPlasmafier plasmafier = (TileEntityPlasmafier) blockEntity;
-            text(helper, tier(plasmafier.getTier()));
-            text(helper, maxIn(plasmafier.maxInput));
             text(helper, usage(10240));
 
             int plasma = plasmafier.getPumpCharge();

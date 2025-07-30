@@ -21,7 +21,7 @@ public class AdjustableTransformerInfo implements IInfoProvider {
             text(helper, translatable("probe.energy.output.max", energyPacket));
             text(helper, translatable("probe.packet.tick", packets));
             EnergyContainer container = EnergyContainer.getContainer(transformer);
-            addStats(helper, player, () -> addCableOut(helper, container));
+            addCableOut(helper, container);
         }
     }
 }

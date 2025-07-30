@@ -2,6 +2,7 @@ package dev.crossvas.jadexic2c.providers;
 
 import dev.crossvas.jadexic2c.base.interfaces.IInfoProvider;
 import dev.crossvas.jadexic2c.base.interfaces.IJadeHelper;
+import dev.crossvas.jadexic2c.utils.TextFormatter;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.block.base.util.info.misc.IWrench;
 import ic2.core.inventory.filters.IFilter;
@@ -9,9 +10,6 @@ import ic2.core.util.obj.IWrenchableTile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
 
 public class WrenchableInfo implements IInfoProvider {
 
@@ -32,9 +30,9 @@ public class WrenchableInfo implements IInfoProvider {
             }
             if (show) {
                 if (handItem.getItem() instanceof IWrench) {
-                    text(helper, translatable("probe.wrenchable.drop_chance.info", new TextComponentString(actualRate + "%").setStyle(new Style().setColor(TextFormatting.AQUA))).setStyle(new Style().setColor(TextFormatting.GRAY)));
+                    textCentered(helper, TextFormatter.GRAY.translate("probe.wrenchable.drop_chance.info", TextFormatter.AQUA.literal(actualRate + "%")));
                 } else {
-                    text(helper, translatable("probe.wrenchable.info").setStyle(new Style().setColor(TextFormatting.GOLD)));
+                    textCentered(helper, TextFormatter.GOLD.translate("probe.wrenchable.info"));
                 }
             }
         }

@@ -14,8 +14,6 @@ public class OreScannerInfo implements IInfoProvider {
     public void addInfo(IJadeHelper helper, TileEntity blockEntity, EntityPlayer player) {
         if (blockEntity instanceof TileEntityOreScanner) {
             TileEntityOreScanner scanner = (TileEntityOreScanner) blockEntity;
-            text(helper, tier(scanner.getTier()));
-            text(helper, maxIn(scanner.maxInput));
             text(helper, usage(1000));
 
             int blocks = scanner.currentBlocks;

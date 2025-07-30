@@ -17,8 +17,6 @@ public class UraniumEnricherInfo implements IInfoProvider {
     public void addInfo(IJadeHelper helper, TileEntity blockEntity, EntityPlayer player) {
         if (blockEntity instanceof TileEntityUraniumEnricher) {
             TileEntityUraniumEnricher enricher = (TileEntityUraniumEnricher) blockEntity;
-            text(helper, tier(enricher.getTier()));
-            text(helper, maxIn(enricher.maxInput));
             IUranium type = enricher.getType();
             int cost = 0;
             if (type != null) {

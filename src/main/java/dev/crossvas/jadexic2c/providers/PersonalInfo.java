@@ -2,15 +2,13 @@ package dev.crossvas.jadexic2c.providers;
 
 import dev.crossvas.jadexic2c.base.interfaces.IInfoProvider;
 import dev.crossvas.jadexic2c.base.interfaces.IJadeHelper;
+import dev.crossvas.jadexic2c.utils.TextFormatter;
+import ic2.api.classic.trading.providers.ITradeProvider;
 import ic2.core.block.personal.base.TileEntityPersonalStorageBase;
 import ic2.core.block.personal.base.misc.IOwnerBlock;
-import ic2.core.block.personal.tile.TileEntityEnergyOMat;
 import ic2.core.block.personal.tile.TileEntityIridiumStone;
-import ic2.core.block.personal.tile.TileEntityTradeOMat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextFormatting;
 
 public class PersonalInfo implements IInfoProvider {
 
@@ -25,32 +23,31 @@ public class PersonalInfo implements IInfoProvider {
                 TileEntityPersonalStorageBase personalStorage = (TileEntityPersonalStorageBase) personal;
                 owner = player.world.getPlayerEntityByUUID(personalStorage.owner);
                 addOwnerInfo(helper, owner);
-                text(helper, translatable("probe.personal.view", status(personalStorage.allowView)).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
-                text(helper, translatable("probe.personal.import", status(personalStorage.allowInjection)).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
-                text(helper, translatable("probe.personal.export", status(personalStorage.allowExtraction)).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
-                text(helper, translatable("probe.personal.team", status(personalStorage.allowTeam)).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
+                text(helper, TextFormatter.LIGHT_PURPLE.translate("probe.personal.view", status(personalStorage.allowView)));
+                text(helper, TextFormatter.LIGHT_PURPLE.translate("probe.personal.import", status(personalStorage.allowInjection)));
+                text(helper, TextFormatter.LIGHT_PURPLE.translate("probe.personal.import", status(personalStorage.allowInjection)));
+                text(helper, TextFormatter.LIGHT_PURPLE.translate("probe.personal.export", status(personalStorage.allowExtraction)));
+                text(helper, TextFormatter.LIGHT_PURPLE.translate("probe.personal.team", status(personalStorage.allowTeam)));
             }
             if (personal instanceof TileEntityIridiumStone) {
                 TileEntityIridiumStone personalStone = (TileEntityIridiumStone) personal;
                 owner = player.world.getPlayerEntityByUUID(personalStone.owner);
                 addOwnerInfo(helper, owner);
             }
-            if (personal instanceof TileEntityTradeOMat) {
-                TileEntityTradeOMat tradeOMat = (TileEntityTradeOMat) personal;
-                owner = player.world.getPlayerEntityByUUID(tradeOMat.owner);
+            if (personal instanceof ITradeProvider) {
+                ITradeProvider trader = (ITradeProvider) personal;
+                owner = player.world.getPlayerEntityByUUID(trader.getOwner());
                 addOwnerInfo(helper, owner);
             }
-            if (personal instanceof TileEntityEnergyOMat) {
-                TileEntityEnergyOMat tradeOMat = (TileEntityEnergyOMat) personal;
-                owner = player.world.getPlayerEntityByUUID(tradeOMat.owner);
-                addOwnerInfo(helper, owner);
+            if (owner != null) {
+                text(helper, TextFormatter.AQUA.translate("probe.personal.access", status(owner == player)));
             }
         }
     }
 
     public void addOwnerInfo(IJadeHelper helper, EntityPlayer owner) {
         if (owner != null) {
-            text(helper, translatable("probe.personal.owner", owner.getDisplayName().setStyle(new Style().setColor(TextFormatting.GREEN))).setStyle(new Style().setColor(TextFormatting.AQUA)));
+            text(helper, TextFormatter.AQUA.translate("probe.personal.owner", TextFormatter.GREEN.component(owner.getDisplayName())));
         }
     }
 }

@@ -32,7 +32,7 @@ public class BaseGeneratorInfo implements IInfoProvider {
                 TileEntitySolarTurbine solarTurbine = (TileEntitySolarTurbine) generator;
                 int heat = solarTurbine.heat;
                 int maxHeat = 24000;
-                bar(helper, heat, maxHeat, translatable("probe.machine.heat", Formatter.THERMAL_GEN.format((float) heat / 240.0F)), ColorUtils.ORANGE);
+                bar(helper, heat, maxHeat, translatable("probe.machine.heat", Formatter.formatNumber((double) heat / 240, 4)).appendText("%"), ColorUtils.ORANGE);
             }
             if (generator instanceof TileEntityThermalGenerator) {
                 TileEntityThermalGenerator thermal = (TileEntityThermalGenerator) generator;

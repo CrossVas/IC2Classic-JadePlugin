@@ -3,14 +3,13 @@ package dev.crossvas.jadexic2c.providers;
 import dev.crossvas.jadexic2c.base.interfaces.IInfoProvider;
 import dev.crossvas.jadexic2c.base.interfaces.IJadeHelper;
 import dev.crossvas.jadexic2c.utils.ColorUtils;
+import dev.crossvas.jadexic2c.utils.TextFormatter;
 import ic2.core.block.misc.tile.TileEntityBarrel;
 import ic2.core.inventory.filters.IFilter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Tuple;
-import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -55,12 +54,12 @@ public class BarrelInfo implements IInfoProvider {
                     maxValue = 24000.0 * Math.pow(3.0, brewQuality == 4 ? 6.0 : (double) brewQuality);
                     current = age / maxValue * 100.0;
                     text(helper, translatable(getBrewType(brewType)));
-                    textCentered(helper, translatable("probe.barrel.status.storage.name").setStyle(new Style().setColor(TextFormatting.YELLOW)));
+                    textCentered(helper, TextFormatter.YELLOW.translate("probe.barrel.status.storage.name"));
                     bar(helper, wheatAmount, 64, translatable("probe.barrel.beer.wheat.name", wheatAmount), ColorUtils.YELLOW);
                     bar(helper, hopsAmount, 64, translatable("probe.barrel.beer.hops.name", hopsAmount), ColorUtils.GREEN);
-                    bar(helper, waterAmount, 32, translatable("probe.info.fluid", waterFluid.getLocalizedName(), waterAmount, 32 + "k"), -1, waterFluid.getFluid().getName());
+                    bar(helper, waterAmount, 32, translatable("probe.info.fluid", waterFluid.getLocalizedName(), waterAmount, 32 + "k"), ColorUtils.BLUE, waterFluid.getFluid().getName());
 
-                    textCentered(helper, translatable("probe.barrel.status.brew.name").setStyle(new Style().setColor(TextFormatting.YELLOW)));
+                    textCentered(helper, TextFormatter.YELLOW.translate("probe.barrel.status.brew.name"));
                     text(helper, translatable("probe.barrel.beer.quality." + brewQuality + ".name"));
                     text(helper, translatable("probe.barrel.beer.alc." + alcoholLevel + ".name"));
                     text(helper, translatable("probe.barrel.beer.solid." + solidRatio + ".name"));
@@ -71,7 +70,7 @@ public class BarrelInfo implements IInfoProvider {
                     maxValue = barrel.timeNedForRum(sugarcane);
                     age = (int) Math.min(barrel.age, maxValue);
                     text(helper, translatable(getBrewType(brewType)));
-                    textCentered(helper, translatable("probe.barrel.status.brew.name").setStyle(new Style().setColor(TextFormatting.YELLOW)));
+                    textCentered(helper, TextFormatter.YELLOW.translate("probe.barrel.status.brew.name"));
                     bar(helper, sugarcane, 32, translatable("probe.barrel.beer.sugar_cane.name", sugarcane), ColorUtils.GREEN);
                     bar(helper, age, (int) maxValue, new TextComponentString(format.format(Math.min(age, maxValue) * 100.0 / maxValue) + "%"), ColorUtils.PROGRESS);
                     break;

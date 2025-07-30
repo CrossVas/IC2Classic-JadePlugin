@@ -4,15 +4,15 @@ import dev.crossvas.jadexic2c.base.elements.CommonBarElement;
 import dev.crossvas.jadexic2c.base.elements.CommonTextElement;
 import dev.crossvas.jadexic2c.utils.EnergyContainer;
 import dev.crossvas.jadexic2c.utils.Formatter;
+import dev.crossvas.jadexic2c.utils.TextFormatter;
 import ic2.core.inventory.filters.CommonFilters;
 import ic2.core.inventory.filters.IFilter;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+
 
 public interface IInfoProvider {
 
@@ -46,14 +46,19 @@ public interface IInfoProvider {
     }
 
     default void addAveragesFull(IJadeHelper helper, EnergyContainer container) {
-        addAveragesIn(helper, container);
-        addAveragesOut(helper, container);
+        int energyIn = container.getAverageIn();
+        int energyOUt = container.getAverageOut();
+        if (energyIn > 0 || energyOUt > 0) {
+            text(helper, TextFormatter.EMPTY.literal(""));
+            addAveragesIn(helper, container);
+            addAveragesOut(helper, container);
+        }
     }
 
     default void addAveragesIn(IJadeHelper helper, EnergyContainer container) {
         int averageIn = container.getAverageIn();
         if (averageIn > 0) {
-            text(helper, translatable("tooltip.item.eu_reader.cable_flow_in", Formatter.EU_FORMAT.format(averageIn)).setStyle(new Style().setColor(TextFormatting.AQUA)));
+            text(helper, TextFormatter.AQUA.translate("tooltip.item.eu_reader.cable_flow_in", Formatter.EU_FORMAT.format(averageIn)));
         }
     }
 
@@ -64,14 +69,15 @@ public interface IInfoProvider {
     default void addAveragesOut(IJadeHelper helper, EnergyContainer container) {
         int averageOut = container.getAverageOut();
         if (averageOut > 0) {
-            text(helper, translatable("tooltip.item.eu_reader.cable_flow_out", Formatter.EU_FORMAT.format(averageOut)).setStyle(new Style().setColor(TextFormatting.AQUA)));
+            text(helper, TextFormatter.AQUA.translate("tooltip.item.eu_reader.cable_flow_out", Formatter.EU_FORMAT.format(averageOut)));
         }
     }
 
     default void addCableOut(IJadeHelper helper, EnergyContainer container) {
         int averageOut = container.getAverageOut();
         if (averageOut > 0) {
-            text(helper, translatable("tooltip.item.eu_reader.cable_flow", Formatter.EU_FORMAT.format(averageOut)).setStyle(new Style().setColor(TextFormatting.AQUA)));
+            text(helper, TextFormatter.EMPTY.literal(""));
+            text(helper, TextFormatter.AQUA.translate("tooltip.item.eu_reader.cable_flow", Formatter.EU_FORMAT.format(averageOut)));
         }
     }
 
@@ -106,7 +112,7 @@ public interface IInfoProvider {
     }
 
     default ITextComponent translatable(String translatable, Object... args) {
-        return new TextComponentTranslation(translatable, args);
+        return TextFormatter.EMPTY.translate(translatable, args);
     }
 
     default ITextComponent tier(int tier) {
@@ -119,18 +125,5 @@ public interface IInfoProvider {
 
     default ITextComponent usage(int usage) {
         return translatable("probe.energy.usage", usage);
-    }
-
-    default void addStats(IJadeHelper helper, EntityPlayer player, IStatProvider stats) {
-        if (player.isSneaking()) {
-            text(helper, translatable("probe.energy.stats.info").setStyle(new Style().setColor(TextFormatting.GREEN)), true);
-            stats.addTooltips();
-        } else {
-            text(helper, translatable("probe.sneak.info").setStyle(new Style().setColor(TextFormatting.AQUA)), true);
-        }
-    }
-
-    interface IStatProvider {
-        void addTooltips();
     }
 }

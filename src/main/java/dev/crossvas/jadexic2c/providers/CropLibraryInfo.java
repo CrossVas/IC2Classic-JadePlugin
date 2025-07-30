@@ -13,9 +13,6 @@ public class CropLibraryInfo implements IInfoProvider {
     @Override
     public void addInfo(IJadeHelper helper, TileEntity blockEntity, EntityPlayer player) {
         if (blockEntity instanceof TileEntitySeedManager) {
-            TileEntitySeedManager cropLibrary = (TileEntitySeedManager) blockEntity;
-            text(helper, tier(cropLibrary.tier));
-            text(helper, maxIn(cropLibrary.maxInput));
             text(helper, usage(1));
         }
     }

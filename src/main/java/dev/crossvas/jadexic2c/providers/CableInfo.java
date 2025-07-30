@@ -19,7 +19,7 @@ public class CableInfo implements IInfoProvider {
             text(helper, translatable("probe.energy.limit", cable.getConductorBreakdownEnergy() - 1));
             text(helper, translatable("probe.energy.loss", Formatter.CABLE_LOSS_FORMAT.format(cable.getConductionLoss())));
             EnergyContainer container = EnergyContainer.getContainer(cable);
-            addStats(helper, player, () -> addCableOut(helper, container));
+            addCableOut(helper, container);
         }
     }
 }

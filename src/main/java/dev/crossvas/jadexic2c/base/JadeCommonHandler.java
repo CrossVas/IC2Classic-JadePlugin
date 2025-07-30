@@ -14,12 +14,10 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import java.util.List;
-import java.util.WeakHashMap;
 
 public class JadeCommonHandler {
 
     public static List<IInfoProvider> INFO_PROVIDERS = new ObjectArrayList<>();
-    public static WeakHashMap<String, String> MAPPED_FLUIDS = new WeakHashMap<>();
 
     static {
         INFO_PROVIDERS.add(EUStorageInfo.THIS);
@@ -44,6 +42,7 @@ public class JadeCommonHandler {
         INFO_PROVIDERS.add(PlasmafierInfo.THIS);
         INFO_PROVIDERS.add(RangedPumpInfo.THIS);
         INFO_PROVIDERS.add(SolarPanelInfo.THIS);
+        INFO_PROVIDERS.add(BatteryStationInfo.THIS);
         INFO_PROVIDERS.add(SteamTurbineInfo.THIS);
         INFO_PROVIDERS.add(StoneMachineInfo.THIS);
         INFO_PROVIDERS.add(TeleporterInfo.THIS);
@@ -87,7 +86,6 @@ public class JadeCommonHandler {
     }
 
     public static void loadTankInfo(IJadeHelper helper, FluidStack fluidStack, int capacity) {
-        MAPPED_FLUIDS.put(fluidStack.getFluid().getName(), fluidStack.getFluid().getStill().toString());
         int color = fluidStack.getUnlocalizedName().contains("lava") ? -29925 : fluidStack.getFluid().getColor(fluidStack) | -16777216;
         helper.add(new CommonBarElement(fluidStack.amount, capacity,
                 new TextComponentTranslation("probe.info.fluid", fluidStack.getLocalizedName(),

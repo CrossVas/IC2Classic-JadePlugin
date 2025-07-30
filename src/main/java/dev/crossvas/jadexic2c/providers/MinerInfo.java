@@ -2,13 +2,12 @@ package dev.crossvas.jadexic2c.providers;
 
 import dev.crossvas.jadexic2c.base.interfaces.IInfoProvider;
 import dev.crossvas.jadexic2c.base.interfaces.IJadeHelper;
+import dev.crossvas.jadexic2c.utils.TextFormatter;
 import ic2.api.classic.item.IMiningDrill;
 import ic2.core.block.machine.low.TileEntityMiner;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextFormatting;
 
 public class MinerInfo implements IInfoProvider {
 
@@ -18,8 +17,6 @@ public class MinerInfo implements IInfoProvider {
     public void addInfo(IJadeHelper helper, TileEntity blockEntity, EntityPlayer player) {
         if (blockEntity instanceof TileEntityMiner) {
             TileEntityMiner miner = (TileEntityMiner) blockEntity;
-            text(helper, tier(miner.getTier()));
-            text(helper, maxIn(miner.maxInput));
             text(helper, usage(getEnergyUsage(miner)));
 
             float progress = miner.getProgress();
@@ -27,7 +24,7 @@ public class MinerInfo implements IInfoProvider {
             boolean isOperating = miner.isOperating();
             text(helper, translatable(isStuck ? "probe.miner.stuck" : isOperating ? "probe.miner.mining" : "probe.miner.retracting"));
 
-            text(helper, translatable("probe.miner.progress", miner.getPipeTip().getY()).setStyle(new Style().setColor(TextFormatting.GOLD)));
+            text(helper, TextFormatter.GOLD.translate("probe.miner.progress", miner.getPipeTip().getY()));
             if (!isStuck && progress > 0) {
                 int scaledOp = (int) Math.min(6.0E7F, progress);
                 int scaledMaxOp = (int) Math.min(6.0E7F, miner.getMaxProgress());

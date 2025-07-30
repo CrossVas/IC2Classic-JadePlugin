@@ -3,11 +3,11 @@ package dev.crossvas.jadexic2c.providers;
 import dev.crossvas.jadexic2c.base.interfaces.IInfoProvider;
 import dev.crossvas.jadexic2c.base.interfaces.IJadeHelper;
 import dev.crossvas.jadexic2c.utils.ColorUtils;
+import dev.crossvas.jadexic2c.utils.TextFormatter;
 import ic2.api.classic.crops.ISeedCrop;
 import ic2.api.crops.CropCard;
 import ic2.api.crops.Crops;
 import ic2.api.crops.ICropTile;
-import ic2.core.block.crop.Ic2Crops;
 import ic2.core.block.crop.TileEntityCrop;
 import ic2.core.inventory.filters.IFilter;
 import ic2.core.item.crop.ItemCropSeed;
@@ -72,21 +72,20 @@ public class CropInfo implements IInfoProvider {
                 if (scanLevel < 1 && currentStage < maxStage && crop != Crops.weed) {
                     text(helper, translatable("probe.crop.unknown"));
                 } else {
-                    text(helper, translatable("probe.crop.name", Ic2Crops.instance.getCropName(crop).getLocalized()).setStyle(new Style().setColor(TextFormatting.GOLD)));
                     text(helper, translatable("probe.crop.discovered", TextFormatting.AQUA + crop.getDiscoveredBy()));
                 }
 
                 if (scanLevel < 4 && currentStage < maxStage) {
                     bar(helper, scanLevel, 4, translatable("probe.crop.info.scan", scanLevel, 4), ColorUtils.GREEN);
                 } else {
-                    textCentered(helper, translatable("probe.crop.growth").setStyle(new Style().setColor(TextFormatting.YELLOW)));
+                    textCentered(helper, TextFormatter.YELLOW.translate("probe.crop.growth"));
                     if (currentStage < maxStage) {
                         bar(helper, currentStage, maxStage, translatable("probe.crop.info.stage", currentStage, maxStage), ColorUtils.GREEN);
                         bar(helper, points, maxPoints, translatable("probe.crop.info.points", points, maxPoints), ColorUtils.GREEN);
                         if (canGrow) {
                             textCentered(helper, translatable("probe.crop.grow.rate", growthSpeed).setStyle(new Style().setColor(TextFormatting.GOLD)));
                         } else {
-                            textCentered(helper, translatable("probe.crop.grow.not").setStyle(new Style().setColor(TextFormatting.RED)));
+                            textCentered(helper, TextFormatter.RED.translate("probe.crop.grow.not"));
                         }
                     } else {
                         bar(helper, currentStage, maxStage, translatable("probe.crop.info.stage_done"), ColorUtils.GREEN);
@@ -94,7 +93,7 @@ public class CropInfo implements IInfoProvider {
 
                     if (scanLevel >= 4) {
                         // title
-                        textCentered(helper, translatable("probe.crop.stats").setStyle(new Style().setColor(TextFormatting.YELLOW)));
+                        textCentered(helper, TextFormatter.YELLOW.translate("probe.crop.stats"));
                         bar(helper, growth, 31, translatable("probe.crop.info.growth", growth, 31), ColorUtils.CYAN);
                         bar(helper, gain, 31, translatable("probe.crop.info.gain", gain, 31), -5829955);
                         bar(helper, resistance, 31, translatable("probe.crop.info.resistance", resistance, 31), ColorUtils.rgb(255, 170, 0));
@@ -108,18 +107,18 @@ public class CropInfo implements IInfoProvider {
                 if (crop instanceof ISeedCrop) {
                     ISeedCrop seedCrop = (ISeedCrop) crop;
                     boolean isDroppingSeed = seedCrop.doDropSeeds(tile);
-                    textCentered(helper, translatable("probe.crop.seed_drop", status(isDroppingSeed)).setStyle(new Style().setColor(TextFormatting.GOLD)));
+                    textCentered(helper, TextFormatter.GOLD.translate("probe.crop.seed_drop", status(isDroppingSeed)));
                 }
             }
 
             // title
-            textCentered(helper, translatable("probe.crop.storage").setStyle(new Style().setColor(TextFormatting.YELLOW)));
+            textCentered(helper, TextFormatter.YELLOW.translate("probe.crop.storage"));
             bar(helper, fertilizer, 300, translatable("probe.crop.info.fertilizer", fertilizer, 300), ColorUtils.rgb(86, 54, 36));
             bar(helper, water, 200, translatable("probe.crop.info.water", water, 200), ColorUtils.rgb(93, 105, 255));
             bar(helper, weedex, 150, translatable("probe.crop.info.weedex", weedex, 150), ColorUtils.rgb(255, 85, 255));
 
             // title
-            textCentered(helper, translatable("probe.crop.env").setStyle(new Style().setColor(TextFormatting.YELLOW)));
+            textCentered(helper, TextFormatter.YELLOW.translate("probe.crop.env"));
             bar(helper, nutrients, 20, translatable("probe.crop.info.nutrients", nutrients, 20), ColorUtils.rgb(0, 255, 5));
             bar(helper, humidity, 20, translatable("probe.crop.info.humidity", humidity, 20), ColorUtils.rgb(93, 105, 255));
             bar(helper, env, 10, translatable("probe.crop.info.env", env, 10), ColorUtils.CYAN);

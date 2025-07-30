@@ -24,7 +24,7 @@ public class ChargePadInfo implements IInfoProvider {
             text(helper, translatable("probe.energy.transfer", transfer));
             text(helper, translatable("probe.block.range", range + 1));
             EnergyContainer container = EnergyContainer.getContainer(pad);
-            addStats(helper, player, () -> addAveragesIn(helper, container));
+            addAveragesIn(helper, container);
         }
     }
 }
