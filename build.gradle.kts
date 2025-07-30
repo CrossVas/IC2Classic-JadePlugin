@@ -11,7 +11,7 @@ plugins {
 
 // Project properties
 group = "dev.crossvas"
-version = "1.7.10-1.0.1.1"
+version = "1.7.10-1.0.2"
 
 // Set the toolchain version to decouple the Java we run Gradle with from the Java used to compile and run the mod
 java {
