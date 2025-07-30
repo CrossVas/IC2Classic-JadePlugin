@@ -6,8 +6,6 @@ import dev.crossvas.waila.ic2.base.interfaces.IWailaHelper;
 import dev.crossvas.waila.ic2.utils.ColorUtils;
 import dev.crossvas.waila.ic2.utils.Formatter;
 import dev.crossvas.waila.ic2.utils.TextFormatter;
-import ic2.api.recipe.RecipeOutput;
-import ic2.api.recipe.Recipes;
 import ic2.core.block.machine.tileentity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -15,8 +13,6 @@ import net.minecraft.tileentity.TileEntity;
 public class ElectricBlockInfo implements IInfoProvider {
 
     public static final ElectricBlockInfo THIS = new ElectricBlockInfo();
-
-    int lastScrap = 0;
 
     @Override
     public void addInfo(IWailaHelper helper, TileEntity blockEntity, EntityPlayer player) {
@@ -40,19 +36,16 @@ public class ElectricBlockInfo implements IInfoProvider {
             if (baseTile instanceof TileEntityMatter) {
                 TileEntityMatter massFab = (TileEntityMatter) baseTile;
                 int progress = massFab.energy;
-                int maxProgress = 7000000;
+                int maxProgress = 1000000;
                 if (progress > 0) {
-                    double finalProgress = (double) progress / 7000000 * 100.0;
+                    double finalProgress = (double) progress / maxProgress * 100.0;
                     if (finalProgress > 100) finalProgress = 100;
                     bar(helper, progress, maxProgress, translate("probe.speed.massFab",
                             Formatter.THERMAL_GEN.format(finalProgress)), -4441721);
                 }
-                RecipeOutput output = Recipes.matterAmplifier.getOutputFor(massFab.inventory[0], false);
-                if (output != null) {
-                    this.lastScrap = output.metadata.getInteger("amplification");
-                }
+
                 if (massFab.scrap > 0) {
-                    bar(helper, massFab.scrap, lastScrap, translate("probe.matter.amplifier", massFab.scrap), -10996205);
+                    bar(helper, 1, 1, translate("probe.matter.amplifier", massFab.scrap), -10996205);
                 }
             }
         }
