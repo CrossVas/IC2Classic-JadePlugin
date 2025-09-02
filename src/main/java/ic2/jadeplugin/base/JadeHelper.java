@@ -173,6 +173,21 @@ public class JadeHelper implements IJadeHelper {
         appendText(component);
     }
 
+    public void addWikiLiteral(String literal) {
+        CommonWikiElement wikiElement = new CommonWikiElement(Component.literal(literal));
+        add(wikiElement);
+    }
+
+    public void addWiki(String translatable) {
+        CommonWikiElement wikiElement = new CommonWikiElement(Component.translatable(translatable));
+        add(wikiElement);
+    }
+
+    public void addWiki(Component component) {
+        CommonWikiElement wikiElement = new CommonWikiElement(component);
+        add(wikiElement);
+    }
+
     public void bar(int current, int max, Component text, int color) {
         CommonBarElement element = new CommonBarElement(current, max, text, color);
         add(element);

@@ -13,6 +13,7 @@ import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.text.DecimalFormat;
@@ -24,8 +25,9 @@ public class BaseMachineInfo implements IInfoProvider {
     @Override
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof BaseMachineTileEntity baseMachine) {
+            boolean blazingRecipe = baseMachine instanceof RefineryTileEntity refineryTile && refineryTile.inventory.get(1).is(Items.BLAZE_POWDER);
             helper.maxIn(baseMachine.getMaxInput());
-            helper.usage(baseMachine.getEnergyPerTick());
+            helper.usage(blazingRecipe ? baseMachine.getEnergyPerTick() * 8 : baseMachine.getEnergyPerTick());
             if (baseMachine instanceof SlowGrinderTileEntity slowGrinder) {
                 double chance = slowGrinder.getChance(0.25F) * 100.0F;
                 helper.defaultText("ic2.probe.scrap.chance.name", TextFormatter.formatPercentage((int) chance).literal(Formatters.XP_FORMAT.format(chance)));

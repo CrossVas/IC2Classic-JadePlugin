@@ -61,5 +61,7 @@
   "info.tube.send": "Can Send: %s",
   "info.tube.receive": "Can Receive: %s",
   "info.tube.id": "Network ID: %s",
-  "info.tube.direction.set": "Use IC2 Wrench to tweak the direction!"
+  "info.tube.direction.set": "Use IC2 Wrench to tweak the direction!",
+  "info.wiki": "Wiki Entry",
+  "info.wiki.sneak": "Sneak for WIKI info"
 }

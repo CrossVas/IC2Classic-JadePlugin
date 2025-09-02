@@ -61,5 +61,7 @@
   "info.tube.send": "보낼 수 있음: %s",
   "info.tube.receive": "받을 수 있음: %s",
   "info.tube.id": "네트워크 ID: %s",
-  "info.tube.direction.set": "IC2 렌치를 사용하여 방향을 조정하세요!"
+  "info.tube.direction.set": "IC2 렌치를 사용하여 방향을 조정하세요!",
+  "info.wiki": "위키 항목",
+  "info.wiki.sneak": "위키 정보를 보려면 웅크리기"
 }

@@ -61,5 +61,7 @@
   "info.tube.send": "送信可能: %s",
   "info.tube.receive": "受信可能: %s",
   "info.tube.id": "ネットワークID: %s",
-  "info.tube.direction.set": "IC2レンチで方向を調整!"
+  "info.tube.direction.set": "IC2レンチで方向を調整!",
+  "info.wiki": "ウィキ項目",
+  "info.wiki.sneak": "ウィキ情報を見るにはスニーク"
 }

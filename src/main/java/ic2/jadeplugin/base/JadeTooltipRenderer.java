@@ -4,10 +4,7 @@ import com.google.gson.JsonObject;
 import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.JadeTags;
 import ic2.jadeplugin.base.elements.*;
-import ic2.jadeplugin.elements.CustomBoxElement;
-import ic2.jadeplugin.elements.CustomBoxStyle;
-import ic2.jadeplugin.elements.CustomProgressStyle;
-import ic2.jadeplugin.elements.CustomTextElement;
+import ic2.jadeplugin.elements.*;
 import ic2.jadeplugin.helpers.Formatter;
 import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.ChatFormatting;
@@ -70,6 +67,13 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                     CommonTextElement textElement = CommonTextElement.load(elementTag);
                     boolean centered = textElement.isCentered();
                     IElement jadeElement = new CustomTextElement(format(textElement.getText(), defaultFormat)).centered(centered).translate(textElement.getTranslation()).align(IElement.Align.valueOf(textElement.getSide()));
+                    addElement(tooltip, jadeElement, elementTag);
+                }
+                // wiki
+                if (serverTag.contains(JADE_ADDON_WIKI_TAG)) {
+                    CompoundTag elementTag = serverTag.getCompound(JADE_ADDON_WIKI_TAG);
+                    CommonWikiElement wikiElement = CommonWikiElement.load(elementTag);
+                    IElement jadeElement = new CustomMultiLineTextElement(format(wikiElement.getText(), defaultFormat));
                     addElement(tooltip, jadeElement, elementTag);
                 }
                 // bar

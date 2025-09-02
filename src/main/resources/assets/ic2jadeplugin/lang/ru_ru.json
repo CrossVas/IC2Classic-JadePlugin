@@ -61,5 +61,7 @@
   "info.tube.send": "Может отправить: %s",
   "info.tube.receive": "Может принимать: %s",
   "info.tube.id": "Идентификатор сети: %s",
-  "info.tube.direction.set": "Ключи из IC2 настраивают направление!"
+  "info.tube.direction.set": "Ключи из IC2 настраивают направление!",
+  "info.wiki": "Запись из вики",
+  "info.wiki.sneak": "Нажмите красться для информации из вики"
 }

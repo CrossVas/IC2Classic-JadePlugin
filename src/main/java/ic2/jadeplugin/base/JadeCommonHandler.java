@@ -87,7 +87,8 @@ public class JadeCommonHandler {
                 WaveGenInfo.THIS,
                 WindmillGenInfo.THIS,
                 IndustrialWorkbenchInfo.THIS,
-                BasicTubeInfo.THIS
+                BasicTubeInfo.THIS,
+                WikiInfo.THIS
         );
     }
 
