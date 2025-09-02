@@ -40,7 +40,7 @@ public interface IInfoProvider extends ILangHelper {
     }
 
     default boolean has(Player player, IFilter filter) {
-        return StackUtil.hasHotbarItems(player, filter);
+        return StackUtil.hasHotbarItems(player, filter) || player.isCreative();
     }
 
     default void addWikiComponent(JadeHelper helper, Player player, BlockState blockState) {
