@@ -1,5 +1,7 @@
 package ic2.jadeplugin.providers;
 
+import ic2.api.crops.ICrop;
+import ic2.api.crops.ICropTile;
 import ic2.api.reactor.IReactorChamber;
 import ic2.core.block.base.tiles.impls.*;
 import ic2.core.block.generators.tiles.SolarPanelTileEntity;
@@ -37,6 +39,16 @@ public class WikiInfo implements IInfoProvider {
             addWikiComponent(helper, player, "flux_generator");
         } else {
             addWikiComponent(helper, player, blockEntity.getBlockState());
+        }
+
+        if (blockEntity instanceof ICropTile cropTile) {
+            ICrop crop = cropTile.getCrop();
+            if (crop != null) {
+                int scanLevel = cropTile.getScanLevel();
+                if (scanLevel >= 4) {
+                    addWikiComponent(helper, player, crop.id().getPath());
+                }
+            }
         }
     }
 }
