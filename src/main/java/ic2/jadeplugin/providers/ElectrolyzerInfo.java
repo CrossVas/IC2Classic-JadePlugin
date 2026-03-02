@@ -16,11 +16,11 @@ public class ElectrolyzerInfo implements IInfoProvider {
     @Override
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof ElectrolyzerTileEntity electrolyzer) {
-            addElectrolyzerInfo(helper, electrolyzer.shouldDrain(), electrolyzer.canPower(), electrolyzer.getTransferrate(), electrolyzer.energy, electrolyzer.maxEnergy);
+            addElectrolyzerInfo(helper, electrolyzer.shouldDrain(), electrolyzer.canPower(), electrolyzer.getTransferRate(), electrolyzer.energy, electrolyzer.maxEnergy);
         }
 
         if (blockEntity instanceof ChargedElectrolyzerTileEntity electrolyzer) {
-            addElectrolyzerInfo(helper, electrolyzer.shouldDrain(), electrolyzer.canPower(), electrolyzer.getTransferrate(), electrolyzer.energy, electrolyzer.maxEnergy);
+            addElectrolyzerInfo(helper, electrolyzer.shouldDrain(), electrolyzer.canPower(), electrolyzer.getTransferRate(), electrolyzer.energy, electrolyzer.maxEnergy);
         }
     }
 

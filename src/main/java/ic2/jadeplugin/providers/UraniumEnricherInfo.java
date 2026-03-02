@@ -1,7 +1,7 @@
 package ic2.jadeplugin.providers;
 
 import ic2.core.block.machines.recipes.misc.EnrichRecipe;
-import ic2.core.block.machines.tiles.hv.UraniumEnchricherTileEntity;
+import ic2.core.block.machines.tiles.hv.UraniumEnricherTileEntity;
 import ic2.core.utils.helpers.SanityHelper;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
@@ -14,7 +14,7 @@ public class UraniumEnricherInfo implements IInfoProvider {
 
     @Override
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
-        if (blockEntity instanceof UraniumEnchricherTileEntity enricher) {
+        if (blockEntity instanceof UraniumEnricherTileEntity enricher) {
             helper.maxIn(enricher.getMaxInput());
             EnrichRecipe recipe = enricher.getRecipeList().getRecipe(enricher.storedType);
             helper.usage(recipe != null ? recipe.getEnergyCost() + 100 : 100);

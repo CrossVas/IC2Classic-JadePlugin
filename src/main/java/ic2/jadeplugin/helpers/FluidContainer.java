@@ -44,14 +44,14 @@ public class FluidContainer {
         long currentTime = pipe.getWorldObj().getGameTime();
         FluidNet.TransportStats stats = FluidNet.INSTANCE.getStats(pipe);
         if(lastTimeIn == -1) {
-            lastFluids.putAll(stats.getTransfered());
+            lastFluids.putAll(stats.getTransferred());
             lastTimeIn = currentTime;
             return;
         }
         double diff = currentTime - lastTimeIn;
         if(diff <= 0) return;
         lastTimeIn = currentTime;
-        for(Object2LongMap.Entry<Fluid> entry : stats.getTransfered().object2LongEntrySet()) {
+        for(Object2LongMap.Entry<Fluid> entry : stats.getTransferred().object2LongEntrySet()) {
             Fluid fluid = entry.getKey();
             long current = entry.getLongValue();
             averages.computeIfAbsent(fluid, T -> new LongAverager(20)).addEntry((int)((current - lastFluids.getLong(fluid)) / diff));

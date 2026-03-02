@@ -20,6 +20,11 @@ public class CustomTextElement extends TextElement {
         super(component);
     }
 
+    public CustomTextElement(Component component, boolean centered) {
+        super(component);
+        this.centered = centered;
+    }
+
     @Override
     public Vec2 getSize() {
         Font font = Minecraft.getInstance().font;

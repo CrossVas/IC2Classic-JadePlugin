@@ -30,7 +30,7 @@ public class BasicPipeInfo implements IInfoProvider {
         JadeHelper.TANK_REMOVAL.add(blockEntity);
         FluidNet.TransportStats stats = FluidNet.INSTANCE.getStats((IFluidPipe) blockEntity);
         FluidContainer container = FluidContainer.getContainer((IFluidPipe) blockEntity);
-        for (Fluid fluid : stats.getTransfered().keySet()) {
+        for (Fluid fluid : stats.getTransferred().keySet()) {
             int avg = container.getAverage(fluid);
             if (avg <= 0) continue;
             if (fluid != null) {
