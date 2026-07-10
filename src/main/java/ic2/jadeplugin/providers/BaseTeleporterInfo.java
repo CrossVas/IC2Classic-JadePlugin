@@ -28,7 +28,7 @@ public class BaseTeleporterInfo implements IInfoProvider {
                 helper.paddingY(3);
                 helper.text(translate("ic2.probe.base_teleporter.connections").withStyle(ChatFormatting.GOLD));
                 for (BaseTeleporterTileEntity.LocalTarget target : targets) {
-                    if (target.getPos() != tp.getPosition()) {
+                    if (!target.getPos().equals(tp.getPosition())) {
                         helper.defaultText(Component.literal(" - ").append(TextFormatter.AQUA.literal(target.getName())));
                     }
                 }

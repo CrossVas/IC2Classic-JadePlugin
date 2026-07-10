@@ -22,7 +22,6 @@ public class TeleporterInfo implements IInfoProvider {
         if (blockEntity instanceof TeleporterTileEntity teleport) {
             helper.defaultText(translate("ic2.probe.teleporter.type", translate("ic2.probe.teleporter.type." + teleport.getProbeSendType().name().toLowerCase())));
             TeleporterTarget target = teleport.target;
-            int cost = teleport.getBaseCost();
             long availableEnergy = teleport.getAvailableEnergy();
             if (target == null) {
                 helper.defaultText("ic2.probe.teleporter.no_target");
@@ -31,7 +30,8 @@ public class TeleporterInfo implements IInfoProvider {
             } else {
                 helper.defaultText("ic2.probe.teleporter.target", SanityHelper.toPascalCase(target.getDimension().location().getPath()), target.getTargetPosition().getX(), target.getTargetPosition().getY(), target.getTargetPosition().getZ());
             }
-            int displayCost = cost;
+            int cost = teleport.getBaseCost();
+            int displayCost = 0;
             switch (teleport.getProbeSendType()) {
                 case ENTITY:
                     displayCost = TeleportUtil.getWeightOfEntity(player, IC2.CONFIG.teleporterKeepItems.get()) * cost * 5;
@@ -44,6 +44,8 @@ public class TeleporterInfo implements IInfoProvider {
                     break;
                 case SPAWNER:
                     displayCost = cost * 25000;
+                    break;
+                default: displayCost = cost;
             }
             helper.defaultText("ic2.probe.teleporter.cost", TextFormatter.GREEN.literal(Formatters.EU_FORMAT.format(displayCost)));
         }
