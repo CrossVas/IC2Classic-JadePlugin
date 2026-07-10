@@ -48,24 +48,14 @@ public interface IInfoProvider extends ILangHelper {
         Objects.requireNonNull(location);
         String translatableWikiEntry = "wiki.ic2.preview." + location.getPath() + ".desc";
         if (has(player, WIKI) && Language.getInstance().has(translatableWikiEntry)) {
-            if (player.isCrouching()) {
-                helper.centered(TextFormatter.GOLD.translate("info.wiki"));
-                helper.addWiki(TextFormatter.GRAY.translate(translatableWikiEntry));
-            } else {
-                helper.centered(TextFormatter.AQUA.translate("info.wiki.sneak"));
-            }
+            helper.addWiki(TextFormatter.GRAY.translate(translatableWikiEntry));
         }
     }
 
     default void addWikiComponent(JadeHelper helper, Player player, String wikiEntry) {
         String translatable = "wiki.ic2.preview." + wikiEntry + ".desc";
         if (has(player, WIKI) && Language.getInstance().has(translatable)) {
-            if (player.isCrouching()) {
-                helper.centered(TextFormatter.GOLD.translate("info.wiki"));
-                helper.addWiki(TextFormatter.GRAY.translate(translatable));
-            }  else {
-                helper.centered(TextFormatter.AQUA.translate("info.wiki.sneak"));
-            }
+            helper.addWiki(TextFormatter.GRAY.translate(translatable));
         }
     }
 }

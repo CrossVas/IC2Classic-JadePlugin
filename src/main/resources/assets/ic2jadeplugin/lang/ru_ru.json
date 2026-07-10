@@ -5,6 +5,7 @@
   "config.jade.plugin_ic2.remove_renders_fluid": "Стиль резервуаров IC2",
   "config.jade.plugin_ic2.renderer": "Отображать информацию",
   "config.jade.plugin_ic2.wrenchable_info": "Информация от ключа",
+  "config.jade.plugin_ic2.show_wiki": "Показать информацию из Вики",
 
   "ic2.probe.wrenchable.drop_chance.info": "%s%% Шанс выпадения",
   "ic2.probe.wrenchable.info": "Съемный блок",

@@ -12,6 +12,7 @@ public class JadeTags {
     public static final ResourceLocation INFO_RENDERER = IC2JadePlugin.rl("renderer");
     public static final ResourceLocation WRENCHABLE = IC2JadePlugin.rl("wrenchable_info");
     public static final ResourceLocation TANK_RENDER = IC2JadePlugin.rl("remove_renders_fluid");
+    public static final ResourceLocation WIKI = IC2JadePlugin.rl("show_wiki");
     // general config
     public static final ResourceLocation TOP_STYLE = IC2JadePlugin.rl("force_top_style");
 

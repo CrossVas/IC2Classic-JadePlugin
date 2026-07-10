@@ -5,6 +5,7 @@
   "config.jade.plugin_ic2.remove_renders_fluid": "IC2 탱크에 맞춤 스타일 사용",
   "config.jade.plugin_ic2.renderer": "렌더 툴팁",
   "config.jade.plugin_ic2.wrenchable_info": "렌치블 정보",
+  "config.jade.plugin_ic2.show_wiki": "위키 정보 표시",
 
   "ic2.probe.wrenchable.drop_chance.info": "%s%% 드롭 확률",
   "ic2.probe.wrenchable.info": "렌치블 블록",

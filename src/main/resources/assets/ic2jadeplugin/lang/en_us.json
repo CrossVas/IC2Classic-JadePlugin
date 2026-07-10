@@ -5,6 +5,7 @@
   "config.jade.plugin_ic2.remove_renders_fluid": "Use custom style for IC2 Tanks",
   "config.jade.plugin_ic2.renderer": "Render Tooltips",
   "config.jade.plugin_ic2.wrenchable_info": "Wrenchable Info",
+  "config.jade.plugin_ic2.show_wiki": "Show Wiki Info",
 
   "ic2.probe.wrenchable.drop_chance.info": "%s%% Drop Chance",
   "ic2.probe.wrenchable.info": "Wrenchable Block",

@@ -14,6 +14,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -45,6 +46,7 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
     private void appendTooltips(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
         boolean forceTOPStyle = config.get(TOP_STYLE);
         boolean showIC2Tanks = config.get(TANK_RENDER);
+        boolean wiki = config.get(WIKI);
         TextFormatter defaultFormat = forceTOPStyle ? TextFormatter.WHITE : TextFormatter.GRAY;
         CompoundTag serverData = accessor.getServerData();
         IElementHelper helper = tooltip.getElementHelper();
@@ -70,11 +72,17 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                     addElement(tooltip, jadeElement, elementTag);
                 }
                 // wiki
-                if (serverTag.contains(JADE_ADDON_WIKI_TAG)) {
+                if (serverTag.contains(JADE_ADDON_WIKI_TAG) && wiki) {
+                    Player player = accessor.getPlayer();
                     CompoundTag elementTag = serverTag.getCompound(JADE_ADDON_WIKI_TAG);
                     CommonWikiElement wikiElement = CommonWikiElement.load(elementTag);
                     IElement jadeElement = new CustomMultiLineTextElement(format(wikiElement.getText(), defaultFormat));
-                    addElement(tooltip, jadeElement, elementTag);
+                    if (player.isCrouching()) {
+                        addElement(tooltip, new CustomTextElement(TextFormatter.GOLD.translate("info.wiki"), true), elementTag);
+                        addElement(tooltip, jadeElement, elementTag);
+                    } else {
+                        addElement(tooltip, new CustomTextElement(TextFormatter.AQUA.translate("info.wiki.sneak"), true), elementTag);
+                    }
                 }
                 // bar
                 if (serverTag.contains(JADE_ADDON_BAR_TAG)) {

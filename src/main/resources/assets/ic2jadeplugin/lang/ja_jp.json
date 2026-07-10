@@ -5,6 +5,7 @@
   "config.jade.plugin_ic2.remove_renders_fluid": "IC2タンクにカスタムスタイル使用",
   "config.jade.plugin_ic2.renderer": "ツールチップを表示",
   "config.jade.plugin_ic2.wrenchable_info": "レンチ情報",
+  "config.jade.plugin_ic2.show_wiki": "Wiki情報を表示",
 
   "ic2.probe.wrenchable.drop_chance.info": "%s%% ドロップ確率",
   "ic2.probe.wrenchable.info": "レンチで回収可能な",
