@@ -7,8 +7,7 @@ import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.JadeTags;
 import ic2.jadeplugin.elements.CustomBoxStyle;
 import ic2.jadeplugin.elements.CustomProgressStyle;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
 import snownee.jade.api.BlockAccessor;
@@ -27,7 +26,7 @@ public class TreetapAndBucketInfo implements IBlockComponentProvider {
                 BlockState state = blockAccessor.getBlockState();
                 int current = state.getValue(TreeTapAndBucketBlock.FILL_STAGE);
                 if (current > 0) {
-                    iTooltip.add(iTooltip.getElementHelper().progress((float) current / 5, Component.translatable("ic2.probe.progress.full.name", current, 5).withStyle(ChatFormatting.WHITE),
+                    iTooltip.add(iTooltip.getElementHelper().progress((float) current / 5, TextFormatter.WHITE.translate("ic2.probe.progress.full.name", current, 5),
                             new CustomProgressStyle().color(-10996205, ColorUtils.darker(-10996205)), new CustomBoxStyle(ColorUtils.doubleDarker(-10996205)), true));
                 }
             }

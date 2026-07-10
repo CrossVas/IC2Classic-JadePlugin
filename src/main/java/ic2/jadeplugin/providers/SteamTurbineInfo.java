@@ -15,7 +15,6 @@ public class SteamTurbineInfo implements IInfoProvider {
     @Override
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof SteamTurbineTileEntity turbine) {
-            helper.tier(turbine.getSourceTier());
             helper.defaultText("ic2.probe.eu.output.current.name", TextFormatter.GREEN.literal(Formatter.formatNumber(turbine.getEUProduction(), 3)));
             helper.maxOut(turbine.getMaxEnergyOutput());
             helper.addTankInfo(turbine);

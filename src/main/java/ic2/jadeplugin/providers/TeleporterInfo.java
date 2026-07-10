@@ -20,7 +20,7 @@ public class TeleporterInfo implements IInfoProvider {
     @Override
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof TeleporterTileEntity teleport) {
-            helper.defaultText(translate("ic2.probe.teleporter.type", translate("ic2.probe.teleporter.type." + teleport.getProbeSendType().name().toLowerCase())));
+            helper.defaultText(TextFormatter.WHITE.translate("ic2.probe.teleporter.type", TextFormatter.WHITE.translate("ic2.probe.teleporter.type." + teleport.getProbeSendType().name().toLowerCase())));
             TeleporterTarget target = teleport.target;
             long availableEnergy = teleport.getAvailableEnergy();
             if (target == null) {
@@ -52,6 +52,6 @@ public class TeleporterInfo implements IInfoProvider {
     }
 
     private void displayCapacity(JadeHelper helper, String translationKey, double value) {
-        helper.defaultText("ic2.probe.teleporter.capacity", translate(translationKey, Formatter.formatNumber(value, 6)));
+        helper.defaultText("ic2.probe.teleporter.capacity", TextFormatter.WHITE.translate(translationKey, Formatter.formatNumber(value, 6)));
     }
 }

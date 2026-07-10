@@ -6,7 +6,7 @@ import ic2.core.block.machines.tiles.ev.UUCropLibraryTileEntity;
 import ic2.core.utils.helpers.StackUtil;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
-import net.minecraft.ChatFormatting;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -26,7 +26,7 @@ public class CropLibraryInfo implements IInfoProvider {
             }
 
             if (baseCropLibrary instanceof UUCropLibraryTileEntity uum) {
-                helper.bar(uum.uu_matter, 512, string("UU Matter: " + uum.uu_matter + " / " + 512), -5829955);
+                helper.bar(uum.uu_matter, 512, TextFormatter.WHITE.literal("UU Matter: " + uum.uu_matter + " / " + 512), -5829955);
             }
 
             int cropCount = baseCropLibrary.syncer.getCropCount();
@@ -43,7 +43,7 @@ public class CropLibraryInfo implements IInfoProvider {
 
             List<ItemStack> stackList = StackUtil.copyNonEmpty(baseCropLibrary.storage.getTypes());
             if (!stackList.isEmpty())
-                helper.grid(stackList, translate("ic2.probe.crop_library.name").withStyle(ChatFormatting.YELLOW));
+                helper.grid(stackList, TextFormatter.YELLOW.translate("ic2.probe.crop_library.name"));
         }
     }
 }

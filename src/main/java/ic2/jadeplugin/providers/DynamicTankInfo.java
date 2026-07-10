@@ -5,6 +5,7 @@ import ic2.core.block.storage.tiles.tank.TankTileEntity;
 import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -18,7 +19,7 @@ public class DynamicTankInfo implements IInfoProvider {
             helper.addTankInfo(tank);
             if (!tank.isValid || tank.isDynamic()) {
                 long time = tank.clockTime(512);
-                helper.bar((int) time, 512, translate("ic2.multiblock.reform.next", 512 - time), ColorUtils.GRAY);
+                helper.bar((int) time, 512, TextFormatter.WHITE.translate("ic2.multiblock.reform.next", 512 - time), ColorUtils.GRAY);
             }
         }
         if (blockEntity instanceof BaseLinkingTileEntity linkingTile) {

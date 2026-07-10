@@ -15,17 +15,16 @@ public class OceanGenInfo implements IInfoProvider {
     @Override
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof OceanGeneratorTileEntity oceanGen) {
-            helper.tier(oceanGen.getSourceTier());
             helper.defaultText("ic2.probe.eu.output.current.name", TextFormatter.GREEN.literal(Formatter.formatNumber(oceanGen.getEUProduction(), 3)));
             helper.maxOut(oceanGen.getMaxEnergyOutput());
 
             int water = Integer.parseInt(Formatter.formatInt(oceanGen.waterFound, 4));
             int coral = Integer.parseInt(Formatter.formatInt(oceanGen.coralsFound, 4));
             if (water > 0) {
-                helper.bar(water, 1000, translate("ic2.probe.water.full.name", water, 1000), -16733185);
+                helper.bar(water, 1000, TextFormatter.WHITE.translate("ic2.probe.water.full.name", water, 1000), -16733185);
             }
             if (coral > 0) {
-                helper.bar(coral, 50, translate("ic2.probe.corals.full.name", coral, 50), -5829955);
+                helper.bar(coral, 50, TextFormatter.WHITE.translate("ic2.probe.corals.full.name", coral, 50), -5829955);
             }
         }
     }

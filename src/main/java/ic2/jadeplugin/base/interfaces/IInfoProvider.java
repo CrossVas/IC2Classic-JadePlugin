@@ -4,7 +4,6 @@ import ic2.core.inventory.filter.IFilter;
 import ic2.core.inventory.filter.SpecialFilters;
 import ic2.core.item.tool.WikiItem;
 import ic2.core.utils.helpers.StackUtil;
-import ic2.core.utils.tooltips.ILangHelper;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.locale.Language;
@@ -17,7 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 
-public interface IInfoProvider extends ILangHelper {
+public interface IInfoProvider {
 
     IFilter READER = SpecialFilters.EU_READER;
     IFilter THERMOMETER = SpecialFilters.THERMOMETER;

@@ -16,7 +16,7 @@ public class TransformerInfo implements IInfoProvider {
     @Override
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof BaseTransformerTileEntity transformer) {
-            helper.text(translate("ic2.probe.transformer.inverted", (transformer.isActive() ? ChatFormatting.GREEN : ChatFormatting.RED) + String.valueOf(transformer.isActive())).withStyle(ChatFormatting.GOLD));
+            helper.text(TextFormatter.GOLD.translate("ic2.probe.transformer.inverted", (transformer.isActive() ? ChatFormatting.GREEN : ChatFormatting.RED) + String.valueOf(transformer.isActive())));
             helper.maxIn(transformer.isActive() ? transformer.lowOutput : transformer.highOutput);
             helper.maxOut(transformer.isActive() ? transformer.highOutput : transformer.lowOutput);
             helper.defaultText("ic2.probe.transformer.packets.name", TextFormatter.AQUA.literal("" + (transformer.isActive() ? 1 : 4)));

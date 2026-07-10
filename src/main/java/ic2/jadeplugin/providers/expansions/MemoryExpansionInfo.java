@@ -4,6 +4,7 @@ import ic2.core.block.machines.logic.crafter.CraftRecipe;
 import ic2.core.block.machines.tiles.nv.MemoryExpansionTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.player.Player;
@@ -30,8 +31,8 @@ public class MemoryExpansionInfo implements IInfoProvider {
             }
 
             if (!common.isEmpty()) {
-                helper.bar(common.size(), 18, translate("info.memory.recipes", common.size(), 18), -16733185);
-                helper.grid(common, translate("ic2.probe.memory_expansion.can_craft.name").withStyle(ChatFormatting.YELLOW));
+                helper.bar(common.size(), 18, TextFormatter.WHITE.translate("info.memory.recipes", common.size(), 18), -16733185);
+                helper.grid(common, TextFormatter.WHITE.translate("ic2.probe.memory_expansion.can_craft.name").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

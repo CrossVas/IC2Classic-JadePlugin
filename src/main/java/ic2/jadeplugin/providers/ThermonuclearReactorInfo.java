@@ -7,6 +7,7 @@ import ic2.core.utils.helpers.Formatters;
 import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -20,7 +21,7 @@ public class ThermonuclearReactorInfo implements IInfoProvider {
             addReactorInfo(helper, reactor, player);
             if (!reactor.isValid || reactor.isDynamic()) {
                 long time = reactor.clockTime(512);
-                helper.bar((int) time, 512, translate("ic2.multiblock.reform.next", 512 - time), ColorUtils.GRAY);
+                helper.bar((int) time, 512, TextFormatter.WHITE.translate("ic2.multiblock.reform.next", 512 - time), ColorUtils.GRAY);
             }
         }
         if (blockEntity instanceof BaseLinkingTileEntity linking) {
@@ -33,12 +34,12 @@ public class ThermonuclearReactorInfo implements IInfoProvider {
 
     public void addReactorInfo(JadeHelper helper, FusionReactorTileEntity reactor, Player player) {
         if (PlayerHandler.getHandler(player).hasThermometer()) {
-            helper.bar(reactor.heat, 48000, translate("ic2.probe.reactor.heat.name",
+            helper.bar(reactor.heat, 48000, TextFormatter.WHITE.translate("ic2.probe.reactor.heat.name",
                     Formatters.EU_READER_FORMAT.format(reactor.heat), Formatters.EU_READER_FORMAT.format((double) 48000)), getBarColor(reactor.heat, 48000));
         }
         int material = reactor.material;
         if (material > 0) {
-            helper.bar(material, 10000, translate("ic2.progress.material.name", Formatters.EU_READER_FORMAT.format(material), Formatters.EU_READER_FORMAT.format(10000)), ColorUtils.GRAY);
+            helper.bar(material, 10000, TextFormatter.WHITE.translate("ic2.progress.material.name", Formatters.EU_READER_FORMAT.format(material), Formatters.EU_READER_FORMAT.format(10000)), ColorUtils.GRAY);
         }
         helper.addTankInfo(reactor);
     }

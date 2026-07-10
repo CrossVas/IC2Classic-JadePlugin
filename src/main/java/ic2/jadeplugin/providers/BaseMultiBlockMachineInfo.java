@@ -7,6 +7,7 @@ import ic2.core.block.base.tiles.impls.machine.multi.BasicMultiMachineTileEntity
 import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntIterator;
 import it.unimi.dsi.fastutil.ints.IntList;
@@ -37,12 +38,12 @@ public class BaseMultiBlockMachineInfo implements IInfoProvider {
 
             if (!multiMachine.isValid) {
                 long time = multiMachine.clockTime(512);
-                helper.bar((int) time, 512, translate("ic2.multiblock.reform.next", 512 - time), ColorUtils.GRAY);
+                helper.bar((int) time, 512, TextFormatter.WHITE.translate("ic2.multiblock.reform.next", 512 - time), ColorUtils.GRAY);
             }
 
             if (multiMachine instanceof BasicMultiMachineTileEntity machineTile) {
                 if (multiMachine.isMachineWorking() || machineTile.getProgress() > 0) {
-                    helper.bar((int) machineTile.getProgress(), (int) machineTile.getMaxProgress(), translate("ic2.probe.progress.full.name", (int) machineTile.getProgress() / 1000, (int) machineTile.getMaxProgress() / 1000).append("t"), -16733185);
+                    helper.bar((int) machineTile.getProgress(), (int) machineTile.getMaxProgress(), TextFormatter.WHITE.translate("ic2.probe.progress.full.name", (int) machineTile.getProgress() / 1000, (int) machineTile.getMaxProgress() / 1000).append("t"), -16733185);
                 }
             }
 
@@ -59,7 +60,7 @@ public class BaseMultiBlockMachineInfo implements IInfoProvider {
                     do {
                         if (!activeSlotsIterator.hasNext()) {
                             for (int i = 0; i < progressFilter.size(); ++i) {
-                                helper.bar(progressFilter.getInt(i), maxProgressFilter.getInt(i), translate("ic2.probe.progress.full.name", progressFilter.getInt(i) / 1000, maxProgressFilter.getInt(i) / 1000).append("t"), -16733185);
+                                helper.bar(progressFilter.getInt(i), maxProgressFilter.getInt(i), TextFormatter.WHITE.translate("ic2.probe.progress.full.name", progressFilter.getInt(i) / 1000, maxProgressFilter.getInt(i) / 1000).append("t"), -16733185);
                             }
                             break label38;
                         }

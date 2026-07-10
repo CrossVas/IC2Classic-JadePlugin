@@ -18,18 +18,17 @@ public class BaseGeneratorInfo implements IInfoProvider {
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof BaseGeneratorTileEntity gen) {
             float euProduction = gen.getEUProduction();
-            helper.tier(gen.getSourceTier());
             helper.defaultText("ic2.probe.eu.output.current.name", TextFormatter.GREEN.literal(Formatter.formatNumber(euProduction, 3)));
             helper.maxOut(gen.getMaxEnergyOutput());
 
             if (gen instanceof SolarTurbineTileEntity solarTurbine) {
                 int heat = solarTurbine.getHeat();
                 int maxHeat = solarTurbine.getMaxHeat();
-                helper.bar(heat, maxHeat, translate("ic2.probe.heat.name", Formatter.THERMAL_GEN.format((float) heat / 240.0F)), -295680);
+                helper.bar(heat, maxHeat, TextFormatter.WHITE.translate("ic2.probe.heat.name", Formatter.THERMAL_GEN.format((float) heat / 240.0F)), -295680);
             }
             if (gen instanceof ThermalGeneratorTileEntity thermal) {
                 float subProduction = thermal.subProduction.getProduction(2000.0F);
-                helper.text(translate("ic2.probe.production.passive.name", TextFormatter.GREEN.literal(Formatter.THERMAL_GEN.format(subProduction))));
+                helper.text(TextFormatter.WHITE.translate("ic2.probe.production.passive.name", TextFormatter.GREEN.literal(Formatter.THERMAL_GEN.format(subProduction))));
             }
             if (gen instanceof SolarTurbineTileEntity || gen instanceof ThermalGeneratorTileEntity || gen instanceof GeoGenTileEntity || gen instanceof LiquidFuelGenTileEntity) {
                 helper.addTankInfo(gen);
@@ -38,7 +37,7 @@ public class BaseGeneratorInfo implements IInfoProvider {
             int fuel = gen.getFuel();
             int maxFuel = gen.getMaxFuel();
             if ((gen instanceof SlagGenTileEntity || gen instanceof FuelGenTileEntity) && fuel > 0) {
-                helper.bar(fuel, maxFuel, translate("ic2.probe.fuel.storage.name").append(String.valueOf(fuel)), ColorUtils.DARK_GRAY);
+                helper.bar(fuel, maxFuel, TextFormatter.WHITE.translate("ic2.probe.fuel.storage.name").append(String.valueOf(fuel)), ColorUtils.DARK_GRAY);
             }
         }
     }

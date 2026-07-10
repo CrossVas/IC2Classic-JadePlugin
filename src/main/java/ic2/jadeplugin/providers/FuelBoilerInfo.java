@@ -6,7 +6,7 @@ import ic2.core.utils.helpers.Formatters;
 import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
-import net.minecraft.network.chat.Component;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -22,15 +22,15 @@ public class FuelBoilerInfo implements IInfoProvider {
             int heat = fuelBoiler.getHeat();
             int maxHeat = fuelBoiler.getMaxHeat();
 
-            helper.bar(fuel, maxFuel, Component.translatable("ic2.probe.fuel.storage.name").append(String.valueOf(fuel)), ColorUtils.DARK_GRAY);
+            helper.bar(fuel, maxFuel, TextFormatter.WHITE.translate("ic2.probe.fuel.storage.name").append(String.valueOf(fuel)), ColorUtils.DARK_GRAY);
             if (PlayerHandler.getHandler(player).hasThermometer()) {
-                helper.bar(heat, maxHeat, Component.translatable("ic2.probe.reactor.heat.name",
+                helper.bar(heat, maxHeat, TextFormatter.WHITE.translate("ic2.probe.reactor.heat.name",
                         heat / 30, Formatters.EU_READER_FORMAT.format((double) maxHeat / 30)), ColorUtils.GREEN);
             }
             helper.addTankInfo(fuelBoiler);
             if (!fuelBoiler.isValid) {
                 long time = fuelBoiler.clockTime(512);
-                helper.bar((int) time, 512, translate("ic2.multiblock.reform.next", 512 - time), ColorUtils.GRAY);
+                helper.bar((int) time, 512, TextFormatter.WHITE.translate("ic2.multiblock.reform.next", 512 - time), ColorUtils.GRAY);
             }
         }
     }

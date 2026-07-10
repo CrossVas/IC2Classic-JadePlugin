@@ -20,7 +20,7 @@ public class SteamTunnelInfo implements IInfoProvider {
             addTunnelInfo(helper, steamTunnel);
             if (!steamTunnel.isValid || steamTunnel.isDynamic()) {
                 long time = steamTunnel.clockTime(512);
-                helper.bar((int) time, 512, translate("ic2.multiblock.reform.next", 512 - time), ColorUtils.GRAY);
+                helper.bar((int) time, 512, TextFormatter.WHITE.translate("ic2.multiblock.reform.next", 512 - time), ColorUtils.GRAY);
             }
         }
         if (blockEntity instanceof BaseLinkingTileEntity linkingTile) {
@@ -32,7 +32,6 @@ public class SteamTunnelInfo implements IInfoProvider {
     }
 
     public void addTunnelInfo(JadeHelper helper, SteamTunnelTileEntity steamTunnel) {
-        helper.tier(steamTunnel.getSourceTier());
         helper.defaultText("ic2.probe.eu.output.current.name", TextFormatter.GREEN.literal(Formatter.formatNumber(steamTunnel.getEUProduction(), 3)));
         helper.maxOut(steamTunnel.getMaxEnergyOutput());
         helper.addTankInfo(steamTunnel);

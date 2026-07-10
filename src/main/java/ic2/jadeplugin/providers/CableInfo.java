@@ -3,14 +3,12 @@ package ic2.jadeplugin.providers;
 import ic2.core.block.cables.CableBlock;
 import ic2.core.block.cables.CableTileEntity;
 import ic2.core.utils.helpers.Formatters;
-import ic2.core.utils.tooltips.ILangHelper;
 import ic2.jadeplugin.JadeTags;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.base.removals.ModNameRender;
 import ic2.jadeplugin.helpers.EnergyContainer;
 import ic2.jadeplugin.helpers.TextFormatter;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -48,7 +46,7 @@ public class CableInfo implements IInfoProvider {
         }
     }
 
-    public static class CableIconProvider implements IBlockComponentProvider, ILangHelper {
+    public static class CableIconProvider implements IBlockComponentProvider {
 
         @Override
         public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
@@ -61,12 +59,12 @@ public class CableInfo implements IInfoProvider {
                     iTooltip.remove(Identifiers.MC_HARVEST_TOOL);
                     iTooltip.remove(Identifiers.CORE_OBJECT_NAME);
 
-                    Component fakeNameComponent = fakeStack.getHoverName().copy().withStyle(ChatFormatting.WHITE);
+                    Component fakeNameComponent = TextFormatter.WHITE.component(fakeStack.getHoverName());
                     iTooltip.add(0, new TextElement(fakeNameComponent).size(new Vec2(Minecraft.getInstance().font.width(fakeNameComponent.getString()) + 15, Minecraft.getInstance().font.lineHeight)));
                     elements.forEach(element -> iTooltip.append(0, element.align(IElement.Align.RIGHT)));
                     String fakeModName = ModIdentification.getModName(fakeStack);
                     String fakeModNameFormatted = String.format(Jade.CONFIG.get().getFormatting().getModName(), fakeModName);
-                    iTooltip.add(string(fakeModNameFormatted));
+                    iTooltip.add(TextFormatter.WHITE.literal(fakeModNameFormatted));
                     iTooltip.remove(ModNameRender.RELOCATE);
                 }
             }

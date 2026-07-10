@@ -23,10 +23,10 @@ public class BaseTeleporterInfo implements IInfoProvider {
             String name = tp.name;
             String networkID = tp.networkID;
             if (!targets.isEmpty()) {
-                helper.defaultText(translate("gui.ic2.base_teleporter.name").append(": ").append(TextFormatter.GOLD.literal(name)));
-                helper.defaultText(translate("gui.ic2.base_teleporter.network").append(": ").append(TextFormatter.GREEN.literal(networkID)));
+                helper.defaultText(TextFormatter.WHITE.translate("gui.ic2.base_teleporter.name").append(": ").append(TextFormatter.GOLD.literal(name)));
+                helper.defaultText(TextFormatter.WHITE.translate("gui.ic2.base_teleporter.network").append(": ").append(TextFormatter.GREEN.literal(networkID)));
                 helper.paddingY(3);
-                helper.text(translate("ic2.probe.base_teleporter.connections").withStyle(ChatFormatting.GOLD));
+                helper.defaultText(TextFormatter.GOLD.translate("ic2.probe.base_teleporter.connections"));
                 for (BaseTeleporterTileEntity.LocalTarget target : targets) {
                     if (!target.getPos().equals(tp.getPosition())) {
                         helper.defaultText(Component.literal(" - ").append(TextFormatter.AQUA.literal(target.getName())));

@@ -15,10 +15,9 @@ public class VillagerOMatInfo implements IInfoProvider {
     @Override
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof VillagerOMatTileEntity oMat) {
-            helper.maxIn(oMat.getMaxInput());
             helper.defaultText("ic2.probe.villager_o_mat.usage", TextFormatter.GREEN.literal(oMat.trades.getActiveTrades() * 6000 + " "));
-            helper.text(translate("ic2.probe.personal.owner", oMat.getOwner().getDisplayName().copy().withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.AQUA));
-            helper.bar((int) (1200 - oMat.clockTime(1200)), 1200, translate("ic2.probe.villager_o_mat.next", oMat.clockTime(1200)), -16733185);
+            helper.text(TextFormatter.AQUA.translate("ic2.probe.personal.owner", oMat.getOwner().getDisplayName().copy().withStyle(ChatFormatting.GREEN)));
+            helper.bar((int) (1200 - oMat.clockTime(1200)), 1200, TextFormatter.WHITE.translate("ic2.probe.villager_o_mat.next", oMat.clockTime(1200)), -16733185);
         }
     }
 }

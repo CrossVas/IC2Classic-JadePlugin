@@ -68,7 +68,7 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                     CompoundTag elementTag = serverTag.getCompound(JADE_ADDON_TEXT_TAG);
                     CommonTextElement textElement = CommonTextElement.load(elementTag);
                     boolean centered = textElement.isCentered();
-                    IElement jadeElement = new CustomTextElement(format(textElement.getText(), defaultFormat)).centered(centered).translate(textElement.getTranslation()).align(IElement.Align.valueOf(textElement.getSide()));
+                    IElement jadeElement = new CustomTextElement(textElement.getText()).centered(centered).translate(textElement.getTranslation()).align(IElement.Align.valueOf(textElement.getSide()));
                     addElement(tooltip, jadeElement, elementTag);
                 }
                 // wiki
@@ -76,7 +76,7 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                     Player player = accessor.getPlayer();
                     CompoundTag elementTag = serverTag.getCompound(JADE_ADDON_WIKI_TAG);
                     CommonWikiElement wikiElement = CommonWikiElement.load(elementTag);
-                    IElement jadeElement = new CustomMultiLineTextElement(format(wikiElement.getText(), defaultFormat));
+                    IElement jadeElement = new CustomMultiLineTextElement(wikiElement.getText());
                     if (player.isCrouching()) {
                         addElement(tooltip, new CustomTextElement(TextFormatter.GOLD.translate("info.wiki"), true), elementTag);
                         addElement(tooltip, jadeElement, elementTag);

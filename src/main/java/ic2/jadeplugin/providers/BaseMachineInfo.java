@@ -66,12 +66,12 @@ public class BaseMachineInfo implements IInfoProvider {
             if (baseMachine instanceof RareEarthExtractorTileEntity rareExtractor) {
                 material = (int) rareExtractor.materialProgress;
                 if (material > 0) {
-                    helper.bar(material, 1000, translate("ic2.probe.progress.material.name", Formatters.EU_READER_FORMAT.format(material)), -5829955);
+                    helper.bar(material, 1000, TextFormatter.WHITE.translate("ic2.probe.progress.material.name", Formatters.EU_READER_FORMAT.format(material)), -5829955);
                 }
             } else if (baseMachine instanceof RareEarthCentrifugeTileEntity rareEarthCentrifuge) {
                 material = (int) rareEarthCentrifuge.materialProgress;
                 if (material > 0) {
-                    helper.bar(material, 1000, translate("ic2.probe.progress.material.name", Formatters.EU_READER_FORMAT.format(material)), -5829955);
+                    helper.bar(material, 1000, TextFormatter.WHITE.translate("ic2.probe.progress.material.name", Formatters.EU_READER_FORMAT.format(material)), -5829955);
                 }
                 speed = rareEarthCentrifuge.getSpeed();
                 maxSpeed = rareEarthCentrifuge.getMaxSpeed();
@@ -85,7 +85,7 @@ public class BaseMachineInfo implements IInfoProvider {
             if (progress > 0) {
                 int scaledOp = (int) Math.min(6.0E7F, progress / progressPerTick);
                 int scaledMaxOp = (int) Math.min(6.0E7F, maxProgress / progressPerTick);
-                helper.bar(scaledOp, scaledMaxOp, translate("ic2.probe.progress.full.name", scaledOp, scaledMaxOp).append("t"), -16733185);
+                helper.bar(scaledOp, scaledMaxOp, TextFormatter.WHITE.translate("ic2.probe.progress.full.name", scaledOp, scaledMaxOp).append("t"), -16733185);
             }
         }
     }

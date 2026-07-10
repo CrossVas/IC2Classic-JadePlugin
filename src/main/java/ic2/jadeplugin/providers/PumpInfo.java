@@ -23,7 +23,7 @@ public class PumpInfo implements IInfoProvider {
             int progress = pump.getPumpProgress();
             int maxProgress = pump.getPumpMaxProgress();
             if (progress > 0) {
-                helper.bar(progress, maxProgress, translate("ic2.probe.progress.full.name", progress, maxProgress).append("t"), -16733185);
+                helper.bar(progress, maxProgress, TextFormatter.WHITE.translate("ic2.probe.progress.full.name", progress, maxProgress).append("t"), -16733185);
             }
             helper.addTankInfo(pump);
         }

@@ -5,6 +5,7 @@ import ic2.core.utils.helpers.Formatters;
 import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -21,11 +22,11 @@ public class ElectricFisherInfo implements IInfoProvider {
             int progress = (int) fisher.getProgress();
             int maxProgress = (int) fisher.getMaxProgress();
             if (progress > 0) {
-                helper.bar(progress, maxProgress, translate("ic2.probe.progress.full.name", Formatters.EU_READER_FORMAT.format(progress), maxProgress), -16733185);
+                helper.bar(progress, maxProgress, TextFormatter.WHITE.translate("ic2.probe.progress.full.name", Formatters.EU_READER_FORMAT.format(progress), maxProgress), -16733185);
             }
             if (!fisher.isValid || fisher.isDynamic()) {
                 long time = fisher.clockTime(512);
-                helper.bar((int) time, 512, translate("ic2.multiblock.reform.next", 512 - time), ColorUtils.GRAY);
+                helper.bar((int) time, 512, TextFormatter.WHITE.translate("ic2.multiblock.reform.next", 512 - time), ColorUtils.GRAY);
             }
         }
     }

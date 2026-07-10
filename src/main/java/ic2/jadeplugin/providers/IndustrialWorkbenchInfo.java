@@ -4,8 +4,8 @@ import ic2.core.block.machines.logic.crafter.CraftRecipe;
 import ic2.core.block.machines.tiles.nv.IndustrialWorkbenchTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
+import ic2.jadeplugin.helpers.TextFormatter;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -28,7 +28,7 @@ public class IndustrialWorkbenchInfo implements IInfoProvider {
                 }
             }
             if (!recipeOutputs.isEmpty()) {
-                helper.grid(recipeOutputs, translate("ic2.probe.memory_expansion.can_craft.name").withStyle(ChatFormatting.YELLOW));
+                helper.grid(recipeOutputs, TextFormatter.YELLOW.translate("ic2.probe.memory_expansion.can_craft.name"));
             }
         }
     }

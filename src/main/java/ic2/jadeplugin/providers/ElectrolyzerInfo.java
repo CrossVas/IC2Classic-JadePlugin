@@ -28,7 +28,7 @@ public class ElectrolyzerInfo implements IInfoProvider {
         helper.defaultText("ic2.probe.electrolyzer.transferrate.name", TextFormatter.GREEN.literal(transfer + ""));
         helper.defaultText("ic2.probe.electrolyzer." + (discharging ? (charging ? "transfer" : "discharging") : (charging ? "charging" : "nothing")) + ".name");
         if (energy > 0) {
-            helper.bar(energy, maxEnergy, translate("ic2.probe.progress.full.name", energy, maxEnergy).append(" EU"), ColorUtils.RED);
+            helper.bar(energy, maxEnergy, TextFormatter.WHITE.translate("ic2.probe.progress.full.name", energy, maxEnergy).append(" EU"), ColorUtils.RED);
         }
     }
 }

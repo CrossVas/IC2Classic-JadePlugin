@@ -5,7 +5,7 @@ import ic2.core.block.base.tiles.impls.BaseChargingBenchTileEntity;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.EnergyContainer;
-import net.minecraft.ChatFormatting;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -30,8 +30,8 @@ public class ChargingBenchInfo implements IInfoProvider {
             int benchAverageOut = bench.getMissingEnergy().getIntValue();
             if (missingEnergy > 0) {
                 int i = Math.min(benchAverageOut, missingEnergy);
-                helper.text(translate("ic2.probe.chargingBench.eta.name",
-                        DurationFormatUtils.formatDuration(i <= 0 ? 0L : (missingEnergy / i * 50L), "HH:mm:ss")).withStyle(ChatFormatting.GOLD));
+                helper.text(TextFormatter.GOLD.translate("ic2.probe.chargingBench.eta.name",
+                        DurationFormatUtils.formatDuration(i <= 0 ? 0L : (missingEnergy / i * 50L), "HH:mm:ss")));
             }
 
             ItemStack battery = bench.getStackInSlot(16);
@@ -41,8 +41,8 @@ public class ChargingBenchInfo implements IInfoProvider {
 
             if (toDischargeEnergy > 0) {
                 int dischargeEnergy = Math.min(transferLimit, toDischargeEnergy);
-                helper.bar(toDischargeEnergy, maxCapacity, translate("ic2.probe.discharging.eta.name",
-                        DurationFormatUtils.formatDuration(dischargeEnergy <= 0 ? 0L : (toDischargeEnergy / dischargeEnergy * 50L), "HH:mm:ss")).withStyle(ChatFormatting.WHITE), -16733185);
+                helper.bar(toDischargeEnergy, maxCapacity, TextFormatter.WHITE.translate("ic2.probe.discharging.eta.name",
+                        DurationFormatUtils.formatDuration(dischargeEnergy <= 0 ? 0L : (toDischargeEnergy / dischargeEnergy * 50L), "HH:mm:ss")), -16733185);
             }
             EnergyContainer container = EnergyContainer.getContainer(bench);
             helper.addAveragesIn(container);

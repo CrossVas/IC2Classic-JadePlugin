@@ -43,7 +43,7 @@ public class FilteredExtractionTubeInfo implements IInfoProvider {
                     TextFormatter meta = TextFormatter.GREEN;
                     helper.text(TextFormatter.GOLD.translate("info.tube.filter.meta"));
                     helper.appendItem(filter.getStack());
-                    helper.appendText(string(" ")
+                    helper.appendText(TextFormatter.WHITE.literal(" ")
                             .append(checkNBT ? meta.literal("*nbt ") : Component.empty())
                             .append(checkFluid ? meta.literal("*fluid ") : Component.empty())
                             .append(checkDurability ? meta.literal("*meta ") : Component.empty())

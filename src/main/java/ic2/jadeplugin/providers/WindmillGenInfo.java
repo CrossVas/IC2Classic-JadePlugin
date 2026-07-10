@@ -16,7 +16,6 @@ public class WindmillGenInfo implements IInfoProvider {
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof WindmillTileEntity windmill) {
             float euProduction = Math.max(0, windmill.getEUProduction()); // because -0.001 is a thing
-            helper.tier(windmill.getSourceTier());
             helper.defaultText("ic2.probe.eu.output.current.name", TextFormatter.GREEN.literal(Formatter.formatNumber(euProduction, 3)));
             helper.maxOut(windmill.getMaxEnergyOutput());
         }

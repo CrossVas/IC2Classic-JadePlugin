@@ -21,7 +21,6 @@ import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.Formatter;
 import ic2.jadeplugin.helpers.TextFormatter;
-import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -35,9 +34,9 @@ public class ElectricBlockInfo implements IInfoProvider {
             if (baseTile instanceof ChunkloaderTileEntity chunkLoader) {
                 helper.maxIn(chunkLoader.getMaxInput());
                 helper.usage(ChunkloaderTileEntity.POWER_COST[chunkLoader.getRadius()] * (chunkLoader.doesChunkProcessing ? 2 : 1));
-                helper.text(translate("ic2.probe.chunkloader.radius", string(String.valueOf(chunkLoader.getRadius())).withStyle(ChatFormatting.AQUA)).withStyle(ChatFormatting.GOLD));
+                helper.text(TextFormatter.GOLD.translate("ic2.probe.chunkloader.radius", TextFormatter.AQUA.literal(String.valueOf(chunkLoader.getRadius()))));
                 boolean chunkTicks = chunkLoader.doesChunkProcessing;
-                helper.text(translate("ic2.probe.chunkloader.ticks", (chunkTicks ? ChatFormatting.GREEN : ChatFormatting.RED) + String.valueOf(chunkTicks)).withStyle(ChatFormatting.GOLD));
+                helper.text(TextFormatter.GOLD.translate("ic2.probe.chunkloader.ticks", (chunkTicks ? TextFormatter.GREEN : TextFormatter.RED).literal(String.valueOf(chunkTicks))));
             }
             if (baseTile instanceof MonitorTileEntity monitor) {
                 if (monitor.isMaster()) {
@@ -71,12 +70,12 @@ public class ElectricBlockInfo implements IInfoProvider {
                 int progress = (int) enchanter.getProgress();
                 int maxProgress = (int) enchanter.getMaxProgress();
                 if (storedXP <= 0) {
-                    helper.text(translate("ic2.probe.enchanter.missing").withStyle(ChatFormatting.RED));
+                    helper.text(TextFormatter.RED.translate("ic2.probe.enchanter.missing"));
                 } else {
-                    helper.bar(storedXP, 1000, translate("ic2.probe.machine.xp", storedXP), ColorUtils.GREEN);
+                    helper.bar(storedXP, 1000, TextFormatter.WHITE.translate("ic2.probe.machine.xp", storedXP), ColorUtils.GREEN);
                 }
                 if (progress > 0) {
-                    helper.bar(progress, maxProgress, translate("ic2.probe.progress.full.name", progress, maxProgress).append("t"), -16733185);
+                    helper.bar(progress, maxProgress, TextFormatter.WHITE.translate("ic2.probe.progress.full.name", progress, maxProgress).append("t"), -16733185);
                 }
             }
             if (baseTile instanceof MassFabricatorTileEntity massFab) {
@@ -86,11 +85,11 @@ public class ElectricBlockInfo implements IInfoProvider {
                 if (progress > 0) {
                     double finalProgress = progress / massFab.getMaxProgress() * 100.0;
                     if (finalProgress > 100) finalProgress = 100;
-                    helper.bar(progress, maxProgress, translate("ic2.probe.progress.moderate.name",
+                    helper.bar(progress, maxProgress, TextFormatter.WHITE.translate("ic2.probe.progress.moderate.name",
                             Formatter.THERMAL_GEN.format(finalProgress)), -4441721);
                 }
                 if (massFab.getScrap() > 0) {
-                    helper.bar(massFab.getScrap(), massFab.getLastScrap() * 2, translate("ic2.probe.matter.amplifier.name",
+                    helper.bar(massFab.getScrap(), massFab.getLastScrap() * 2, TextFormatter.WHITE.translate("ic2.probe.matter.amplifier.name",
                             massFab.getScrap()), -10996205);
                 }
             }

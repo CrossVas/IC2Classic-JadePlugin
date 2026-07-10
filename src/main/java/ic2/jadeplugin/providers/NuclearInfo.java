@@ -48,7 +48,7 @@ public class NuclearInfo implements IInfoProvider {
             }
 
             if (has(player, THERMOMETER) || player.isCreative()) {
-                helper.bar(reactor.getHeat(), reactor.getMaxHeat(), Component.translatable("ic2.probe.reactor.heat.name",
+                helper.bar(reactor.getHeat(), reactor.getMaxHeat(), TextFormatter.WHITE.translate("ic2.probe.reactor.heat.name",
                         Formatter.formatNumber(reactor.getHeat(), 4), Formatter.formatNumber(reactor.getMaxHeat(), 2)), getReactorColor(reactor.getHeat(), reactor.getMaxHeat()));
             }
         }

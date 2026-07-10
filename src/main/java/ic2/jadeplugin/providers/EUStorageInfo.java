@@ -11,7 +11,7 @@ import ic2.core.utils.math.ColorUtils;
 import ic2.jadeplugin.base.JadeHelper;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.Formatter;
-import net.minecraft.ChatFormatting;
+import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -23,11 +23,11 @@ public class EUStorageInfo implements IInfoProvider {
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof BaseTileEntity baseTile) {
             if (baseTile instanceof CreativeSourceTileEntity) {
-                helper.bar(1, 1, translate("ic2.probe.eu.storage.name", "Infinite").withStyle(ChatFormatting.WHITE), ColorUtils.RED);
+                helper.bar(1, 1, TextFormatter.WHITE.translate("ic2.probe.eu.storage.name", "Infinite"), ColorUtils.RED);
             } else if (baseTile instanceof IEUStorage storage && !(baseTile instanceof ElectrolyzerTileEntity || baseTile instanceof ChargedElectrolyzerTileEntity || baseTile instanceof MassFabricatorTileEntity)) {
-                helper.bar(storage.getStoredEU(), storage.getMaxEU(), translate("ic2.probe.eu.storage.full.name", Formatter.formatInt(storage.getStoredEU(), 4), Formatter.formatInt(storage.getMaxEU(), 4)), ColorUtils.RED);
+                helper.bar(storage.getStoredEU(), storage.getMaxEU(), TextFormatter.WHITE.translate("ic2.probe.eu.storage.full.name", Formatter.formatInt(storage.getStoredEU(), 4), Formatter.formatInt(storage.getMaxEU(), 4)), ColorUtils.RED);
             } else if (baseTile instanceof TeleporterTileEntity tp) {
-                helper.bar((int) tp.getAvailableEnergy(), (int) tp.getMaxEnergy(), translate("ic2.probe.eu.storage.name", Formatter.formatInt((int) tp.getAvailableEnergy(), 4)).withStyle(ChatFormatting.WHITE), ColorUtils.RED);
+                helper.bar((int) tp.getAvailableEnergy(), (int) tp.getMaxEnergy(), TextFormatter.WHITE.translate("ic2.probe.eu.storage.name", Formatter.formatInt((int) tp.getAvailableEnergy(), 4)), ColorUtils.RED);
             }
         }
     }
