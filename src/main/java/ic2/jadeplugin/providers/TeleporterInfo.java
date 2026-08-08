@@ -47,7 +47,8 @@ public class TeleporterInfo implements IInfoProvider {
                     break;
                 default: displayCost = cost;
             }
-            helper.defaultText("ic2.probe.teleporter.cost", TextFormatter.GREEN.literal(Formatters.EU_FORMAT.format(displayCost)));
+            if (displayCost != 0)
+                helper.defaultText("ic2.probe.teleporter.cost", TextFormatter.GREEN.literal(Formatters.EU_FORMAT.format(displayCost)));
         }
     }
 

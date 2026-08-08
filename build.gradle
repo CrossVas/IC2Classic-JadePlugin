@@ -1,28 +1,24 @@
-buildscript {
-    dependencies {
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-    }
-}
-
 plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.spongepowered.mixin' version '0.7.+'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = project.mod_version
-group = 'dev.crossvas.mods'
-archivesBaseName = 'IC2CJadeAddon'
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_id
+}
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
-    mappings channel: 'parchment', version: '2022.11.27-1.19.2'
+    mappings channel: mapping_channel, version: mapping_version
     runs {
         client {
             workingDirectory project.file('run')
@@ -95,38 +91,47 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.4.0'
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    runtimeOnly fg.deobf("curse.maven:the-one-probe-245211:3965693")
-    implementation fg.deobf("mekanism:Mekanism:1.19.2-10.3.8.477")
-
-    implementation fg.deobf("curse.maven:ic2-classic-242942:7637948")
+    implementation fg.deobf("curse.maven:ic2-classic-242942:8545995")
+    implementation fg.deobf("curse.maven:carbon-config-898104:8018088")
     implementation fg.deobf("curse.maven:jade-324717:4914105")
-    runtimeOnly fg.deobf("curse.maven:jade-addons-583345:4850581")
 
-    implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:8.3.103")
-    implementation fg.deobf("dev.architectury:architectury-forge:6.5.85")
+    runtimeOnly fg.deobf("curse.maven:jei-238222:8595148")
+    runtimeOnly fg.deobf("curse.maven:the-one-probe-245211:3965693")
+}
 
-    runtimeOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:9.1.663")
-    runtimeOnly fg.deobf("curse.maven:rei-addons-ic2classic-947865:5035657")
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [
+            minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
+            forge_version: forge_version, forge_version_range: forge_version_range,
+            loader_version_range: loader_version_range,
+            mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+            mod_authors: mod_authors, mod_credits: mod_credits, mod_description: mod_description,
+    ]
+    inputs.properties replaceProperties
 
-    runtimeOnly fg.deobf("curse.maven:advanced-solars-classic-314835:4856232")
-    runtimeOnly fg.deobf("curse.maven:carbon-config-898104:7552407")
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
+    }
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
-jar {
+tasks.named('jar', Jar).configure {
     manifest {
         attributes([
-                "Specification-Title"     : "examplemod",
-                "Specification-Vendor"    : "examplemodsareus",
-                "Specification-Version"   : "1", // We are version 1 of ourselves
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "examplemodsareus",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                'Specification-Title'     : mod_id,
+                'Specification-Vendor'    : mod_authors,
+                'Specification-Version'   : '1', // We are version 1 of ourselves
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.jar.archiveVersion,
+                'Implementation-Vendor'   : mod_authors,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+
+    // This is the preferred method to reobfuscate your jar file
+    finalizedBy 'reobfJar'
 }
 
 jar.finalizedBy('reobfJar')
