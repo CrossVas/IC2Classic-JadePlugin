@@ -1,6 +1,7 @@
 package ic2.jadeplugin.base.removals;
 
-import ic2.core.block.base.IToolProvider;
+import ic2.core.IC2;
+import ic2.core.utils.plugins.IRegistryProvider;
 import ic2.jadeplugin.IC2JadePlugin;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -30,9 +31,9 @@ public class ModNameRender {
 
         @Override
         public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
-            // Dirty check for IC2Classic addons, assuming they are using instances if IC2Block for their blocks
-            // Checking for IToolProvider because I can't seem to be able to check for abstract class IC2Block directly
-            if (blockAccessor.getBlock() instanceof IToolProvider) {
+            if (blockAccessor.getBlock() instanceof IRegistryProvider provider) {
+                if (!provider.getRegistryName().getNamespace().equals(IC2.MOD_ID)) return;
+
                 String MOD_NAME = ModIdentification.getModName(blockAccessor.getBlock());
                 if (ModIdentification.getModName(blockAccessor.getBlock()).equals(MOD_NAME)) {
                     if (getUid() == REMOVER) {

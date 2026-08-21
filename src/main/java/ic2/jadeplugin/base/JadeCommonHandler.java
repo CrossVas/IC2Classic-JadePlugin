@@ -1,5 +1,7 @@
 package ic2.jadeplugin.base;
 
+import ic2.core.IC2;
+import ic2.core.utils.plugins.IRegistryProvider;
 import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.providers.*;
 import ic2.jadeplugin.providers.expansions.FluidExpansionInfo;
@@ -99,9 +101,10 @@ public class JadeCommonHandler {
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity != null) {
             INFO_PROVIDERS.forEach(infoProvider -> {
-                if (infoProvider.canHandle(player)) {
-                    infoProvider.addInfo(helper, blockEntity, player);
-                }
+                if (blockEntity.getBlockState().getBlock() instanceof IRegistryProvider provider && provider.getRegistryName().getNamespace().equals(IC2.MOD_ID)) // we only treat IC2 Machines from now on
+                    if (infoProvider.canHandle(player)) {
+                        infoProvider.addInfo(helper, blockEntity, player);
+                    }
             });
         }
     }
