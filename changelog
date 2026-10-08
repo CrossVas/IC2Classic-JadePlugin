@@ -1,0 +1,8 @@
+1.19.2-2.0.7:
+
+Tooltip state handling and cache isolation
+- replaced the static tank-suppression entity list with per-tooltip server data, this should exclude any extra copies
+- use dimension in energy and fluid statistics cache keys
+- converted JadeCommonHandler into a private-constructor singleton with initialization guard
+- check tooltip progress against non-positive maxima while preserving overfilled bars
+- avoid redundant provider routing checks and handle personal tile owner/mode edge cases (what I was thinking when not checking for null…)

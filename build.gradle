@@ -4,6 +4,7 @@ plugins {
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.spongepowered.mixin' version '0.7.+'
+    id 'me.modmuss50.mod-publish-plugin' version '1.1.0'
 }
 
 version = mod_version
@@ -151,6 +152,52 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+def releaseChangelog = providers.fileContents(layout.projectDirectory.file('changelog')).asText.map { content ->
+    def lines = content.readLines()
+    def sectionHeader = "${project.version}:"
+    def sectionStart = lines.findIndexOf { it.trim() == sectionHeader }
+    if (sectionStart < 0) {
+        throw new GradleException("No changelog section found for version ${project.version} in changelog")
+    }
+
+    def sectionLines = []
+    for (int i = sectionStart + 1; i < lines.size(); i++) {
+        def line = lines[i]
+        if (line ==~ /^\d[\w.+-]*:$/) {
+            break
+        }
+        sectionLines.add(line)
+    }
+
+    def notes = sectionLines.join('\n').trim()
+    if (!notes) {
+        throw new GradleException("Changelog section for version ${project.version} is empty")
+    }
+    notes
+}
+
+publishMods {
+    file = tasks.jar.archiveFile
+    displayName = project.version.toString()
+    changelog = releaseChangelog
+    type = STABLE
+    modLoaders.add('forge')
+
+    curseforge {
+        projectId = '932859'
+        accessToken = providers.environmentVariable('CURSEFORGE_TOKEN')
+        minecraftVersions.add(minecraft_version)
+        clientRequired = true
+        serverRequired = true
+    }
+
+    modrinth {
+        projectId = '3hKTUwBj'
+        accessToken = providers.environmentVariable('MODRINTH_TOKEN')
+        minecraftVersions.add(minecraft_version)
+    }
 }
 
 task devJar(type: Jar) {
