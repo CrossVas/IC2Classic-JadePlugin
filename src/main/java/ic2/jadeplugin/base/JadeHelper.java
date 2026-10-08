@@ -9,7 +9,6 @@ import ic2.jadeplugin.base.interfaces.IJadeElementBuilder;
 import ic2.jadeplugin.base.interfaces.IJadeHelper;
 import ic2.jadeplugin.helpers.EnergyContainer;
 import ic2.jadeplugin.helpers.TextFormatter;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -29,8 +28,8 @@ import java.util.Map;
 
 public class JadeHelper implements IJadeHelper {
 
-    public static final List<BlockEntity> TANK_REMOVAL = new ObjectArrayList<>();
     private final ListTag DATA = new ListTag();
+    private boolean suppressVanillaTankTooltip;
 
     public static final String ADD_TAG = "add";
     public static final String APPEND_TAG = "append";
@@ -58,15 +57,22 @@ public class JadeHelper implements IJadeHelper {
         if (!this.DATA.isEmpty()) {
             serverData.put(JadeTags.TAG_DATA, this.DATA);
         }
+        if (suppressVanillaTankTooltip) {
+            serverData.putBoolean(JadeTags.TAG_TANKS, true);
+        }
     }
 
     public void addTankInfo(BlockEntity blockEntity) {
-        TANK_REMOVAL.add(blockEntity);
+        suppressVanillaTankTooltip();
         if (blockEntity instanceof IFluidHandler fluidHandler) {
             loadTankData(fluidHandler);
         } else {
             blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(this::loadTankData);
         }
+    }
+
+    public void suppressVanillaTankTooltip() {
+        suppressVanillaTankTooltip = true;
     }
 
     public void loadTankData(IFluidHandler fluidHandler) {

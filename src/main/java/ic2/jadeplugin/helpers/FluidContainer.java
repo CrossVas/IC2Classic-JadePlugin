@@ -8,7 +8,6 @@ import ic2.core.utils.collection.LongAverager;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.material.Fluid;
 
 import java.util.Map;
@@ -16,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class FluidContainer {
 
-    static final Cache<BlockPos, FluidContainer> CACHE;
+    static final Cache<CacheKey, FluidContainer> CACHE;
 
     static {
         CACHE = CacheBuilder.newBuilder().expireAfterAccess(1L, TimeUnit.SECONDS).maximumSize(128L).build();
@@ -30,10 +29,11 @@ public class FluidContainer {
     public FluidContainer() {}
 
     public static FluidContainer getContainer(IFluidPipe tile) {
-        FluidContainer result = CACHE.getIfPresent(tile.getPosition());
+        CacheKey key = new CacheKey(tile.getWorldObj().dimension(), tile.getPosition().asLong());
+        FluidContainer result = CACHE.getIfPresent(key);
         if (result == null) {
             result = new FluidContainer();
-            CACHE.put(tile.getPosition(), result);
+            CACHE.put(key, result);
         }
 
         result.process(tile);

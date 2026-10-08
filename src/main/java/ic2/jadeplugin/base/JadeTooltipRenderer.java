@@ -94,7 +94,7 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                     BoxStyle boxStyle = forceTOPStyle ? new CustomBoxStyle(ColorUtils.doubleDarker(color)) : BoxStyle.DEFAULT;
                     IProgressStyle progressStyle = forceTOPStyle ? new CustomProgressStyle().color(color, ColorUtils.darker(color)) : new ProgressStyle().color(color, ColorUtils.darker(color));
                     Component label = barElement.getText();
-                    IElement jadeElement = helper.progress((float) current / max, label, progressStyle, boxStyle, true);
+                    IElement jadeElement = helper.progress(progressRatio(current, max), label, progressStyle, boxStyle, true);
                     addElement(tooltip, jadeElement, elementTag);
                 }
                 // item
@@ -118,7 +118,7 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                             Component fluidComp = ignoreCapacity ? defaultFormat.component(fluid.getDisplayName()) :
                                     defaultFormat.translate("ic2.barrel.info.fluid", fluid.getDisplayName(), Formatter.formatNumber(fluidAmount, String.valueOf(fluidAmount).length() - 1), Formatter.formatNumber(max, String.valueOf(max).length() - 1));
                             IProgressStyle progressStyle = helper.progressStyle().overlay(helper.fluid(fluid));
-                            tooltip.add(helper.progress((float) fluid.getAmount() / max, fluidComp, progressStyle,
+                            tooltip.add(helper.progress(progressRatio(fluidAmount, max), fluidComp, progressStyle,
                                     new CustomBoxStyle(ColorUtils.doubleDarker(JadeHelper.getColorForFluid(fluid))), true));
                         } else {
                             String current = IDisplayHelper.get().humanReadableNumber(fluid.getAmount(), "B", true);
@@ -134,7 +134,7 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                                 }
                             }
                             IProgressStyle progressStyle = helper.progressStyle().overlay(helper.fluid(fluid));
-                            tooltip.add(helper.progress((float) fluidAmount / max, text, progressStyle, BoxStyle.DEFAULT, true));
+                            tooltip.add(helper.progress(progressRatio(fluidAmount, max), text, progressStyle, BoxStyle.DEFAULT, true));
                         }
                     }
                 }
@@ -149,6 +149,13 @@ public class JadeTooltipRenderer implements IBlockComponentProvider, IServerData
                 }
             }
         }
+    }
+
+    private static float progressRatio(int value, int max) {
+        if (max <= 0) {
+            return 0.0F;
+        }
+        return (float) value / max;
     }
 
     public void addElement(ITooltip iTooltip, IElement jadeElement, CompoundTag elementTag) {

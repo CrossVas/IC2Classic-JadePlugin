@@ -15,13 +15,20 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.List;
 
-public class JadeCommonHandler {
+public final class JadeCommonHandler {
 
     public static final JadeCommonHandler THIS = new JadeCommonHandler();
 
-    protected List<IInfoProvider> INFO_PROVIDERS = new ObjectArrayList<>();
+    private final List<IInfoProvider> INFO_PROVIDERS = new ObjectArrayList<>();
+    private boolean initialized;
+
+    private JadeCommonHandler() {}
 
     public void init() {
+        if (initialized) {
+            return;
+        }
+
         registerProviders(
                 EUStorageInfo.THIS,
                 AdjustableTransformerInfo.THIS,
@@ -92,6 +99,7 @@ public class JadeCommonHandler {
                 BasicTubeInfo.THIS,
                 WikiInfo.THIS
         );
+        initialized = true;
     }
 
     public void registerProviders(IInfoProvider... providers) {
@@ -99,13 +107,14 @@ public class JadeCommonHandler {
     }
 
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
-        if (blockEntity != null) {
-            INFO_PROVIDERS.forEach(infoProvider -> {
-                if (blockEntity.getBlockState().getBlock() instanceof IRegistryProvider provider && provider.getRegistryName().getNamespace().equals(IC2.MOD_ID)) // we only treat IC2 Machines from now on
-                    if (infoProvider.canHandle(player)) {
-                        infoProvider.addInfo(helper, blockEntity, player);
-                    }
-            });
+        if (blockEntity == null || !(blockEntity.getBlockState().getBlock() instanceof IRegistryProvider provider) || !provider.getRegistryName().getNamespace().equals(IC2.MOD_ID)) {
+            return; // early exit
+        }
+
+        for (IInfoProvider infoProvider : INFO_PROVIDERS) {
+            if (infoProvider.canHandle(player)) {
+                infoProvider.addInfo(helper, blockEntity, player);
+            }
         }
     }
 }

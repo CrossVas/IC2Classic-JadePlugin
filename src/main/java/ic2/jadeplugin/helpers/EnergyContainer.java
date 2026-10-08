@@ -7,7 +7,6 @@ import ic2.api.energy.PacketStats;
 import ic2.api.energy.TransferStats;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.core.utils.collection.LongAverager;
-import net.minecraft.core.BlockPos;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class EnergyContainer {
 
-    static final Cache<BlockPos, EnergyContainer> CACHE;
+    static final Cache<CacheKey, EnergyContainer> CACHE;
 
     static {
         CACHE = CacheBuilder.newBuilder().expireAfterAccess(1L, TimeUnit.SECONDS).maximumSize(128L).build();
@@ -38,10 +37,11 @@ public class EnergyContainer {
     public EnergyContainer() {}
 
     public static EnergyContainer getContainer(IEnergyTile tile) {
-        EnergyContainer result = CACHE.getIfPresent(tile.getPosition());
+        CacheKey key = new CacheKey(tile.getWorldObj().dimension(), tile.getPosition().asLong());
+        EnergyContainer result = CACHE.getIfPresent(key);
         if (result == null) {
             result = new EnergyContainer();
-            CACHE.put(tile.getPosition(), result);
+            CACHE.put(key, result);
         }
 
         result.tick(tile.getWorldObj().getGameTime(), EnergyNet.INSTANCE.getStats(tile), EnergyNet.INSTANCE.getPacketStats(tile));
@@ -106,4 +106,3 @@ public class EnergyContainer {
         return (int) this.energyOut.getAverage();
     }
 }
-

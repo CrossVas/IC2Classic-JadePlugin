@@ -8,6 +8,7 @@ import ic2.jadeplugin.base.interfaces.IInfoProvider;
 import ic2.jadeplugin.helpers.TextFormatter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -21,9 +22,11 @@ public class PersonalInfo implements IInfoProvider {
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof IPersonalTile personal) {
             UUID ownerUUID = personal.getOwner();
-            Player owner = player.level.getPlayerByUUID(ownerUUID);
-            if (owner != null) {
-                helper.text(TextFormatter.AQUA.translate("ic2.probe.personal.owner", owner.getDisplayName().copy().withStyle(ChatFormatting.GREEN)));
+            if (ownerUUID != null) {
+                ServerPlayer owner = player.level.getServer().getPlayerList().getPlayer(ownerUUID);
+                if (owner != null) {
+                    helper.text(TextFormatter.AQUA.translate("ic2.probe.personal.owner", owner.getDisplayName().copy().withStyle(ChatFormatting.GREEN)));
+                }
             }
             if (personal instanceof BasePersonalTileEntity basePersonal) {
                 addAccessInfo(helper, basePersonal.mode);
@@ -35,9 +38,26 @@ public class PersonalInfo implements IInfoProvider {
     }
 
     public void addAccessInfo(JadeHelper helper, int mode) {
-        Component[] modes = new Component[]{TextFormatter.WHITE.translate("gui.ic2.personal.mode.public"),
-                TextFormatter.WHITE.translate("gui.ic2.personal.mode.protected"),
-                TextFormatter.WHITE.translate("gui.ic2.personal.mode.private")};
-        helper.text(TextFormatter.LIGHT_PURPLE.translate("gui.ic2.personal.mode", modes[mode].copy().withStyle(mode == 0 ? ChatFormatting.GREEN : mode == 1 ? ChatFormatting.GOLD : ChatFormatting.RED)));
+        String translationKey;
+        ChatFormatting color;
+        switch (mode) {
+            case 0 -> {
+                translationKey = "gui.ic2.personal.mode.public";
+                color = ChatFormatting.GREEN;
+            }
+            case 1 -> {
+                translationKey = "gui.ic2.personal.mode.protected";
+                color = ChatFormatting.GOLD;
+            }
+            case 2 -> {
+                translationKey = "gui.ic2.personal.mode.private";
+                color = ChatFormatting.RED;
+            }
+            default -> {
+                return;
+            }
+        }
+        Component modeComponent = TextFormatter.WHITE.translate(translationKey).withStyle(color);
+        helper.text(TextFormatter.LIGHT_PURPLE.translate("gui.ic2.personal.mode", modeComponent));
     }
 }

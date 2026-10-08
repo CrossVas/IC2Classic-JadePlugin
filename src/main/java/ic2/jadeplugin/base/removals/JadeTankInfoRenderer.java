@@ -3,16 +3,11 @@ package ic2.jadeplugin.base.removals;
 import ic2.core.inventory.filter.SpecialFilters;
 import ic2.core.utils.helpers.StackUtil;
 import ic2.jadeplugin.JadeTags;
-import ic2.jadeplugin.base.JadeHelper;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import snownee.jade.api.*;
 import snownee.jade.api.config.IPluginConfig;
 
-public class JadeTankInfoRenderer implements IBlockComponentProvider, IServerDataProvider<BlockEntity> {
+public class JadeTankInfoRenderer implements IBlockComponentProvider {
 
     public static final JadeTankInfoRenderer INSTANCE = new JadeTankInfoRenderer();
 
@@ -23,14 +18,6 @@ public class JadeTankInfoRenderer implements IBlockComponentProvider, IServerDat
                 iTooltip.remove(Identifiers.UNIVERSAL_FLUID_STORAGE);
                 iTooltip.remove(Identifiers.UNIVERSAL_FLUID_STORAGE_DETAILED);
             }
-        }
-    }
-
-    @Override
-    public void appendServerData(CompoundTag compoundTag, ServerPlayer serverPlayer, Level level, BlockEntity blockEntity, boolean b) {
-        if (JadeHelper.TANK_REMOVAL.contains(blockEntity)) {
-            CompoundTag tag = new CompoundTag();
-            compoundTag.put(JadeTags.TAG_TANKS, tag);
         }
     }
 

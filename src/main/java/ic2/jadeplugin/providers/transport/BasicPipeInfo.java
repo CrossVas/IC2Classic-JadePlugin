@@ -27,7 +27,7 @@ public class BasicPipeInfo implements IInfoProvider {
     }
 
     public void addPipeInfo(JadeHelper helper, BlockEntity blockEntity) {
-        JadeHelper.TANK_REMOVAL.add(blockEntity);
+        helper.suppressVanillaTankTooltip();
         FluidNet.TransportStats stats = FluidNet.INSTANCE.getStats((IFluidPipe) blockEntity);
         FluidContainer container = FluidContainer.getContainer((IFluidPipe) blockEntity);
         for (Fluid fluid : stats.getTransferred().keySet()) {

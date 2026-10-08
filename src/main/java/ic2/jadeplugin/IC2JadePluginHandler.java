@@ -81,7 +81,6 @@ public class IC2JadePluginHandler implements IWailaPlugin {
     public void register(IWailaCommonRegistration registration) {
         registration.registerBlockDataProvider(new BarrelInfo.BarrelIconProvider(), BarrelTileEntity.class);
         registration.registerBlockDataProvider(JadeTooltipRenderer.INSTANCE, BlockEntity.class);
-        registration.registerBlockDataProvider(JadeTankInfoRenderer.INSTANCE, BlockEntity.class);
         registration.registerBlockDataProvider(CropInfo.CropIcon.THIS, CropTileEntity.class);
     }
 }

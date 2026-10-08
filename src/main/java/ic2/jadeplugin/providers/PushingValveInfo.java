@@ -16,7 +16,7 @@ public class PushingValveInfo implements IInfoProvider {
     @Override
     public void addInfo(JadeHelper helper, BlockEntity blockEntity, Player player) {
         if (blockEntity instanceof BaseValveTileEntity baseValve) {
-            JadeHelper.TANK_REMOVAL.add(baseValve);
+            helper.suppressVanillaTankTooltip();
             if (baseValve instanceof PushingValveTileEntity) {
                 helper.defaultText("ic2.probe.pump.pressure", TextFormatter.GREEN.literal(100 + ""));
                 helper.defaultText("ic2.probe.pump.amount", TextFormatter.GREEN.literal(Formatters.EU_FORMAT.format(2000)));
