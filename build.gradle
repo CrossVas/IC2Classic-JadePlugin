@@ -198,6 +198,12 @@ publishMods {
         accessToken = providers.environmentVariable('MODRINTH_TOKEN')
         minecraftVersions.add(minecraft_version)
     }
+
+    github {
+        repository = 'CrossVas/IC2Classic-JadePlugin'
+        accessToken = providers.environmentVariable('GH_TOKEN')
+        commitish = 'master'
+    }
 }
 
 task devJar(type: Jar) {

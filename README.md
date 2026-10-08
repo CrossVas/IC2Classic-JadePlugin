@@ -16,3 +16,6 @@
 
 **<font size="3">Make sure to check the Config (NUM0 by default)</font>**
 
+### Publishing
+
+Currently, the mod is automatically published on CurseForge, Modrinth and GitHub.
